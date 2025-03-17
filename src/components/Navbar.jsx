@@ -26,8 +26,8 @@ const Navbar = () => {
     ? "py-6 bg-white/10 shadow"
     : "py-2 bg-white/10 shadow";
   let scrollService = scroll
-    ? "my-6 bg-white/10 shadow"
-    : "my-2 bg-white/10 shadow";
+    ? "my-6 bg-white/10 md:shadow"
+    : "my-2 bg-white/10 md:shadow";
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -45,14 +45,14 @@ const Navbar = () => {
         <div className="text-lg font-bold md:py-0 py-4">Logo</div>
 
         <ul
-          className={`md:px-2 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 bg-white md:bg-transparent text-lg font-semibold ${
+          className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 bg-white md:bg-transparent text-lg font-semibold ${
             isMenuOpen ? "block" : "hidden md:flex"
           }`}
         >
           <li>
             <a
               href="#"
-              className="flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
+              className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
             >
@@ -60,10 +60,10 @@ const Navbar = () => {
             </a>
           </li>
 
-          <li>
+          <li className="relative group">
             <a
               href="#"
-              className="flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
+              className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
             >
@@ -94,27 +94,27 @@ const Navbar = () => {
             </div>
             <ul
               className={`
-  md:invisible md:group-hover:visible md:opacity-0 md:group-hover:opacity-100
+  md:invisible md:group-hover:visible md:opacity-0 ml-1 md:group-hover:opacity-100
   transition-all duration-300 
   md:absolute top-full left-0 md:w-48 
-  bg-white/10 backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
+  md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
   ${isServiceOpen ? "block" : "hidden md:block"} ${scrollService}
 `}
             >
               <li>
                 <a
                   href="#"
-                  className="flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  className="inline-flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
       after:absolute after:content-[''] after:block after:h-[0.1rem] after:bg-[#fb7c1a] 
       after:w-0 after:left-4 after:right-4 after:bottom-1 after:transition-all after:duration-300 hover:after:w-[calc(100%-2rem)]"
                 >
-                  Web development
+                  Web Development
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  className="inline-flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
       after:absolute after:content-[''] after:block after:h-[0.1rem] after:bg-[#fb7c1a] 
       after:w-0 after:left-4 after:right-4 after:bottom-1 after:transition-all after:duration-300 hover:after:w-[calc(100%-2rem)]"
                 >
@@ -124,7 +124,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="#"
-                  className="flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  className="inline-flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
       after:absolute after:content-[''] after:block after:h-[0.1rem] after:bg-[#fb7c1a] 
       after:w-0 after:left-4 after:right-4 after:bottom-1 after:transition-all after:duration-300 hover:after:w-[calc(100%-2rem)]"
                 >
@@ -137,7 +137,7 @@ const Navbar = () => {
           <li>
             <a
               href="#"
-              className="flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
+              className=" inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
             >
