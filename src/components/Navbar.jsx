@@ -62,12 +62,12 @@ const Navbar = () => {
 
           <li className="relative group">
             <a
-              href="#"
+              href="#about"
               className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
             >
-              <span>Products</span>
+              <span>About Us</span>
             </a>
           </li>
 

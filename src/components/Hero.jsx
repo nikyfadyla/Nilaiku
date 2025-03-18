@@ -4,11 +4,9 @@ import homepage from "../assets/images/homepage.png";
 
 const Hero = () => {
   return (
-    <div className="h-1000">
-       
-
+    <div className="pb-10">
       <div
-        className="landingpage min-h-screen pt-20 flex flex-col"
+        className="landingpage h-screen pt-20 flex flex-col"
         style={{
           backgroundImage: `url(${homepage})`,
           backgroundSize: "cover",
@@ -18,19 +16,16 @@ const Hero = () => {
       >
         <div className="flex-grow w-full">
           <div className="hero h-full grid grid-cols-1 md:grid-cols-2 items-center pt-14 md:pt-30">
-            {/* Left: Text */}
-            <div className="px-6 md:px-12 lg:px-16">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 md:mb-7 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            <div className=" mx-auto md:mx-15">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 md:mb-7 leading-relaxed">
+                Selamat Datang di NilaiKu
               </h1>
               <p className="text-base/8 mb-7 font-extralight md:font-light">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Debitis optio necessitatibus culpa cum unde illum eaque beatae
-                fugiat totam, amet quae commodi tenetur ipsa laboriosam.
+                Prediksi nilai ujian siswa dengan analisis data berbasis Machine
+                Learning
               </p>
             </div>
 
-            {/* Right: Illustration and Button */}
             <div className="relative flex flex-col items-center justify-center py-20 md:py-0 px-10">
               <div className="relative w-full flex flex-col items-center mt-[-50px] md:mt-[-20px] lg:mt-[-80px]">
                 <img
