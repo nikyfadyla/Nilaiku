@@ -3,7 +3,7 @@ import Study from "../assets/images/study.jpg";
 
 const Features = () => {
   return (
-    <section className="px-4 sm:px-6  mx-auto md:mx-15 py-8   md:py-30">
+    <section className="px-4 sm:px-6  mx-auto md:mx-15 py-8 md:py-30">
       <h2 className="text-xl md:text-2xl font-semibold text-center   text-purple-600 mb-15 md:mb-25">
         Fitur Utama
       </h2>

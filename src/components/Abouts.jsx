@@ -3,7 +3,7 @@ import aboutImg from "../assets/images/student.png";
 
 const About = () => {
   return (
-    <div id="about" className=" px-4 pb-20 mx-auto pt-34">
+    <div id="about" className="px-4 pb-20 mx-auto pt-34">
       <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
         <div>
           <img

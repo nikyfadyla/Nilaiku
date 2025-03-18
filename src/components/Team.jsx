@@ -8,10 +8,13 @@ const Team = () => {
         <h2 className="mb-15 md:mb-25 text-center text-purp le-300 text-2xl">
           Team Proyek
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6
+        "
+        >
           {/* Fendy */}
-          <div className="max-w-xs rounded-lg mx-auto overflow-hidden bg-cream-50 ">
-            <div className="bg-gray-200 p-4">
+          <div className="max-w-xs rounded-lg mx-auto overflow-hidden   ">
+            <div className="bg-gray-200 px-4">
               <img
                 src={ilustrasi}
                 alt="Profile"
@@ -27,8 +30,8 @@ const Team = () => {
             </div>
           </div>
           {/* Firdaus */}
-          <div className="max-w-xs rounded-lg mx-auto overflow-hidden bg-cream-50 ">
-            <div className="bg-gray-200 p-4">
+          <div className="max-w-xs rounded-lg mx-auto overflow-hidden  ">
+            <div className="bg-gray-200 px-4">
               <img
                 src={ilustrasi}
                 alt="Profile"

@@ -5,7 +5,8 @@ import Hero from "./components/Hero.jsx";
 import About from "./components/Abouts.jsx";
 import Features from "./components/Features.jsx";
 import Team from "./components/Team.jsx";
-
+import Testimoni from "./components/Testimoni.jsx";
+import Footer from './components/Footer.jsx'
 function App() {
   return (
     <div>
@@ -13,7 +14,9 @@ function App() {
       <Hero />
       <About />
       <Features />
-      <Team/>
+      <Team />
+      <Testimoni />
+      <Footer/>
     </div>
   );
 }
