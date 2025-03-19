@@ -4,7 +4,7 @@ import homepage from "../assets/images/homepage.png";
 
 const Hero = () => {
   return (
-    <div className="pb-10">
+    <div id="#home" className="pb-10">
       <div
         className="landingpage h-screen pt-20 flex flex-col"
         style={{
@@ -16,7 +16,7 @@ const Hero = () => {
       >
         <div className="flex-grow w-full">
           <div className="hero h-full grid grid-cols-1 md:grid-cols-2 items-center pt-14 md:pt-30">
-            <div className=" mx-auto md:mx-15">
+            <div className=" mx-auto md:mx-15 lg:mx-20">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 md:mb-7 leading-relaxed">
                 Selamat Datang di NilaiKu
               </h1>

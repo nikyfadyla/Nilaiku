@@ -4,7 +4,7 @@ import ilustrasi from "../assets/images/profile.png";
 const Team = () => {
   return (
     <div>
-      <section className="py-30 mx-auto md:mx-15">
+      <section id="#team" className="py-30 mx-auto md:mx-15">
         <h2 className="mb-15 md:mb-25 text-center text-purp le-300 text-2xl">
           Team Proyek
         </h2>

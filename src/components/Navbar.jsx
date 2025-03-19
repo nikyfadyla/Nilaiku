@@ -16,7 +16,6 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup listener ketika komponen di-unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -45,16 +44,27 @@ const Navbar = () => {
         <div className="text-lg font-bold md:py-0 py-4">Logo</div>
 
         <ul
-          className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 bg-white md:bg-transparent text-lg font-semibold ${
-            isMenuOpen ? "block" : "hidden md:flex"
-          }`}
+          className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 
+            bg-white md:bg-transparent text-lg font-semibold ${
+              isMenuOpen ? "block" : "hidden md:flex"
+            }`}
         >
           <li>
             <a
-              href="#"
+              href="#home"
               className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
+              onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById("#home");
+                if (targetElement) {
+                  targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }
+              }}
             >
               <span>Home</span>
             </a>
@@ -66,6 +76,16 @@ const Navbar = () => {
               className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
+              onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.querySelector("#about");
+                if (targetElement) {
+                  targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }
+              }}
             >
               <span>About Us</span>
             </a>
@@ -74,13 +94,26 @@ const Navbar = () => {
           <li className="relative group">
             <div className="flex items-center justify-between">
               <a
-                href="#services"
+                href="#features"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById("features");
+                  if (element) {
+                    const navbarHeight =
+                      document.querySelector("nav").offsetHeight;
+                    window.scrollTo({
+                      top: element.offsetTop - navbarHeight + 50,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
                 className="flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               >
-                <span>Service</span>
+                Service
               </a>
+
               <button
                 onClick={(e) => {
                   if (window.innerWidth < 768) {
@@ -103,32 +136,76 @@ const Navbar = () => {
             >
               <li>
                 <a
-                  href="#"
-                  className="inline-flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
-      after:absolute after:content-[''] after:block after:h-[0.1rem] after:bg-[#fb7c1a] 
-      after:w-0 after:left-4 after:right-4 after:bottom-1 after:transition-all after:duration-300 hover:after:w-[calc(100%-2rem)]"
+                  href="#prediksi"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById("features");
+                    if (element) {
+                      const navbarHeight =
+                        document.querySelector("nav").offsetHeight;
+                      window.scrollTo({
+                        top: element.offsetTop - navbarHeight + 50,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
+                  className="inline-flex px-4 py-3 hover:bg-white
+                  hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  after:absolute after:content-[''] after:block after:h-[0.1rem]
+                  after:bg-[#fb7c1a] after:w-0 after:left-4 after:right-4
+                  after:bottom-1 after:transition-all after:duration-300
+                  hover:after:w-[calc(100%-2rem)]"
                 >
-                  Web Development
+                  {" "}
+                  Prediksi Nilai Otomatis
                 </a>
-              </li>
-              <li>
                 <a
-                  href="#"
-                  className="inline-flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
-      after:absolute after:content-[''] after:block after:h-[0.1rem] after:bg-[#fb7c1a] 
-      after:w-0 after:left-4 after:right-4 after:bottom-1 after:transition-all after:duration-300 hover:after:w-[calc(100%-2rem)]"
+                  href="#analisis"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById("features");
+                    if (element) {
+                      const navbarHeight =
+                        document.querySelector("nav").offsetHeight;
+                      window.scrollTo({
+                        top: element.offsetTop - navbarHeight + 50,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
+                  className="inline-flex px-4 py-3 hover:bg-white
+                  hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  after:absolute after:content-[''] after:block after:h-[0.1rem]
+                  after:bg-[#fb7c1a] after:w-0 after:left-4 after:right-4
+                  after:bottom-1 after:transition-all after:duration-300
+                  hover:after:w-[calc(100%-2rem)]"
                 >
-                  Web Design
+                  {" "}
+                  Analisis Data Interaktif
                 </a>
-              </li>
-              <li>
                 <a
-                  href="#"
-                  className="inline-flex px-4 py-3 hover:bg-white hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
-      after:absolute after:content-[''] after:block after:h-[0.1rem] after:bg-[#fb7c1a] 
-      after:w-0 after:left-4 after:right-4 after:bottom-1 after:transition-all after:duration-300 hover:after:w-[calc(100%-2rem)]"
+                  href="#rekomendasi"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById("features");
+                    if (element) {
+                      const navbarHeight =
+                        document.querySelector("nav").offsetHeight;
+                      window.scrollTo({
+                        top: element.offsetTop - navbarHeight + 50,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
+                  className="inline-flex px-4 py-3 hover:bg-white
+                  hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  after:absolute after:content-[''] after:block after:h-[0.1rem]
+                  after:bg-[#fb7c1a] after:w-0 after:left-4 after:right-4
+                  after:bottom-1 after:transition-all after:duration-300
+                  hover:after:w-[calc(100%-2rem)]"
                 >
-                  Machine Learning
+                  {" "}
+                  Rekomendasi Pembelajaran
                 </a>
               </li>
             </ul>
@@ -136,12 +213,22 @@ const Navbar = () => {
 
           <li>
             <a
-              href="#"
+              href="#team"
               className=" inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
+              onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById("#team");
+                if (targetElement) {
+                  targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }
+              }}
             >
-              <span>About Us</span>
+              <span>Team Kami</span>
             </a>
           </li>
         </ul>
