@@ -2,7 +2,7 @@ import React from "react";
 
 const Testimoni = () => {
   return (
-    <div className="py-12 mx-auto md:mx-15">
+    <div className="py-12 mb-20 mx-auto md:mx-15">
       <h2 className="text-3xl font-base mb-10 text-center text-purple-500">
         Testimoni
       </h2>
