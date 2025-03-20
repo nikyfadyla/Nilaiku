@@ -13,16 +13,19 @@ const About = () => {
           />
         </div>
         <div className="px-10">
-          <h1 className="lg:text-4xl/tight text-3xl font-semibold mb-5">
+          <h1 className="lg:text-4xl/tight text-3xl text-[#B348C7] font-semibold mb-5">
             Apa itu
-            <span className="font-bold text-orange-300 underline"> NilaiKu?</span>
+            <span className="font-bold  "> Nilai</span>
+            <span className="font-bold text-[#F3BC55]  ">Ku?</span>
           </h1>
-          <p className="text-xl/loose  font-extralight">
-            NilaiKu adalah aplikasi prediksi nilai ujian berbasis website yang
-            dikembangkan untuk membantu siswa memahami faktor-faktor yang
-            berpengaruh pada nilai ujian. Dengan memanfaatkan teknologi Machine
-            Learning, kami menyediakan prediksi nilai yang akurat dan
-            rekomendasi strategi belajar sesuai kebutuhan.
+          <p className="text-xl/loose  font-light">
+            <span className="font-semibold">
+              NilaiKu adalah aplikasi prediksi nilai ujian{" "}
+            </span>
+            berbasis website yang dikembangkan untuk membantu siswa memahami
+            faktor-faktor yang berpengaruh pada nilai ujian. Dengan memanfaatkan
+            teknologi Machine Learning, kami menyediakan prediksi nilai yang
+            akurat dan rekomendasi strategi belajar sesuai kebutuhan.
           </p>
         </div>
       </div>

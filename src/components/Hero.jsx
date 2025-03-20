@@ -5,29 +5,22 @@ import homepage from "../assets/images/homepage.png";
 const Hero = () => {
   return (
     <div id="#home" className="pb-10">
-      <div
-        className="landingpage h-screen pt-20 flex flex-col"
-        style={{
-          backgroundImage: `url(${homepage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <div className="landingpage h-screen pt-20 flex flex-col">
         <div className="flex-grow w-full">
-          <div className="hero h-full grid grid-cols-1 md:grid-cols-2 items-center pt-14 md:pt-30">
+          <div className="hero h-full grid grid-cols-1 md:grid-cols-2  pt-14 md:pt-30">
             <div className=" mx-auto md:mx-15 lg:mx-20">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 md:mb-7 leading-relaxed">
-                Selamat Datang di NilaiKu
+              <h1 className=" text-[#B348C7] text-4xl  sm:text-5xl md:text-7xl font-semibold mb-4 md:mb-7 leading-relaxed">
+                Selamat Datang di Nilai
+                <span className="text-[#F3BC55]">Ku</span>
               </h1>
-              <p className="text-base/8 mb-7 font-extralight md:font-light">
+              <p className="text-lg/8 mb-7 font-light md:font-normal">
                 Prediksi nilai ujian siswa dengan analisis data berbasis Machine
                 Learning
               </p>
             </div>
 
-            <div className="relative flex flex-col items-center justify-center py-20 md:py-0 px-10">
-              <div className="relative w-full flex flex-col items-center mt-[-50px] md:mt-[-20px] lg:mt-[-80px]">
+            <div className="relative flex flex-col justify-center py-20 md:py-0 px-10">
+              <div className="relative w-full flex flex-col   items-center mt-[-50px] md:mt-[-20px] lg:mt-[-80px]">
                 <img
                   src={ilustration}
                   alt="ilustration"

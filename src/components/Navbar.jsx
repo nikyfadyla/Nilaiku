@@ -41,7 +41,11 @@ const Navbar = () => {
       <nav
         className={`flex px-4 backdrop-blur-sm fixed w-full  top-0 z-50 transition-all duration-300 ${scrollActive}`}
       >
-        <div className="text-lg font-bold md:py-0 py-4">Logo</div>
+        <div className=" inline-flex items-center">
+          <h2 className="font-bold text-4xl text-[#B348C7]">
+            Nilai<span className="text-[#F3BC55]">Ku</span>
+          </h2>
+        </div>
 
         <ul
           className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 
@@ -52,8 +56,8 @@ const Navbar = () => {
           <li>
             <a
               href="#home"
-              className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
-  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
+              className="inline-flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {
                 e.preventDefault();
@@ -73,8 +77,8 @@ const Navbar = () => {
           <li className="relative group">
             <a
               href="#about"
-              className="inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
-  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
+              className="inline-flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {
                 e.preventDefault();
@@ -107,8 +111,8 @@ const Navbar = () => {
                     });
                   }
                 }}
-                className="flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
-  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
+                className="flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               >
                 Service
@@ -150,9 +154,9 @@ const Navbar = () => {
                     }
                   }}
                   className="inline-flex px-4 py-3 hover:bg-white
-                  hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  hover:bg-opacity-50 rounded-lg relative text-[#B348C7] hover:text-[#F3BC55]
                   after:absolute after:content-[''] after:block after:h-[0.1rem]
-                  after:bg-[#fb7c1a] after:w-0 after:left-4 after:right-4
+                  after:bg-[#F3BC55] after:w-0 after:left-4 after:right-4
                   after:bottom-1 after:transition-all after:duration-300
                   hover:after:w-[calc(100%-2rem)]"
                 >
@@ -174,9 +178,9 @@ const Navbar = () => {
                     }
                   }}
                   className="inline-flex px-4 py-3 hover:bg-white
-                  hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  hover:bg-opacity-50 rounded-lg relative text-[#B348C7] hover:text-[#F3BC55]
                   after:absolute after:content-[''] after:block after:h-[0.1rem]
-                  after:bg-[#fb7c1a] after:w-0 after:left-4 after:right-4
+                  after:bg-[#F3BC55] after:w-0 after:left-4 after:right-4
                   after:bottom-1 after:transition-all after:duration-300
                   hover:after:w-[calc(100%-2rem)]"
                 >
@@ -198,9 +202,9 @@ const Navbar = () => {
                     }
                   }}
                   className="inline-flex px-4 py-3 hover:bg-white
-                  hover:bg-opacity-50 rounded-lg relative hover:text-[#fb7c1a]
+                  hover:bg-opacity-50 rounded-lg relative text-[#B348C7] hover:text-[#F3BC55]
                   after:absolute after:content-[''] after:block after:h-[0.1rem]
-                  after:bg-[#fb7c1a] after:w-0 after:left-4 after:right-4
+                  after:bg-[#F3BC55] after:w-0 after:left-4 after:right-4
                   after:bottom-1 after:transition-all after:duration-300
                   hover:after:w-[calc(100%-2rem)]"
                 >
@@ -214,12 +218,12 @@ const Navbar = () => {
           <li>
             <a
               href="#team"
-              className=" inline-flex md:inline-flex m-4 items-center relative hover:text-[#fb7c1a] 
-  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#fb7c1a] 
+              className=" inline-flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {
                 e.preventDefault();
-                const targetElement = document.getElementById("#team");
+                const targetElement = document.querySelector("#team");
                 if (targetElement) {
                   targetElement.scrollIntoView({
                     behavior: "smooth",
@@ -228,7 +232,7 @@ const Navbar = () => {
                 }
               }}
             >
-              <span>Team Kami</span>
+              <span>Team</span>
             </a>
           </li>
         </ul>

@@ -6,17 +6,17 @@ import About from "./components/Abouts.jsx";
 import Features from "./components/Features.jsx";
 import Team from "./components/Team.jsx";
 import Testimoni from "./components/Testimoni.jsx";
-import Footer from './components/Footer.jsx'
+import Footer from "./components/Footer.jsx";
 function App() {
   return (
-    <div>
+    <div className="bg-[#FCF6FE]">
       <Navbar />
       <Hero />
       <About />
       <Features />
       <Team />
       <Testimoni />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

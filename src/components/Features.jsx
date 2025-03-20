@@ -7,7 +7,7 @@ const Features = () => {
       id="features"
       className="px-4 sm:px-6  mx-auto md:mx-15 py-8 md:py-30"
     >
-      <h2 className="text-xl md:text-2xl font-semibold text-center   text-purple-600 mb-15 md:mb-25">
+      <h2 className="text-xl md:text-2xl font-base text-center   text-purple-600 mb-15 md:mb-25">
         Fitur Utama
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">

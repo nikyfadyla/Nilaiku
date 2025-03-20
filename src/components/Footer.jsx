@@ -1,6 +1,9 @@
 import React from "react";
 
 const Footer = () => {
+  const submitEmail = () => {
+    console.log("click");
+  };
   return (
     <footer className="bg-[#FFF4DE] pt-25">
       <div className="text-center w-auto items-center mb-25">
@@ -11,7 +14,10 @@ const Footer = () => {
             placeholder="Enter your email"
             className="py-3 px-3 pr-16 w-full bg-white rounded-lg border border-gray-200 focus:outline-none"
           />
-          <button className="absolute right-1 mt-1.5 top-1 px-4 py-1.5 text-sm bg-yellow-400 text-white rounded-md">
+          <button
+            className="absolute right-1 mt-1.5 top-1 px-4 py-1.5 text-sm bg-yellow-400 text-white rounded-md "
+            onClick={submitEmail}
+          >
             Daftar
           </button>
         </div>
