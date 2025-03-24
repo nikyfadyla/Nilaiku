@@ -1,58 +1,81 @@
 import React, { useState, useEffect } from "react";
 
+/**
+ * Komponen Navbar untuk menampilkan navigasi di bagian atas halaman.
+ * Navbar ini responsif dan memiliki animasi saat digunakan di perangkat mobile.
+ */
 const Navbar = () => {
+  // State untuk mengontrol apakah menu mobile terbuka atau tidak
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // State untuk menentukan apakah halaman sedang di-scroll
   const [scroll, setScroll] = useState(false);
+
+  // State untuk mengontrol apakah sub-menu "Service" terbuka atau tidak (hanya di mobile)
   const [isServiceOpen, setIsServiceOpen] = useState(false);
 
+  // Efek untuk mendeteksi scroll dan mengubah state `scroll`
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
-        setScroll(true);
+        setScroll(true); // Jika halaman di-scroll, set `scroll` ke true
       } else {
-        setScroll(false);
+        setScroll(false); // Jika halaman tidak di-scroll, set `scroll` ke false
       }
     };
 
+    // Tambahkan event listener untuk scroll
     window.addEventListener("scroll", handleScroll);
 
+    // Bersihkan event listener saat komponen di-unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  // Tentukan kelas CSS berdasarkan state `scroll`
   let scrollActive = scroll
-    ? "py-6 bg-white/10 shadow"
-    : "py-2 bg-white/10 shadow";
-  let scrollService = scroll
-    ? "my-6 bg-white/10 md:shadow"
-    : "my-2 bg-white/10 md:shadow";
+    ? "py-6 bg-white/10 shadow" // Jika di-scroll, tambahkan padding dan shadow
+    : "py-2 bg-white/10 shadow"; // Jika tidak di-scroll, gunakan padding yang lebih kecil
 
+  let scrollService = scroll
+    ? "my-6 bg-white/10 md:shadow" // Jika di-scroll, tambahkan margin dan shadow
+    : "my-2 bg-white/10 md:shadow"; // Jika tidak di-scroll, gunakan margin yang lebih kecil
+
+  /**
+   * Fungsi untuk membuka/menutup menu mobile.
+   */
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  /**
+   * Fungsi untuk membuka/menutup sub-menu "Service" di mobile.
+   */
   const toggleServiceMenu = () => {
     setIsServiceOpen(!isServiceOpen);
   };
 
   return (
     <div>
+      {/* Navbar utama */}
       <nav
-        className={`flex px-4 backdrop-blur-sm fixed w-full  top-0 z-50 transition-all duration-300 ${scrollActive}`}
+        className={`flex px-4 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrollActive}`}
       >
-        <div className=" inline-flex items-center">
+        {/* Logo atau judul navbar */}
+        <div className="inline-flex items-center">
           <h2 className="font-bold text-4xl text-[#B348C7]">
             Nilai<span className="text-[#F3BC55]">Ku</span>
           </h2>
         </div>
 
+        {/* Daftar menu navigasi */}
         <ul
           className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 
-            bg-white md:bg-transparent text-lg font-semibold ${
-              isMenuOpen ? "block" : "hidden md:flex"
-            }`}
+            bg-white md:bg-transparent text-lg font-semibold transition-all duration-300 ease-in-out
+            ${isMenuOpen ? "block opacity-100 translate-y-0" : "hidden md:flex opacity-0 md:opacity-100 translate-y-[-100%] md:translate-y-0"}`}
         >
+          {/* Menu Home */}
           <li>
             <a
               href="#home"
@@ -74,6 +97,7 @@ const Navbar = () => {
             </a>
           </li>
 
+          {/* Menu About Us */}
           <li className="relative group">
             <a
               href="#about"
@@ -95,6 +119,7 @@ const Navbar = () => {
             </a>
           </li>
 
+          {/* Menu Service dengan sub-menu */}
           <li className="relative group">
             <div className="flex items-center justify-between">
               <a
@@ -118,24 +143,31 @@ const Navbar = () => {
                 Service
               </a>
 
+              {/* Tombol untuk membuka sub-menu di mobile */}
               <button
                 onClick={(e) => {
                   if (window.innerWidth < 768) {
                     toggleServiceMenu();
                   }
                 }}
-                className="p-2 md:hidden"
+                className="p-2 md:hidden transition-transform duration-300"
               >
-                <i className="ri-arrow-down-s-line text-2xl"></i>
+                <i
+                  className={`ri-arrow-down-s-line text-2xl ${
+                    isServiceOpen ? "rotate-180" : ""
+                  }`}
+                ></i>
               </button>
             </div>
+
+            {/* Sub-menu Service */}
             <ul
               className={`
   md:invisible md:group-hover:visible md:opacity-0 ml-1 md:group-hover:opacity-100
   transition-all duration-300 
   md:absolute top-full left-0 md:w-48 
   md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
-  ${isServiceOpen ? "block" : "hidden md:block"} ${scrollService}
+  ${isServiceOpen ? "block opacity-100" : "hidden md:block opacity-0"} ${scrollService}
 `}
             >
               <li>
@@ -215,6 +247,7 @@ const Navbar = () => {
             </ul>
           </li>
 
+          {/* Menu Team */}
           <li>
             <a
               href="#team"
@@ -237,14 +270,15 @@ const Navbar = () => {
           </li>
         </ul>
 
+        {/* Tombol toggle menu untuk mobile */}
         <div
           className="flex ml-auto md:hidden text-gray-500 cursor-pointer"
           onClick={toggleMenu}
         >
           {isMenuOpen ? (
-            <i className="ri-close-large-fill text-4xl p-4"></i>
+            <i className="ri-close-large-fill text-4xl p-4 transition-transform duration-300 transform rotate-180"></i>
           ) : (
-            <i className="ri-menu-line text-4xl p-4"></i>
+            <i className="ri-menu-line text-4xl p-4 transition-transform duration-300"></i>
           )}
         </div>
       </nav>
