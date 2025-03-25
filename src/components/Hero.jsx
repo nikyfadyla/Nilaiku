@@ -1,13 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ilustration from "../assets/images/ilustration.png"; // Import gambar ilustrasi
 
 const Hero = () => {
   // State untuk mengontrol apakah modal terbuka atau tidak
 
-
   // Fungsi untuk membuka modal
   // Fungsi untuk menutup modal
-  
 
   return (
     // Section Hero dengan ID `#home` untuk navigasi
@@ -27,7 +26,8 @@ const Hero = () => {
               {/* Judul utama */}
               <h1 className="text-[#B348C7] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                 Selamat Datang di Nilai
-                <span className="text-[#F3BC55]">Ku</span> {/* Warna teks yang berbeda untuk "Ku" */}
+                <span className="text-[#F3BC55]">Ku</span>{" "}
+                {/* Warna teks yang berbeda untuk "Ku" */}
               </h1>
               {/* Deskripsi */}
               <p className="text-lg md:text-xl text-gray-700 mb-8 font-light">
@@ -36,7 +36,6 @@ const Hero = () => {
                 meningkatkan prestasi akademik Anda.
               </p>
               {/* Tombol CTA tambahan */}
-             
             </div>
 
             {/* Bagian kanan: Gambar ilustrasi dan tombol CTA (Call to Action) */}
@@ -54,14 +53,15 @@ const Hero = () => {
                   className="w-[350px] h-[280px] sm:w-[400px] sm:h-[300px] md:w-[450px] md:h-[350px] lg:w-[500px] lg:h-[400px] object-contain transform hover:scale-105 transition-transform duration-300 floating-image" // Tambahkan class floating-image
                 />
                 {/* Tombol CTA (Call to Action) */}
-                <a
-                  href="#"
+
+                <Link
+                  to="/student-data"
                   className="absolute bottom-8 md:bottom-12
-                bg-[#F9CB57] font-[600] md:font-[700] md:text-[16px] text-[14px] text-white md:px-8 px-6 py-3 md:py-4
-                rounded-full shadow-lg hover:bg-[#E8B84C] hover:shadow-xl transition-all duration-300 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700"
+                  bg-[#F9CB57] font-[600] md:font-[700] md:text-[16px] text-[14px] text-white md:px-8 px-6 py-3 md:py-4
+                  rounded-full shadow-lg hover:bg-[#E8B84C] hover:shadow-xl transition-all duration-300 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700"
                 >
                   Ayo mulai Prediksi, klik disini!
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -92,4 +92,4 @@ const Hero = () => {
   );
 };
 
-export default Hero; 
+export default Hero;

@@ -1,12 +1,16 @@
-# React + Vite
+# Langkah - langkah setelah melakukan git-clone atau git pull;
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Git Clone
+1. npm install
+2. npm install vite --save-dev
+3. selanjutnya ikuti langkah langkakh di git pull
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Git pull
+1. Install TailwindCss: npm install tailwindcss @tailwindcss/vite
+2. Intall remix icon
+3. Install Framer Motion
+4. Install AOS
+5. Install React-Dom (npm install react-router-dom)
+6. Instal React-Hook-form (npm install react-hook-form)
+7. //Langkah sementara: install json-server untuk testing api (npm install -g json-server@0.17.3)
+8. Buat file bernama db.json dengan 2 collections didalamnya 1. students, 2.student-academic

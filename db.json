@@ -1,0 +1,27 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "student_id": "kjaqEBbeKE",
+      "name": "sss",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    }
+  ],
+  "student-academic": [
+    {
+      "student_id": "kjaqEBbeKE",
+      "hours_studied": 0,
+      "attendance": 98,
+      "previous_scores": 100,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 1
+    }
+  ]
+}
