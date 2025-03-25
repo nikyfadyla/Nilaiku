@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import ilustration from "../assets/images/ilustration.png"; // Import gambar ilustrasi
 
 const Hero = () => {
   // State untuk mengontrol apakah modal terbuka atau tidak
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   // Fungsi untuk membuka modal
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
   // Fungsi untuk menutup modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  
 
   return (
     // Section Hero dengan ID `#home` untuk navigasi
@@ -42,12 +36,7 @@ const Hero = () => {
                 meningkatkan prestasi akademik Anda.
               </p>
               {/* Tombol CTA tambahan */}
-              <button
-                onClick={openModal} // Membuka modal saat tombol diklik
-                className="bg-[#B348C7] text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-[#9A3AA8] transition-all duration-300 shadow-lg hover:shadow-xl w-fit"
-              >
-                Pelajari Lebih Lanjut
-              </button>
+             
             </div>
 
             {/* Bagian kanan: Gambar ilustrasi dan tombol CTA (Call to Action) */}
@@ -78,53 +67,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Overlay dengan efek glassmorphism */}
-          <div
-            className="fixed inset-0 bg-white/10 backdrop-blur-sm" // Efek glassmorphism
-            onClick={closeModal} // Tutup modal saat overlay diklik
-          ></div>
-
-          {/* Konten modal */}
-          <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative shadow-lg">
-            {/* Tombol close */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
-              <i className="ri-close-line text-2xl"></i>
-            </button>
-
-            {/* Judul modal */}
-            <h2 className="text-2xl font-bold text-[#B348C7] mb-4">
-              Cara Kerja NilaiKu
-            </h2>
-
-            {/* Isi modal */}
-            <p className="text-gray-700 mb-6">
-              NilaiKu menggunakan teknologi Machine Learning untuk menganalisis
-              data nilai siswa dan memberikan prediksi yang akurat. Berikut adalah
-              langkah-langkahnya:
-              <ol className="list-decimal list-inside mt-2">
-                <li>Masukkan data nilai siswa ke dalam sistem.</li>
-                <li>Sistem akan menganalisis data menggunakan algoritma canggih.</li>
-                <li>Hasil prediksi dan rekomendasi pembelajaran akan ditampilkan.</li>
-              </ol>
-            </p>
-
-            {/* Tombol tutup modal */}
-            <button
-              onClick={closeModal}
-              className="bg-[#B348C7] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#9A3AA8] transition-all duration-300"
-            >
-              Tutup
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Tambahkan keyframes untuk animasi floating */}
       <style>

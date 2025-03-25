@@ -39,7 +39,7 @@ const Testimoni = () => {
         {testimonials.map((item, index) => (
           <div
             key={index}
-            className="mx-auto overflow-hidden transition-transform transform hover:scale-105 duration-300" data-aos="flip-down"
+            className="mx-auto overflow-hidden transition-transform hover:scale-105 duration-300" data-aos="flip-down"
           >
             <div className="relative bg-white border border-purple-400 px-7 py-10 rounded-lg shadow-lg">
               {/* Ikon Kutipan */}

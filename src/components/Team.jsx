@@ -12,7 +12,7 @@ const Team = () => {
     {
       name: "Muhammad Firdaus Alfatah",
       role: "Machine Learning",
-      github: "https://github.com/firdausalfatah",
+      github: "https://github.com/HeyFirdash",
     },
     {
       name: "Rendy Pratama",
@@ -27,12 +27,12 @@ const Team = () => {
     {
       name: "Muhammad Riffa Faturahman",
       role: "Front-End Developer",
-      github: "https://github.com/riffafaturahman",
+      github: "https://github.com/faturahaman",
     },
     {
       name: "Firza Aftan Hidayat",
       role: "Back-End Developer",
-      github: "https://github.com/firzaaftan",
+      github: "https://github.com/GisatAZK2",
     },
   ];
 
@@ -61,14 +61,14 @@ const Team = () => {
               </div>
 
               {/* Overlay dengan ikon GitHub */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+              <div className="absolute border-1 border-purple-800 inset-0 bg-purple-100/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                 <a
                   href={member.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-4xl hover:text-purple-500 transition-colors duration-300"
+                  className="text-white text-8xl hover:text-purple-500 transition-colors duration-300"
                 >
-                  <i className="ri-github-fill"></i> {/* Ikon GitHub dari Remix Icon */}
+                  <i className="ri-github-fill"></i>
                 </a>
               </div>
 
