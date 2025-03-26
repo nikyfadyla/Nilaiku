@@ -94,7 +94,7 @@ const About = () => {
               onClick={closeModal}
               className="bg-[#B348C7] text-white px-6 py-2 rounded-full font-semibold hover:bg-[#9A3AA8] transition-all duration-300"
             >
-              Tutup
+              Mengerti
             </button>
           </div>
         </div>

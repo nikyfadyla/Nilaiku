@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 import Navbar from "./components/Navbar.jsx";
+import NavbarForm from "./components/NavbarForm.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/Abouts.jsx";
 import Features from "./components/Features.jsx";
@@ -15,6 +16,31 @@ import StudentDataForm from "./form-section/StudentDataForm.jsx";
 import StudentAcademicForm from "./form-section/StudentAcademicForm.jsx";
 import StudentDetailPage from "./form-section/StudentDetailPage.jsx";
 
+function Layout({ children }) {
+  const location = useLocation();
+
+  // Cek apakah halaman saat ini adalah halaman formulir
+  const isFormPage = [
+    "/student-data",
+    "/student-data/:id",
+    "/student-academic/:student_id",
+    "/student-detail/:student_id",
+  ].some((path) => location.pathname.startsWith(path.replace(":id", "")));
+
+  return (
+    <div style={backgroundStyle}>
+      {isFormPage ? <NavbarForm /> : <Navbar />}
+      {children}
+    </div>
+  );
+}
+
+const backgroundStyle = {
+  background:
+    "radial-gradient(circle, rgb(255, 255, 255), rgb(232, 215, 255), rgb(232, 215, 255))",
+  minHeight: "100vh",
+};
+
 function App() {
   useEffect(() => {
     AOS.init({
@@ -24,43 +50,56 @@ function App() {
     });
   }, []);
 
-  const backgroundStyle = {
-    background:
-      "radial-gradient(circle, rgb(255, 255, 255), rgb(232, 215, 255), rgb(232, 215, 255))",
-    minHeight: "100vh",
-  };
-
   return (
     <Router>
-      <div style={backgroundStyle}>
-        <Navbar /> {/* Navbar selalu tampil di semua halaman */}
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-                <About />
-                <Features />
-                <Team />
-                <Testimoni />
-                <Footer />
-              </>
-            }
-          />
-          <Route path="/student-data" element={<StudentDataForm />} />
-          <Route path="/student-data/:id" element={<StudentDataForm />} />
-          <Route
-            path="/student-academic/:student_id"
-            element={<StudentAcademicForm />}
-          />
-          <Route
-            path="/student-detail/:student_id"
-            element={<StudentDetailPage />}
-          />
-          <Route path="*" element={<h2>404 - Page Not Found</h2>} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Hero />
+              <About />
+              <Features />
+              <Team />
+              <Testimoni />
+              <Footer />
+            </Layout>
+          }
+        />
+        <Route
+          path="/student-data"
+          element={
+            <Layout>
+              <StudentDataForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/student-data/:id"
+          element={
+            <Layout>
+              <StudentDataForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/student-academic/:student_id"
+          element={
+            <Layout>
+              <StudentAcademicForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/student-detail/:student_id"
+          element={
+            <Layout>
+              <StudentDetailPage />
+            </Layout>
+          }
+        />
+        <Route path="*" element={<h2>404 - Page Not Found</h2>} />
+      </Routes>
     </Router>
   );
 }

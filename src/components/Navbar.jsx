@@ -73,7 +73,7 @@ const Navbar = () => {
         <ul
           className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 
             bg-white md:bg-transparent text-lg font-semibold transition-all duration-300 ease-in-out
-            ${isMenuOpen ? "block opacity-100 translate-y-0" : "hidden md:flex opacity-0 md:opacity-100 translate-y-[-100%] md:translate-y-0"}`}
+            ${isMenuOpen ? "block opacity-100 translate-y-0" : "hidden transition-discrete md:flex opacity-0 md:opacity-100 translate-y-[-100%] md:translate-y-0"}`}
         >
           {/* Menu Home */}
           <li>
@@ -150,7 +150,7 @@ const Navbar = () => {
                     toggleServiceMenu();
                   }
                 }}
-                className="p-2 md:hidden transition-transform duration-300"
+                className="p-2 md:hidden transition-discrete transition-discrete transition-transform duration-300"
               >
                 <i
                   className={`ri-arrow-down-s-line text-2xl ${
@@ -167,7 +167,7 @@ const Navbar = () => {
   transition-all duration-300 
   md:absolute top-full left-0 md:w-48 
   md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
-  ${isServiceOpen ? "block opacity-100" : "hidden md:block opacity-0"} ${scrollService}
+  ${isServiceOpen ? "block opacity-100" : "hidden transition-discrete md:block opacity-0"} ${scrollService}
 `}
             >
               <li>

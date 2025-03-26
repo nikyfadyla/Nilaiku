@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
+import { motion, AnimatePresence } from "framer-motion";
 
 function StudentDataForm() {
-  const { id: urlStudentId } = useParams(); // Ubah menjadi 'id'
+  const { id: urlStudentId } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    id: urlStudentId || null, // Gunakan urlStudentId jika ada
-    student_id: urlStudentId || "", // Gunakan urlStudentId jika ada
+    id: urlStudentId || null,
+    student_id: urlStudentId || "",
     name: "",
     date_of_birth: "",
     gender: "",
@@ -16,6 +17,7 @@ function StudentDataForm() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (urlStudentId) {
@@ -27,12 +29,15 @@ function StudentDataForm() {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3001/students/${urlStudentId}` // Ubah URL fetch
+        `http://localhost:3001/students/${urlStudentId}`
       );
       if (!response.ok) {
         throw new Error("Gagal mengambil data.");
       }
       const data = await response.json();
+      
+      // Add slight delay for smooth transition
+      await new Promise(resolve => setTimeout(resolve, 500));
       setFormData(data);
     } catch (err) {
       console.error(err);
@@ -40,7 +45,7 @@ function StudentDataForm() {
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1000);
     }
   };
 
@@ -49,170 +54,340 @@ function StudentDataForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    const isUpdate = !!formData.id;
-    const method = isUpdate ? "PUT" : "POST";
+    try {
+      const isUpdate = !!formData.id;
+      const method = isUpdate ? "PUT" : "POST";
+      const studentId = formData.student_id || nanoid(10);
 
-    // Gunakan student_id yang sudah ada atau generate baru
-    const studentId = formData.student_id || nanoid(10);
+      const url = isUpdate
+        ? `http://localhost:3001/students/${formData.id}`
+        : `http://localhost:3001/students`;
 
-    const url = isUpdate
-      ? `http://localhost:3001/students/${formData.id}`
-      : `http://localhost:3001/students`;
+      const dataToSend = {
+        id: formData.id,
+        student_id: studentId,
+        name: formData.name,
+        date_of_birth: formData.date_of_birth,
+        gender: formData.gender,
+      };
 
-    const dataToSend = {
-      id: formData.id, // Pertahankan ID JSON Server
-      student_id: studentId, // Pertahankan student_id
-      name: formData.name,
-      date_of_birth: formData.date_of_birth,
-      gender: formData.gender,
-    };
-
-    console.log("Data yang dikirim:", dataToSend);
-
-    fetch(url, {
-      method: method,
-      body: JSON.stringify(dataToSend),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Gagal mengirim data");
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Response dari backend:", data);
-        navigate(`/student-academic/${data.student_id}`, {
-          state: { student_id: data.student_id, prevData: data },
-        });
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-        setError(err.message);
+      const response = await fetch(url, {
+        method: method,
+        body: JSON.stringify(dataToSend),
+        headers: { "Content-Type": "application/json" },
       });
+
+      if (!response.ok) throw new Error("Gagal mengirim data");
+      
+      const data = await response.json();
+      
+      // Success animation before navigation
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      navigate(`/student-academic/${data.student_id}`, {
+        state: { student_id: data.student_id, prevData: data },
+      });
+    } catch (err) {
+      console.error("Error:", err);
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderGenderIcon = () => {
     if (formData.gender === "Laki-laki") {
-      return <i className="ri-men-line text-blue-500"></i>;
+      return <i className="ri-men-line text-blue-500 text-lg"></i>;
     } else if (formData.gender === "Perempuan") {
-      return <i className="ri-women-line text-pink-500"></i>;
+      return <i className="ri-women-line text-pink-500 text-lg"></i>;
     } else {
-      return <i className="ri-user-line"></i>;
+      return <i className="ri-user-line text-gray-400 text-lg"></i>;
     }
   };
 
-  if (loading)
+  if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-        <h1 className="ml-3 text-purple-700 font-medium">Loading....</h1>
-      </div>
-    );
-
-  if (error)
-    return (
-      <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
-          <div className="flex items-center">
-            <i className="ri-error-warning-line text-2xl text-red-500 mr-3"></i>
-            <p className="text-red-700">{error}</p>
-          </div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-indigo-50"
+      >
+        <div className="text-center">
+          <motion.div
+            animate={{ 
+              rotate: 360,
+              scale: [1, 1.2, 1]
+            }}
+            transition={{ 
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="mx-auto h-16 w-16 rounded-full border-4 border-t-blue-600 border-r-indigo-600 border-b-purple-600 border-l-pink-600"
+          ></motion.div>
+          <motion.h1 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="mt-6 text-xl font-semibold text-gray-700"
+          >
+            Memuat data siswa...
+          </motion.h1>
         </div>
-      </div>
+      </motion.div>
     );
+  }
+
+  if (error) {
+    return (
+      <motion.div 
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-lg mt-10"
+      >
+        <motion.div 
+          initial={{ x: -20 }}
+          animate={{ x: 0 }}
+          className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg"
+        >
+          <div className="flex items-center">
+            <motion.div
+              animate={{ 
+                scale: [1, 1.1, 1],
+                rotate: [0, 10, -10, 0]
+              }}
+              transition={{ duration: 0.6 }}
+            >
+              <i className="ri-error-warning-line text-3xl text-red-500 mr-3"></i>
+            </motion.div>
+            <div>
+              <p className="text-red-700 font-medium">{error}</p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => window.location.reload()}
+                className="mt-2 px-4 py-2 bg-red-100 text-red-600 rounded-md text-sm font-medium hover:bg-red-200 transition-colors"
+              >
+                Coba Lagi
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  }
 
   return (
-    <div className="min-h-screen py-25 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6">
-          <h2 className="text-2xl font-bold text-white text-center">
-            {urlStudentId ? "Edit Informasi Diri" : "Data Siswa Baru"}
-          </h2>
-          <p className="text-blue-100 text-center mt-2">
-            {urlStudentId
-              ? "Perbarui informasi pribadi Anda"
-              : "Masukkan informasi pribadi Anda"}
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50"
+    >
+      <div className="max-w-md mx-auto">
+        <motion.div 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mb-8 text-center"
+        > 
+        
+          <h1 className="text-3xl font-bold text-gray-800 mb-2 mt-4">
+            {urlStudentId ? "Edit Data Siswa" : "Formulir Siswa Baru"}
+          </h1>
+          <p className="text-gray-600">
+            {urlStudentId 
+              ? "Perbarui informasi siswa Anda" 
+              : "Isi formulir untuk menambahkan siswa baru"}
           </p>
-        </div>
+        </motion.div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Nama Lengkap
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <i className="ri-user-line"></i>
-              </div>
-              <input
-                type="text"
-                name="name"
-                value={formData.name || ""}
-                onChange={handleChange}
-                placeholder="Masukkan nama lengkap"
-                required
-                className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Tanggal Lahir
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <i className="ri-calendar-event-line"></i>
-              </div>
-              <input
-                type="date"
-                name="date_of_birth"
-                value={formData.date_of_birth || ""}
-                onChange={handleChange}
-                required
-                className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Jenis Kelamin
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                {renderGenderIcon()}
-              </div>
-              <select
-                name="gender"
-                value={formData.gender || ""}
-                onChange={handleChange}
-                required
-                className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out appearance-none bg-none"
+        <motion.div
+          initial={{ scale: 0.98, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6"
+          >
+            <div className="flex items-center justify-center space-x-2">
+              <motion.div
+                animate={{ 
+                  y: [0, -5, 0],
+                  transition: { 
+                    duration: 2,
+                    repeat: Infinity 
+                  } 
+                }}
               >
-                <option value="">Pilih Jenis Kelamin</option>
-                <option value="Laki-laki">Laki-laki</option>
-                <option value="Perempuan">Perempuan</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <i className="ri-arrow-down-wide-fill"></i>
+                <i className="ri-user-3-line text-3xl text-white"></i>
+              </motion.div>
+              <div>
+                <h2 className="text-2xl font-bold text-white">
+                  {urlStudentId ? "Informasi Diri" : "Data Pribadi"}
+                </h2>
+                <p className="text-blue-100">
+                  {urlStudentId 
+                    ? "Perbarui data pribadi siswa" 
+                    : "Lengkapi data pribadi siswa"}
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="pt-4">
-            <button
-              type="submit"
-              className="w-full flex justify-center items-center px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform transition hover:-translate-y-1 hover:shadow-lg"
+          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            <motion.div 
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="space-y-2"
             >
-              {urlStudentId ? "Perbarui Data" : "Lanjutkan"}
-            </button>
-          </div>
-        </form>
+              <label className="block text-sm font-medium text-gray-700">
+                Nama Lengkap
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ri-user-line text-gray-400"></i>
+                </div>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name || ""}
+                  onChange={handleChange}
+                  placeholder="Masukkan nama lengkap"
+                  required
+                  className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:shadow-sm"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="space-y-2"
+            >
+              <label className="block text-sm font-medium text-gray-700">
+                Tanggal Lahir
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ri-calendar-event-line text-gray-400"></i>
+                </div>
+                <input
+                  type="date"
+                  name="date_of_birth"
+                  value={formData.date_of_birth || ""}
+                  onChange={handleChange}
+                  required
+                  className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:shadow-sm"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="space-y-2"
+            >
+              <label className="block text-sm font-medium text-gray-700">
+                Jenis Kelamin
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  {renderGenderIcon()}
+                </div>
+                <select
+                  name="gender"
+                  value={formData.gender || ""}
+                  onChange={handleChange}
+                  required
+                  className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:shadow-sm appearance-none"
+                >
+                  <option value="">Pilih Jenis Kelamin</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <i className="ri-arrow-down-s-line"></i>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="pt-4"
+            >
+              <AnimatePresence>
+                {error && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="mb-4 overflow-hidden"
+                  >
+                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 rounded">
+                      <div className="flex items-center">
+                        <i className="ri-close-circle-fill mr-2"></i>
+                        <span>{error}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <motion.button
+                type="submit"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0px 5px 15px rgba(79, 70, 229, 0.3)"
+                }}
+                whileTap={{ scale: 0.98 }}
+                disabled={isSubmitting}
+                className={`w-full flex justify-center items-center px-6 py-3 rounded-xl text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
+                  isSubmitting 
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700'
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Memproses...
+                  </>
+                ) : (
+                  <>
+                    {urlStudentId ? 'Perbarui Data' : 'Lanjutkan'}
+                    <i className="ri-arrow-right-line ml-2"></i>
+                  </>
+                )}
+              </motion.button>
+            </motion.div>
+          </form>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-6 text-center text-sm text-gray-500"
+        >
+          <p>Formulir ini adalah bagian dari sistem manajemen siswa</p>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
