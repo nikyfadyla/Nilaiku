@@ -6,6 +6,139 @@
       "name": "sss",
       "date_of_birth": "0022-02-22",
       "gender": "Laki-laki"
+    },
+    {
+      "id": 2,
+      "student_id": "KHcId7ZZdB",
+      "name": "2121",
+      "date_of_birth": "0222-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 3,
+      "student_id": "yw0K_zxiUE",
+      "name": "212121",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 4,
+      "student_id": "uWKmR26F48",
+      "name": "2121",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 5,
+      "student_id": "0P4Lkij7B_",
+      "name": "21212",
+      "date_of_birth": "0222-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 6,
+      "student_id": "XAuXafUp8m",
+      "name": "2121",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 7,
+      "student_id": "G3n8fqJYY2",
+      "name": "2121",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 8,
+      "student_id": "ZMliGUehgx",
+      "name": "212",
+      "date_of_birth": "0002-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 9,
+      "student_id": "CcKNvcY15V",
+      "name": "w",
+      "date_of_birth": "0001-11-11",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 10,
+      "student_id": "a6FNaUyGJU",
+      "name": "2121",
+      "date_of_birth": "0222-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 11,
+      "student_id": "LTo7Ij4xjj",
+      "name": "2222",
+      "date_of_birth": "0222-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 12,
+      "student_id": "EXTHOgEybE",
+      "name": "211",
+      "date_of_birth": "0222-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 13,
+      "student_id": "aKgtp31HMf",
+      "name": "212",
+      "date_of_birth": "0022-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 14,
+      "student_id": "xt-3GBdRmg",
+      "name": "222",
+      "date_of_birth": "0001-12-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 15,
+      "student_id": "NlwVf0SuF4",
+      "name": "222",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 16,
+      "student_id": "2zRgt0kMNU",
+      "name": "212",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 17,
+      "student_id": "ErbOEb-LiN",
+      "name": "222",
+      "date_of_birth": "0022-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 18,
+      "student_id": "XXzl9na0nK",
+      "name": "32",
+      "date_of_birth": "0022-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 19,
+      "student_id": "i5vulNSm6K",
+      "name": "21212",
+      "date_of_birth": "0222-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 20,
+      "student_id": "ZOzmRqmGA-",
+      "name": "2121",
+      "date_of_birth": "0222-02-22",
+      "gender": "Laki-laki"
     }
   ],
   "student-academic": [
@@ -22,6 +155,34 @@
       "teacher_quality": "Medium",
       "physical_activity": 0,
       "id": 1
+    },
+    {
+      "student_id": "ErbOEb-LiN",
+      "hours_studied": 0,
+      "attendance": 11,
+      "previous_scores": 10,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 2
+    },
+    {
+      "student_id": "ZOzmRqmGA-",
+      "hours_studied": 0,
+      "attendance": 11,
+      "previous_scores": 11,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 3
     }
   ]
 }

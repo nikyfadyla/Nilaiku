@@ -12,7 +12,7 @@ const Hero = () => {
     // Section Hero dengan ID `#home` untuk navigasi
     <div id="#home" className="pb-10">
       {/* Container untuk landing page dengan background gradien */}
-      <div className="landingpage h-screen pt-20 flex flex-col md:m-0 px-4 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF] px-5 md:px-0">
+      <div className="landingpage h-screen pt-20 flex flex-col md:m-0 px-4 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF]  md:px-0">
         {/* Flex container untuk konten hero */}
         <div className="flex-grow w-full">
           {/* Grid layout untuk konten hero (1 kolom di mobile, 2 kolom di desktop) */}

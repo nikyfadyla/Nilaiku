@@ -150,7 +150,7 @@ const Navbar = () => {
                     toggleServiceMenu();
                   }
                 }}
-                className="p-2 md:hidden transition-discrete transition-discrete transition-transform duration-300"
+                className="p-2 md:hidden transition-discrete   transition-transform duration-300"
               >
                 <i
                   className={`ri-arrow-down-s-line text-2xl ${

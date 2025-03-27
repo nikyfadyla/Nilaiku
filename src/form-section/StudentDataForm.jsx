@@ -35,9 +35,9 @@ function StudentDataForm() {
         throw new Error("Gagal mengambil data.");
       }
       const data = await response.json();
-      
+
       // Add slight delay for smooth transition
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setFormData(data);
     } catch (err) {
       console.error(err);
@@ -82,12 +82,11 @@ function StudentDataForm() {
       });
 
       if (!response.ok) throw new Error("Gagal mengirim data");
-      
+
       const data = await response.json();
-      
+
       // Success animation before navigation
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       navigate(`/student-academic/${data.student_id}`, {
         state: { student_id: data.student_id, prevData: data },
       });
@@ -111,25 +110,25 @@ function StudentDataForm() {
 
   if (loading) {
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-indigo-50"
       >
         <div className="text-center">
           <motion.div
-            animate={{ 
+            animate={{
               rotate: 360,
-              scale: [1, 1.2, 1]
+              scale: [1, 1.2, 1],
             }}
-            transition={{ 
+            transition={{
               duration: 1.5,
               repeat: Infinity,
-              ease: "linear"
+              ease: "linear",
             }}
             className="mx-auto h-16 w-16 rounded-full border-4 border-t-blue-600 border-r-indigo-600 border-b-purple-600 border-l-pink-600"
           ></motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -144,21 +143,21 @@ function StudentDataForm() {
 
   if (error) {
     return (
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         className="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-lg mt-10"
       >
-        <motion.div 
+        <motion.div
           initial={{ x: -20 }}
           animate={{ x: 0 }}
           className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg"
         >
           <div className="flex items-center">
             <motion.div
-              animate={{ 
+              animate={{
                 scale: [1, 1.1, 1],
-                rotate: [0, 10, -10, 0]
+                rotate: [0, 10, -10, 0],
               }}
               transition={{ duration: 0.6 }}
             >
@@ -182,26 +181,25 @@ function StudentDataForm() {
   }
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50"
     >
       <div className="max-w-md mx-auto">
-        <motion.div 
+        <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
           className="mb-8 text-center"
-        > 
-        
+        >
           <h1 className="text-3xl font-bold text-gray-800 mb-2 mt-4">
             {urlStudentId ? "Edit Data Siswa" : "Formulir Siswa Baru"}
           </h1>
           <p className="text-gray-600">
-            {urlStudentId 
-              ? "Perbarui informasi siswa Anda" 
+            {urlStudentId
+              ? "Perbarui informasi siswa Anda"
               : "Isi formulir untuk menambahkan siswa baru"}
           </p>
         </motion.div>
@@ -212,18 +210,18 @@ function StudentDataForm() {
           transition={{ delay: 0.3 }}
           className="bg-white rounded-2xl shadow-xl overflow-hidden"
         >
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.02 }}
             className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6"
           >
             <div className="flex items-center justify-center space-x-2">
               <motion.div
-                animate={{ 
+                animate={{
                   y: [0, -5, 0],
-                  transition: { 
+                  transition: {
                     duration: 2,
-                    repeat: Infinity 
-                  } 
+                    repeat: Infinity,
+                  },
                 }}
               >
                 <i className="ri-user-3-line text-3xl text-white"></i>
@@ -233,8 +231,8 @@ function StudentDataForm() {
                   {urlStudentId ? "Informasi Diri" : "Data Pribadi"}
                 </h2>
                 <p className="text-blue-100">
-                  {urlStudentId 
-                    ? "Perbarui data pribadi siswa" 
+                  {urlStudentId
+                    ? "Perbarui data pribadi siswa"
                     : "Lengkapi data pribadi siswa"}
                 </p>
               </div>
@@ -242,7 +240,7 @@ function StudentDataForm() {
           </motion.div>
 
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            <motion.div 
+            <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -267,7 +265,7 @@ function StudentDataForm() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -291,7 +289,7 @@ function StudentDataForm() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -331,7 +329,7 @@ function StudentDataForm() {
                 {error && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     className="mb-4 overflow-hidden"
                   >
@@ -347,29 +345,45 @@ function StudentDataForm() {
 
               <motion.button
                 type="submit"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
-                  boxShadow: "0px 5px 15px rgba(79, 70, 229, 0.3)"
+                  boxShadow: "0px 5px 15px rgba(79, 70, 229, 0.3)",
                 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isSubmitting}
                 className={`w-full flex justify-center items-center px-6 py-3 rounded-xl text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
-                  isSubmitting 
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700'
+                  isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                 }`}
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Memproses...
                   </>
                 ) : (
                   <>
-                    {urlStudentId ? 'Perbarui Data' : 'Lanjutkan'}
+                    {urlStudentId ? "Perbarui Data" : "Lanjutkan"}
                     <i className="ri-arrow-right-line ml-2"></i>
                   </>
                 )}
@@ -378,7 +392,7 @@ function StudentDataForm() {
           </form>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}

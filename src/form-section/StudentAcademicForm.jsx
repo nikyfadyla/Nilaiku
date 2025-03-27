@@ -16,13 +16,16 @@ const StudentAcademicForm = () => {
   const [academicData, setAcademicData] = useState(null);
   const [academicId, setAcademicId] = useState(null);
 
+  // Ubah konfigurasi useForm
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
-
+  } = useForm({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
   useEffect(() => {
     const fetchAcademicData = async () => {
       try {
@@ -126,10 +129,10 @@ const StudentAcademicForm = () => {
       console.log("Navigating to student detail...");
       setSuccess(true);
       navigate(`/student-detail/${student_id}`);
-      setTimeout(() => setSuccess(false), 3000);
+      setTimeout(() => setSuccess(false), 2000);
     } catch (err) {
       setError(err.message);
-      setTimeout(() => setError(null), 3000);
+      setTimeout(() => setError(null), 2000);
     } finally {
       setLoading(false);
     }
@@ -171,10 +174,9 @@ const StudentAcademicForm = () => {
             <i className={`ri-${icon}`}></i>
           </span>
         )}
-
         <input
           id={name}
-          type={type}
+          type="number"
           className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm ${
             icon ? "pl-10" : ""
           } hover:border-blue-400`}
@@ -182,17 +184,23 @@ const StudentAcademicForm = () => {
           defaultValue={defaultValue}
           {...register(name, {
             ...(name === "previous_scores" && {
-              validate: (value) => {
-                const numValue = Number(value);
-                return (
-                  numValue <= 100 || "Nilai sebelumnya tidak boleh melebihi 100"
-                );
+              max: {
+                value: 100,
+                message: "Nilai sebelumnya tidak boleh melebihi 100",
+              },
+              min: {
+                value: 0,
+                message: "Nilai sebelumnya tidak boleh kurang dari 0",
               },
             }),
             ...(name === "attendance" && {
-              validate: (value) => {
-                const numValue = Number(value);
-                return numValue <= 100 || "Kehadiran tidak boleh melebihi 100%";
+              max: {
+                value: 100,
+                message: "Kehadiran tidak boleh melebihi 100%",
+              },
+              min: {
+                value: 0,
+                message: "Kehadiran tidak boleh kurang dari 0%",
               },
             }),
           })}
@@ -249,7 +257,7 @@ const StudentAcademicForm = () => {
   }
 
   return (
-    <div className="min-h-screen py-30 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-12 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-6 px-8">
           <h2 className="text-2xl font-bold text-center text-white flex items-center justify-center space-x-3">

@@ -14,8 +14,8 @@ const NavbarForm = () => {
         {location.pathname.includes("academic")
           ? "Student Academic Form"
           : location.pathname.includes("detail")
-          ? "Student Detail Page"
-          : "Student Data Form"}
+            ? "Student Detail Page"
+            : "Student Data Form"}
       </h2>
       <Link to="/" style={styles.button}>
         Home

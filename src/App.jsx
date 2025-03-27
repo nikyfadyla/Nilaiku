@@ -19,13 +19,21 @@ import StudentDetailPage from "./form-section/StudentDetailPage.jsx";
 function Layout({ children }) {
   const location = useLocation();
 
-  // Cek apakah halaman saat ini adalah halaman formulir
-  const isFormPage = [
+  // Daftar path yang valid untuk menampilkan NavbarForm
+  const formPaths = [
     "/student-data",
-    "/student-data/:id",
-    "/student-academic/:student_id",
-    "/student-detail/:student_id",
-  ].some((path) => location.pathname.startsWith(path.replace(":id", "")));
+    "/student-data/",
+    "/student-data/edit",
+    "/student-academic",
+    "/student-academic/",
+    "/student-detail",
+  ];
+
+  // Cek apakah halaman saat ini adalah halaman formulir
+  const isFormPage = formPaths.some(
+    (path) =>
+      location.pathname === path || location.pathname.startsWith(path + "/")
+  );
 
   return (
     <div style={backgroundStyle}>
