@@ -139,6 +139,41 @@
       "name": "2121",
       "date_of_birth": "0222-02-22",
       "gender": "Laki-laki"
+    },
+    {
+      "id": 21,
+      "student_id": "MWf77v4n5E",
+      "name": "212",
+      "date_of_birth": "0022-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 22,
+      "student_id": "FktvEWuhIw",
+      "name": "222",
+      "date_of_birth": "0222-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 23,
+      "student_id": "vOkp2buffZ",
+      "name": "2121",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 24,
+      "student_id": "srYJREQEcY",
+      "name": "212",
+      "date_of_birth": "0022-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 25,
+      "student_id": "8zU2-l6ZEh",
+      "name": "222",
+      "date_of_birth": "0002-02-22",
+      "gender": "Perempuan"
     }
   ],
   "student-academic": [
@@ -183,6 +218,105 @@
       "teacher_quality": "Medium",
       "physical_activity": 0,
       "id": 3
+    },
+    {
+      "student_id": "MWf77v4n5E",
+      "hours_studied": 0,
+      "attendance": 11,
+      "previous_scores": 22,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 4
+    },
+    {
+      "student_id": "FktvEWuhIw",
+      "hours_studied": 0,
+      "attendance": 30,
+      "previous_scores": 20,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 5
+    },
+    {
+      "student_id": "vOkp2buffZ",
+      "hours_studied": 0,
+      "attendance": 78,
+      "previous_scores": 70,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Low",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 6
+    },
+    {
+      "student_id": "srYJREQEcY",
+      "hours_studied": 0,
+      "attendance": 77,
+      "previous_scores": 44,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 7
+    },
+    {
+      "student_id": "8zU2-l6ZEh",
+      "hours_studied": 0,
+      "attendance": 60,
+      "previous_scores": 50,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 0,
+      "id": 8
+    }
+  ],
+  "learning_recommendations": [
+    {
+      "id": 1,
+      "min_score": 0,
+      "max_score": 40,
+      "title": "Rekomendasi Belajar Dasar Pemrograman Web",
+      "description": "Untuk membangun fondasi yang kuat, fokuskan pada mempelajari dasar-dasar pemrograman web dan JavaScript.",
+      "imageUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "learningResourceUrl": "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/"
+    },
+    {
+      "id": 2,
+      "min_score": 40,
+      "max_score": 70,
+      "title": "Rekomendasi Belajar Front-end",
+      "description": "Dengan skor yang cukup baik, Anda cocok untuk mempelajari pengembangan Front-end menggunakan React atau Vue.js.",
+      "imageUrl": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "learningResourceUrl": "https://reactjs.org/tutorial/tutorial.html"
+    },
+    {
+      "id": 3,
+      "min_score": 70,
+      "max_score": 100,
+      "title": "Rekomendasi Belajar Back-end",
+      "description": "Setelah mencapai skor yang baik, Anda siap untuk memperdalam pemrograman Back-end menggunakan Node.js dan Express.",
+      "imageUrl": "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "learningResourceUrl": "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs"
     }
   ]
 }

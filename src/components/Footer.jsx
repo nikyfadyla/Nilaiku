@@ -25,7 +25,7 @@ const Footer = () => {
       <div className="bg-[#FFE3AF]">
         <div className="max-w-screen-xl py-10 px-4 sm:px-6 text-gray-800 mx-auto flex flex-col md:flex-row">
           <div className="p-5 w-full md:w-4/12">
-            <h3 className="font-bold text-3xl text-[#B348C7] mb-4 font-bold">
+            <h3 className=" text-3xl text-[#B348C7] mb-4 font-bold">
               Nilai<span className="text-[#F3BC55]">Ku</span>
             </h3>
 

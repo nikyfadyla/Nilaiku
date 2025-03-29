@@ -10,6 +10,8 @@ const StudentDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [jsonServerId, setJsonServerId] = useState(null);
+  const [score, setScore] = useState(null);
+  const [learningRecommendation, setLearningRecommendation] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +47,31 @@ const StudentDetailPage = () => {
         const academicDataResult = await academicResponse.json();
 
         if (academicDataResult && academicDataResult.length > 0) {
-          setAcademicData(academicDataResult[0]);
+          const academicResult = academicDataResult[0];
+          setAcademicData(academicResult);
+
+          // FINAL SCORE SECTION
+
+          const previousScore = parseFloat(academicResult.previous_scores) || 0;
+          const attendance = parseFloat(academicResult.attendance) || 0;
+
+          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(2);
+          setScore(finalScore);
+
+          const recommendationResponse = await fetch(
+            `http://localhost:3001/learning_recommendations`
+          );
+
+          if (!recommendationResponse.ok) {
+            throw new Error("Gagal mengambil rekomendasi belajar");
+          }
+
+          const recommendations = await recommendationResponse.json();
+          const recommendation = recommendations.find(
+            (rec) => finalScore >= rec.min_score && finalScore < rec.max_score
+          );
+
+          setLearningRecommendation(recommendation);
         }
       } catch (err) {
         console.error("Error:", err);
@@ -79,6 +105,45 @@ const StudentDetailPage = () => {
       month: "long",
       year: "numeric",
     });
+  };
+
+
+  // Learning Recommendation Section
+  const renderLearningRecommendation = () => {
+    if (!learningRecommendation) return null;
+
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+          Rekomendasi Belajar
+        </h2>
+        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 flex flex-col md:flex-row items-center">
+          <div className="md:w-1/3 mb-4 md:mb-0 md:mr-6">
+            <img
+              src={learningRecommendation.imageUrl}
+              alt={learningRecommendation.title}
+              className="w-full h-auto rounded-lg object-cover"
+            />
+          </div>
+          <div className="md:w-2/3">
+            <h3 className="text-xl font-bold text-gray-800 mb-3">
+              {learningRecommendation.title}
+            </h3>
+            <p className="text-gray-600 mb-4">
+              {learningRecommendation.description}
+            </p>
+            <a
+              href={learningRecommendation.learningResourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 inline-block"
+            >
+              Mulai Belajar
+            </a>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   if (loading) {
@@ -212,6 +277,10 @@ const StudentDetailPage = () => {
                     label: "Kualitas Guru",
                     value: academicData.teacher_quality,
                   },
+                  {
+                    label: "Prediksi Nilai Ujian",
+                    value: score ? `${score}` : "-",
+                  },
                 ].map((item, index) => (
                   <div
                     key={index}
@@ -236,6 +305,7 @@ const StudentDetailPage = () => {
             </div>
           )}
         </div>
+        {renderLearningRecommendation()}
 
         <div className="mt-8 flex justify-start">
           <button
