@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { motion, AnimatePresence } from "framer-motion";
+import { clsx } from "clsx";
 
 function StudentDataForm() {
   const { id: urlStudentId } = useParams();
@@ -11,13 +12,18 @@ function StudentDataForm() {
     id: urlStudentId || null,
     student_id: urlStudentId || "",
     name: "",
+    email: "",
     date_of_birth: "",
     gender: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [emailError, setEmailError] = useState(null); // State terpisah untuk error email
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [touched, setTouched] = useState({
+    email: false,
+  }); // Untuk melacak apakah field sudah disentuh
 
   useEffect(() => {
     if (urlStudentId) {
@@ -49,13 +55,56 @@ function StudentDataForm() {
     }
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Jangan validasi email saat pengguna mengetik kecuali sudah disentuh
+    if (name === "email" && touched.email) {
+      // Validasi hanya ketika panjang email > 0 (tidak kosong)
+      if (value.length > 0 && !validateEmail(value)) {
+        setEmailError("Format email tidak valid.");
+      } else {
+        setEmailError(null);
+      }
+    }
+  };
+
+  // Tambahkan fungsi untuk menangani field yang telah disentuh
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    // Validasi email ketika pengguna selesai mengetik (blur)
+    if (name === "email") {
+      if (value && !validateEmail(value)) {
+        setEmailError("Format email tidak valid.");
+      } else {
+        setEmailError(null);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validasi email saat submit form
+    if (formData.email && !validateEmail(formData.email)) {
+      setEmailError("Format email tidak valid.");
+      setTouched((prev) => ({ ...prev, email: true }));
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -71,6 +120,7 @@ function StudentDataForm() {
         id: formData.id,
         student_id: studentId,
         name: formData.name,
+        email: formData.email,
         date_of_birth: formData.date_of_birth,
         gender: formData.gender,
       };
@@ -84,8 +134,6 @@ function StudentDataForm() {
       if (!response.ok) throw new Error("Gagal mengirim data");
 
       const data = await response.json();
-
-      // Success animation before navigation
 
       navigate(`/student-academic/${data.student_id}`, {
         state: { student_id: data.student_id, prevData: data },
@@ -180,12 +228,27 @@ function StudentDataForm() {
     );
   }
 
+  const inputClass = {
+    base: "pl-10 w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 border-purple-300 focus:ring-puple-600 focus:border-purple-500 transition-all duration-300 hover:shadow-sm",
+    error:
+      "border-red-300 focus:ring-1 focus:ring-red-600 focus:border-red-500",
+  };
+
+  const getInputClass = (isError = false) => {
+    return clsx(
+      inputClass.base,
+      {
+        [inputClass.error]: isError
+      }
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50"
+      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 "
     >
       <div className="max-w-md mx-auto">
         <motion.div
@@ -199,8 +262,8 @@ function StudentDataForm() {
           </h1>
           <p className="text-gray-600">
             {urlStudentId
-              ? "Perbarui informasi siswa Anda"
-              : "Isi formulir untuk menambahkan siswa baru"}
+              ? "Perbarui Personal data Anda"
+              : "Personal data anda"}
           </p>
         </motion.div>
 
@@ -260,9 +323,51 @@ function StudentDataForm() {
                   onChange={handleChange}
                   placeholder="Masukkan nama lengkap"
                   required
-                  className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:shadow-sm"
+                  className={getInputClass()}
                 />
               </div>
+            </motion.div>
+            <motion.div
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="space-y-2"
+            >
+              <label className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ri-mail-line text-gray-400"></i>
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email || ""}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Masukkan alamat email"
+                  required
+                   className={getInputClass(emailError && touched.email)}
+                />
+              </div>
+
+              {/* Tampilkan error email di bawah field email */}
+              <AnimatePresence>
+                {emailError && touched.email && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-red-500 text-sm mt-1 flex items-center">
+                      <i className="ri-information-line mr-1"></i>
+                      {emailError}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             <motion.div
@@ -284,7 +389,7 @@ function StudentDataForm() {
                   value={formData.date_of_birth || ""}
                   onChange={handleChange}
                   required
-                  className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:shadow-sm"
+                  className={getInputClass()}
                 />
               </div>
             </motion.div>
@@ -307,7 +412,7 @@ function StudentDataForm() {
                   value={formData.gender || ""}
                   onChange={handleChange}
                   required
-                  className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:shadow-sm appearance-none"
+                  className={`${getInputClass()} appearance-none`}
                 >
                   <option value="">Pilih Jenis Kelamin</option>
                   <option value="Laki-laki">Laki-laki</option>

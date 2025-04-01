@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { format, addDays } from "date-fns";
+import { id } from "date-fns/locale";
 
 const StudentDetailPage = () => {
   const { student_id } = useParams();
@@ -12,6 +14,7 @@ const StudentDetailPage = () => {
   const [jsonServerId, setJsonServerId] = useState(null);
   const [score, setScore] = useState(null);
   const [learningRecommendation, setLearningRecommendation] = useState(null);
+  const [predictionDate, setPredictionDate] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,12 +54,17 @@ const StudentDetailPage = () => {
           setAcademicData(academicResult);
 
           // FINAL SCORE SECTION
-
           const previousScore = parseFloat(academicResult.previous_scores) || 0;
           const attendance = parseFloat(academicResult.attendance) || 0;
 
-          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(2);
+          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(
+            2
+          );
           setScore(finalScore);
+
+          // Set prediction date (today + 30 days)
+          const today = new Date();
+          setPredictionDate(today);
 
           const recommendationResponse = await fetch(
             `http://localhost:3001/learning_recommendations`
@@ -107,6 +115,11 @@ const StudentDetailPage = () => {
     });
   };
 
+  // Format prediction date with date-fns
+  const formatPredictionDate = (date) => {
+    if (!date) return "-";
+    return format(date, "dd MMMM yyyy", { locale: id });
+  };
 
   // Learning Recommendation Section
   const renderLearningRecommendation = () => {
@@ -183,6 +196,14 @@ const StudentDetailPage = () => {
 
         {/* Personal Data Section */}
         <div className="space-y-6">
+          <div className="">
+            <span className="block text-gray-900 text-base font-semibold mb-1">
+              Tanggal Prediksi
+            </span>
+            <span className="font-medium text-gray-700">
+              {formatPredictionDate(predictionDate) || "-"}
+            </span>
+          </div>
           <div className="flex flex-col md:flex-row justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-700 mb-4 md:mb-0">
               Informasi Pribadi
@@ -307,13 +328,15 @@ const StudentDetailPage = () => {
         </div>
         {renderLearningRecommendation()}
 
+        {/* Prediction Info Section */}
+
         <div className="mt-8 flex justify-start">
           <button
-            onClick={() => navigate("/")}
+            onClick={handleEditAcademic}
             className="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors duration-300 flex items-center space-x-2"
           >
             <span>⬅️</span>
-            <span>Kembali ke Daftar Siswa</span>
+            <span>Kembali ke Halaman Sebelumnya</span>
           </button>
         </div>
       </div>
