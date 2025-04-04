@@ -37,6 +37,30 @@
       "email": "11@gmail.com",
       "date_of_birth": "0022-02-22",
       "gender": "Perempuan"
+    },
+    {
+      "id": 6,
+      "student_id": "Xd_beDcfRh",
+      "name": "niky",
+      "email": "apa@gmail.com",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 7,
+      "student_id": "YK_A3obF1F",
+      "name": "22",
+      "email": "11@gmail.com",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 8,
+      "student_id": "HVGPSBUTsS",
+      "name": "22",
+      "email": "dd@gmail.com",
+      "date_of_birth": "0022-02-22",
+      "gender": "Laki-laki"
     }
   ],
   "student-academic": [
@@ -67,6 +91,34 @@
       "teacher_quality": "Medium",
       "physical_activity": 0,
       "id": 2
+    },
+    {
+      "student_id": "Xd_beDcfRh",
+      "hours_studied": 22,
+      "attendance": 20,
+      "previous_scores": 11,
+      "sleep_hours": 8,
+      "tutoring_sessions": 11,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 2,
+      "id": 3
+    },
+    {
+      "student_id": "HVGPSBUTsS",
+      "hours_studied": 11,
+      "attendance": 22,
+      "previous_scores": 12,
+      "sleep_hours": 11,
+      "tutoring_sessions": 22,
+      "motivation_level": "Medium",
+      "parental_involvement": "Medium",
+      "learning_disabilities": "No",
+      "teacher_quality": "Medium",
+      "physical_activity": 11,
+      "id": 4
     }
   ],
   "learning_recommendations": [

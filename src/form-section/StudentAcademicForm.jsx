@@ -16,6 +16,13 @@ const StudentAcademicForm = () => {
   const [academicData, setAcademicData] = useState(null);
   const [academicId, setAcademicId] = useState(null);
 
+
+  const getApiBaseUrl = () => {
+    return window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : process.env.API_BASE_URL;
+  };
+
   // Ubah konfigurasi useForm
   const {
     register,
@@ -31,7 +38,7 @@ const StudentAcademicForm = () => {
       try {
         setFetchLoading(true);
         const response = await fetch(
-          `http://localhost:3001/student-academic?student_id=${student_id}`
+          `${getApiBaseUrl()}/student-academic?student_id=${student_id}`
         );
 
         if (!response.ok) {

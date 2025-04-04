@@ -78,7 +78,7 @@ const About = () => {
             </h2>
 
             {/* Isi modal */}
-            <p className="text-gray-700 mb-6">
+            <p className="text-gray-800 mb-6">
               NilaiKu menggunakan teknologi Machine Learning untuk menganalisis
               data nilai siswa dan memberikan prediksi yang akurat. Berikut adalah
               langkah-langkahnya:

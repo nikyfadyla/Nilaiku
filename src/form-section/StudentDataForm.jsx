@@ -235,12 +235,9 @@ function StudentDataForm() {
   };
 
   const getInputClass = (isError = false) => {
-    return clsx(
-      inputClass.base,
-      {
-        [inputClass.error]: isError
-      }
-    );
+    return clsx(inputClass.base, {
+      [inputClass.error]: isError,
+    });
   };
 
   return (
@@ -314,7 +311,7 @@ function StudentDataForm() {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="ri-user-line text-gray-400"></i>
+                  <i className="ri-user-line  text-gray-400"></i>
                 </div>
                 <input
                   type="text"
@@ -346,9 +343,9 @@ function StudentDataForm() {
                   value={formData.email || ""}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  placeholder="Masukkan alamat email"
+                  placeholder="example@gmail.com"
                   required
-                   className={getInputClass(emailError && touched.email)}
+                  className={getInputClass(emailError && touched.email)}
                 />
               </div>
 
@@ -389,8 +386,15 @@ function StudentDataForm() {
                   value={formData.date_of_birth || ""}
                   onChange={handleChange}
                   required
-                  className={getInputClass()}
+                  className={`${getInputClass()} appearance-none`}
                 />
+                <style>
+                  {`
+                    input[type="date"]::-webkit-calendar-picker-indicator {
+                    display: none;
+                    -webkit-appearance: none;
+                }`}
+                </style>
               </div>
             </motion.div>
 

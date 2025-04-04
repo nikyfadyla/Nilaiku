@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+
+html {
+  scroll-padding-top: 100px; /* Sesuaikan dengan tinggi navbar kamu */
+}

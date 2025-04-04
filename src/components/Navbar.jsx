@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 /**
  * Komponen Navbar untuk menampilkan navigasi di bagian atas halaman.
@@ -17,30 +17,31 @@ const Navbar = () => {
   // Efek untuk mendeteksi scroll dan mengubah state `scroll`
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScroll(true); // Jika halaman di-scroll, set `scroll` ke true
-      } else {
-        setScroll(false); // Jika halaman tidak di-scroll, set `scroll` ke false
-      }
+      setScroll(window.scrollY > 10);
     };
 
-    // Tambahkan event listener untuk scroll
-    window.addEventListener("scroll", handleScroll);
+    const handleInitialScrollCheck = () => {
+      setScroll(window.scrollY > 10);
+    };
 
-    // Bersihkan event listener saat komponen di-unmount
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("load", handleInitialScrollCheck);
+
+    handleInitialScrollCheck();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("load", handleInitialScrollCheck);
     };
   }, []);
-
   // Tentukan kelas CSS berdasarkan state `scroll`
   let scrollActive = scroll
     ? "py-6 bg-white/10 shadow" // Jika di-scroll, tambahkan padding dan shadow
     : "py-2 bg-white/10 shadow"; // Jika tidak di-scroll, gunakan padding yang lebih kecil
 
   let scrollService = scroll
-    ? "my-6 bg-white/10 md:shadow" // Jika di-scroll, tambahkan margin dan shadow
-    : "my-2 bg-white/10 md:shadow"; // Jika tidak di-scroll, gunakan margin yang lebih kecil
+    ? "my- bg-white/10 md:shadow" // Jika di-scroll, tambahkan margin dan shadow
+    : "my-0 bg-white/10 md:shadow"; // Jika tidak di-scroll, gunakan margin yang lebih kecil
 
   /**
    * Fungsi untuk membuka/menutup menu mobile.
@@ -60,7 +61,7 @@ const Navbar = () => {
     <div>
       {/* Navbar utama */}
       <nav
-        className={`flex px-4 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrollActive}`}
+        className={`flex px-4 bg-amber-200 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrollActive}`}
       >
         {/* Logo atau judul navbar */}
         <div className="inline-flex items-center">
@@ -137,8 +138,8 @@ const Navbar = () => {
                   }
                 }}
                 className="flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
-  after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
-  after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
+        after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
+        after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               >
                 Service
               </a>
@@ -150,7 +151,7 @@ const Navbar = () => {
                     toggleServiceMenu();
                   }
                 }}
-                className="p-2 md:hidden transition-discrete   transition-transform duration-300"
+                className="p-2 md:hidden transition-discrete transition-transform duration-300"
               >
                 <i
                   className={`ri-arrow-down-s-line text-2xl ${
@@ -160,15 +161,15 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Sub-menu Service */}
+            {/* Sub-menu Service sebagai ul dengan li bertingkat */}
             <ul
               className={`
-  md:invisible md:group-hover:visible md:opacity-0 ml-1 md:group-hover:opacity-100
-  transition-all duration-300 
-  md:absolute top-full left-0 md:w-48 
-  md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
-  ${isServiceOpen ? "block opacity-100" : "hidden transition-discrete md:block opacity-0"} ${scrollService}
-`}
+      md:invisible md:group-hover:visible md:opacity-0 ml-1 md:group-hover:opacity-100
+      transition-all duration-300 
+      md:absolute top-full left-0 md:w-48 
+      md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
+      ${isServiceOpen ? "block opacity-100" : "hidden transition-discrete md:block opacity-0"} ${scrollService}
+    `}
             >
               <li>
                 <a
@@ -185,16 +186,17 @@ const Navbar = () => {
                       });
                     }
                   }}
-                  className="inline-flex px-4 py-3 hover:bg-white
-                  hover:bg-opacity-50 rounded-lg relative text-[#B348C7] hover:text-[#F3BC55]
-                  after:absolute after:content-[''] after:block after:h-[0.1rem]
-                  after:bg-[#F3BC55] after:w-0 after:left-4 after:right-4
-                  after:bottom-1 after:transition-all after:duration-300
-                  hover:after:w-[calc(100%-2rem)]"
+                  className="inline-flex  ml-5 my-3  
+        hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
+        relative after:absolute after:content-[''] after:h-[1px] 
+        after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-10px] 
+        after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  {" "}
                   Prediksi Nilai Otomatis
                 </a>
+              </li>
+
+              <li>
                 <a
                   href="#analisis"
                   onClick={(e) => {
@@ -209,18 +211,20 @@ const Navbar = () => {
                       });
                     }
                   }}
-                  className="inline-flex px-4 py-3 hover:bg-white
-                  hover:bg-opacity-50 rounded-lg relative text-[#B348C7] hover:text-[#F3BC55]
-                  after:absolute after:content-[''] after:block after:h-[0.1rem]
-                  after:bg-[#F3BC55] after:w-0 after:left-4 after:right-4
-                  after:bottom-1 after:transition-all after:duration-300
-                  hover:after:w-[calc(100%-2rem)]"
+                  className="inline-block ml-5 my-3 
+        hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
+                
+                 
+                    relative after:absolute after:content-[''] after:h-[1px] 
+        after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-10px] 
+        after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  {" "}
                   Analisis Data Interaktif
                 </a>
+              </li>
+              <li>
                 <a
-                  href="#rekomendasi"
+                  href="#analisis"
                   onClick={(e) => {
                     e.preventDefault();
                     const element = document.getElementById("features");
@@ -233,15 +237,15 @@ const Navbar = () => {
                       });
                     }
                   }}
-                  className="inline-flex px-4 py-3 hover:bg-white
-                  hover:bg-opacity-50 rounded-lg relative text-[#B348C7] hover:text-[#F3BC55]
-                  after:absolute after:content-[''] after:block after:h-[0.1rem]
-                  after:bg-[#F3BC55] after:w-0 after:left-4 after:right-4
-                  after:bottom-1 after:transition-all after:duration-300
-                  hover:after:w-[calc(100%-2rem)]"
+                  className="inline-flex ml-5 my-3 md:mb-7  
+        hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
+                
+                 
+                    relative after:absolute after:content-[''] after:h-[1px] 
+        after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-10px] 
+        after:transition-all after:duration-300 hover:after:w-full"
                 >
-                  {" "}
-                  Rekomendasi Pembelajaran
+                  Rekomendasi pembelajaran
                 </a>
               </li>
             </ul>
@@ -251,7 +255,7 @@ const Navbar = () => {
           <li>
             <a
               href="#team"
-              className=" inline-flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+              className=" inline-flex md:inline-flex mx-4 mt-4 mb-7 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {

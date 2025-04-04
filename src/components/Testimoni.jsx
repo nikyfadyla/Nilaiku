@@ -1,5 +1,5 @@
-import React from "react";
 import { Quote } from "lucide-react"; // Menggunakan ikon kutipan dari lucide-react
+import React from "react";
 
 const Testimoni = () => {
   const testimonials = [
@@ -31,15 +31,18 @@ const Testimoni = () => {
 
   return (
     <div className="py-12 mb-20 mx-auto max-w-6xl px-4">
-      <h2 className="text-3xl font-semibold mb-10 text-center text-purple-600 font-bold
-">
+      <h2
+        className="text-3xl font-semibold mb-10 text-center text-purple-600  
+"
+      >
         Testimoni
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {testimonials.map((item, index) => (
           <div
             key={index}
-            className="mx-auto overflow-hidden transition-transform hover:scale-105 duration-300" data-aos="flip-down"
+            className="mx-auto overflow-hidden transition-transform hover:scale-105 duration-300"
+            data-aos="flip-down"
           >
             <div className="relative bg-white border border-purple-400 px-7 py-10 rounded-lg shadow-lg">
               {/* Ikon Kutipan */}

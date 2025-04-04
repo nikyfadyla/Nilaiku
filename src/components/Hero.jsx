@@ -16,30 +16,29 @@ const Hero = () => {
         {/* Flex container untuk konten hero */}
         <div className="flex-grow w-full">
           {/* Grid layout untuk konten hero (1 kolom di mobile, 2 kolom di desktop) */}
-          <div className="hero h-full grid grid-cols-1 md:grid-cols-2 pt-14 md:pt-30 gap-8">
+          <div className="hero h-full grid grid-cols-1   md:grid-cols-2 gap-8">
             {/* Bagian kiri: Judul dan deskripsi */}
             <div
-              className="mx-auto md:mx-15 lg:mx-20 flex flex-col justify-center"
+              className="mx-auto md:mx-15 lg:mx-20 flex flex-col  pt-14 md:pt-30"
               data-aos="fade-up"
               data-aos-duration="1000"
             >
               {/* Judul utama */}
-              <h1 className="text-[#B348C7] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Selamat Datang di Nilai
-                <span className="text-[#F3BC55]">Ku</span>{" "}
+              <h1 className=" text-[#F3BC55] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-center md:text-left leading-tight">
+                Selamat Datang di <span className=" text-[#B348C7]">Nilai</span>
+                <span className=" text-[#F3BC55]">Ku</span>{" "}
                 {/* Warna teks yang berbeda untuk "Ku" */}
               </h1>
               {/* Deskripsi */}
-              <p className="text-lg md:text-xl text-gray-700 mb-8 font-light">
+              <p className="text-lg text-center md:text-left md:text-xl text-gray-700 mb-8 font-light">
                 Prediksi nilai ujian siswa dengan analisis data berbasis Machine
                 Learning. Dapatkan rekomendasi pembelajaran yang tepat untuk
                 meningkatkan prestasi akademik Anda.
               </p>
-              {/* Tombol CTA tambahan */}
             </div>
 
             {/* Bagian kanan: Gambar ilustrasi dan tombol CTA (Call to Action) */}
-            <div className="relative flex flex-col justify-center py-20 md:py-0 px-10">
+            <div className="relative flex flex-col justify-center py-20 md:py-0 px-10  pt-14 md:pt-30">
               {/* Container untuk gambar ilustrasi dan tombol */}
               <div
                 className="relative w-full flex flex-col items-center mt-[-50px] md:mt-[-20px] lg:mt-[-80px]"
@@ -58,7 +57,7 @@ const Hero = () => {
                   to="/student-data"
                   className="absolute bottom-8 md:bottom-12
                   bg-[#F9CB57] font-[600] md:font-[700] md:text-[16px] text-[14px] text-white md:px-8 px-6 py-3 md:py-4
-                  rounded-full shadow-lg hover:bg-[#E8B84C] hover:shadow-xl transition-all duration-300 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700"
+                  rounded-2xl shadow-lg hover:bg-[#E8B84C] hover:shadow-xl transition-all duration-300 focus:outline-2 focus:outline-offset-2 focus:outline-violet-500 active:bg-violet-700"
                 >
                   Ayo mulai Prediksi, klik disini!
                 </Link>
