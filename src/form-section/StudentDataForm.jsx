@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { nanoid } from "nanoid";
-import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function StudentDataForm() {
   const { id: urlStudentId } = useParams();
@@ -142,6 +142,7 @@ function StudentDataForm() {
       console.error("Error:", err);
       setError(err.message);
     } finally {
+   
       setIsSubmitting(false);
     }
   };
@@ -245,61 +246,59 @@ function StudentDataForm() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 "
+      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-md mx-auto">
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8 text-center"
-        >
-          <h1 className="text-3xl font-bold text-gray-800 mb-2 mt-4">
-            {urlStudentId ? "Edit Data Siswa" : "Formulir Siswa Baru"}
-          </h1>
-          <p className="text-gray-600">
-            {urlStudentId
-              ? "Perbarui Personal data Anda"
-              : "Personal data anda"}
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ scale: 0.98, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
-        >
+      <div className="max-w-5xl mx-auto">
+        {/* HEADING SECTION */}
+        <div className="container">
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-8 text-center"
           >
-            <div className="flex items-center justify-center space-x-2">
-              <motion.div
-                animate={{
-                  y: [0, -5, 0],
-                  transition: {
-                    duration: 2,
-                    repeat: Infinity,
-                  },
-                }}
-              >
-                <i className="ri-user-3-line text-3xl text-white"></i>
-              </motion.div>
-              <div>
-                <h2 className="text-2xl font-bold text-white">
-                  {urlStudentId ? "Informasi Diri" : "Data Pribadi"}
-                </h2>
-                <p className="text-blue-100">
-                  {urlStudentId
-                    ? "Perbarui data pribadi siswa"
-                    : "Lengkapi data pribadi siswa"}
-                </p>
-              </div>
-            </div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2 mt-4">
+              {urlStudentId ? "Edit Data Siswa" : "Formulir Siswa Baru"}
+            </h1>
+            <p className="text-gray-600">
+              {urlStudentId
+                ? "Perbarui Personal data Anda"
+                : "Personal data anda"}
+            </p>
           </motion.div>
+        </div>
 
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        {/* FORM SECTION */}
+
+        <div className=" mx-auto max-w-xl bg-gray-50 py-6 md:px-6 px-5 rounded-lg">
+          <div className=" mb-10">
+            <h2 className="font-extrabold text-2xl text-[#B348C7]">
+              Nilai<span className="text-[#F3BC55]">Ku</span>
+            </h2>
+          </div>
+          <div className="flex mb-10">
+            <motion.div
+              animate={{
+                y: [0, -5, 0],
+                transition: {
+                  duration: 2,
+                  repeat: Infinity,
+                },
+              }}
+            ></motion.div>
+            <div>
+              <h2 className="text-3xl font-bold text-purple-900 mb-2">
+                {urlStudentId ? "Informasi Diri" : "Data Pribadi"}
+              </h2>
+              <p className="text-gray-600">
+                {urlStudentId
+                  ? "Perbarui data pribadi siswa"
+                  : "Lengkapi data pribadi siswa"}
+              </p>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -452,64 +451,68 @@ function StudentDataForm() {
                 )}
               </AnimatePresence>
 
-              <motion.button
-                type="submit"
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0px 5px 15px rgba(79, 70, 229, 0.3)",
-                }}
-                whileTap={{ scale: 0.98 }}
-                disabled={isSubmitting}
-                className={`w-full flex justify-center items-center px-6 py-3 rounded-xl text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
-                  isSubmitting
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-                }`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Memproses...
-                  </>
-                ) : (
-                  <>
-                    {urlStudentId ? "Perbarui Data" : "Lanjutkan"}
-                    <i className="ri-arrow-right-line ml-2"></i>
-                  </>
-                )}
-              </motion.button>
+              <div className="flex justify-end">
+                <motion.button
+                  type="submit"
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0px 5px 15px rgba(79, 70, 229, 0.3)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  disabled={isSubmitting}
+                  className={`flex justify-center  px-6 py-3 rounded-lg text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
+                    isSubmitting
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      {/* Spinner SVG dari contoh sebelumnya */}
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" // Sesuaikan margin jika perlu
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      <span>Memproses...</span> {/* Bungkus teks dengan span */}
+                    </>
+                  ) : (
+                    <>
+                      {urlStudentId ? "Perbarui Data" : "Lanjutkan"}
+                      <i className="ri-arrow-right-line ml-2"></i>{" "}
+                      {/* Pastikan Anda menggunakan library ikon seperti Remix Icon */}
+                    </>
+                  )}
+                </motion.button>
+              </div>
             </motion.div>
           </form>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-6 text-center text-sm text-gray-500"
-        >
-          <p>Formulir ini adalah bagian dari sistem manajemen siswa</p>
-        </motion.div>
+        </div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="mt-6 text-center text-sm text-gray-500"
+      >
+        <p>Formulir ini adalah bagian dari prediksi nilai siswa</p>
+      </motion.div>
     </motion.div>
   );
 }

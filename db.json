@@ -2,73 +2,131 @@
   "students": [
     {
       "id": 1,
-      "student_id": "4WrT5U4lzW",
-      "name": "2121",
-      "date_of_birth": "0022-02-22",
-      "gender": "Perempuan"
+      "student_id": "Bp77wADJK_",
+      "name": "21",
+      "email": "222@gmail.com",
+      "date_of_birth": "0122-11-11",
+      "gender": "Laki-laki"
     },
     {
       "id": 2,
-      "student_id": "FM4y4kDtbS",
-      "name": "212",
-      "date_of_birth": "0022-02-22",
+      "student_id": "TavcQUCIta",
+      "name": "niky",
+      "email": "21@gmail.com",
+      "date_of_birth": "2222-02-22",
       "gender": "Laki-laki"
     },
     {
       "id": 3,
-      "student_id": "0JNWAhdjun",
-      "name": "wwww",
-      "email": "wwww@gmail",
-      "date_of_birth": "0022-02-22",
-      "gender": "Perempuan"
-    },
-    {
-      "id": 4,
-      "student_id": "zxE6VlhSAn",
-      "name": "22",
-      "email": "111111@gmail.com",
-      "date_of_birth": "0002-02-22",
+      "student_id": "9-66ByrPbo",
+      "name": "122",
+      "email": "112@gmail.com",
+      "date_of_birth": "22222-02-12",
       "gender": "Laki-laki"
     },
     {
-      "id": 5,
-      "student_id": "FELgN6WA0x",
-      "name": "22",
-      "email": "11@gmail.com",
-      "date_of_birth": "0022-02-22",
+      "id": 4,
+      "student_id": "WEH983ZnYc",
+      "name": "apaa",
+      "email": "aa@gmail.com",
+      "date_of_birth": "1122-12-21",
       "gender": "Perempuan"
     },
     {
+      "id": 5,
+      "student_id": "aIkhyGcWu1",
+      "name": "211",
+      "email": "22@gmail.com",
+      "date_of_birth": "2222-02-11",
+      "gender": "Laki-laki"
+    },
+    {
       "id": 6,
-      "student_id": "Xd_beDcfRh",
-      "name": "niky",
-      "email": "apa@gmail.com",
-      "date_of_birth": "0022-02-22",
+      "student_id": "Az5FhohIhk",
+      "name": "22111",
+      "email": "wq@gmail.com",
+      "date_of_birth": "0222-02-22",
       "gender": "Laki-laki"
     },
     {
       "id": 7,
-      "student_id": "YK_A3obF1F",
-      "name": "22",
-      "email": "11@gmail.com",
-      "date_of_birth": "0022-02-22",
+      "student_id": "cvj-v0hlIn",
+      "name": "22111",
+      "email": "wq@gmail.com",
+      "date_of_birth": "0222-02-22",
       "gender": "Laki-laki"
     },
     {
       "id": 8,
-      "student_id": "HVGPSBUTsS",
+      "student_id": "aoAiz-ac6E",
+      "name": "ss",
+      "email": "44@gmail.com",
+      "date_of_birth": "12121-02-21",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 9,
+      "student_id": "P7BqdtnzS2",
+      "name": "221",
+      "email": "2112@gmail.com",
+      "date_of_birth": "0011-11-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 10,
+      "student_id": "aRvgVx0aYv",
+      "name": "111",
+      "email": "222@gmail.com",
+      "date_of_birth": "0222-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 11,
+      "student_id": "FmNWB71gMW",
+      "name": "21121111",
+      "email": "2222@gmail.com",
+      "date_of_birth": "0011-02-22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 12,
+      "student_id": "yWDMlrUAWG",
+      "name": "wq",
+      "email": "qwq@gmail.com",
+      "date_of_birth": "2212-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 13,
+      "student_id": "NFSZkCr1as",
       "name": "22",
-      "email": "dd@gmail.com",
-      "date_of_birth": "0022-02-22",
+      "email": "1112@gmail.com",
+      "date_of_birth": "0022-11-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 14,
+      "student_id": "TLD7gxc2vH",
+      "name": "new data",
+      "email": "datanew@gmail.com",
+      "date_of_birth": "0222-12-21",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 15,
+      "student_id": "x4FIAQt0U6",
+      "name": "21",
+      "email": "122@gmalil.com",
+      "date_of_birth": "2211-02-11",
       "gender": "Laki-laki"
     }
   ],
   "student-academic": [
     {
-      "student_id": "4WrT5U4lzW",
+      "student_id": "FmNWB71gMW",
       "hours_studied": 0,
-      "attendance": 21,
-      "previous_scores": 22,
+      "attendance": 12,
+      "previous_scores": 17,
       "sleep_hours": 0,
       "tutoring_sessions": 0,
       "motivation_level": "Medium",
@@ -79,10 +137,10 @@
       "id": 1
     },
     {
-      "student_id": "FM4y4kDtbS",
+      "student_id": "yWDMlrUAWG",
       "hours_studied": 0,
-      "attendance": 11,
-      "previous_scores": 11,
+      "attendance": 9,
+      "previous_scores": 21,
       "sleep_hours": 0,
       "tutoring_sessions": 0,
       "motivation_level": "Medium",
@@ -93,31 +151,29 @@
       "id": 2
     },
     {
-      "student_id": "Xd_beDcfRh",
-      "hours_studied": 22,
-      "attendance": 20,
-      "previous_scores": 11,
-      "sleep_hours": 8,
-      "tutoring_sessions": 11,
-      "motivation_level": "Medium",
-      "parental_involvement": "Medium",
-      "learning_disabilities": "No",
-      "teacher_quality": "Medium",
-      "physical_activity": 2,
+      "student_id": "TLD7gxc2vH",
+      "Attendance": 80,
+      "Hours_Studied": 33,
+      "Previous_Scores": 24,
+      "Sleep_Hours": 11,
+      "Tutoring_Sessions": 2,
+      "Peer_Influence": "Neutral",
+      "Motivation_Level": "High",
+      "Teacher_Quality": "Biasa",
+      "Acces_to_Resources": "Medium",
       "id": 3
     },
     {
-      "student_id": "HVGPSBUTsS",
-      "hours_studied": 11,
-      "attendance": 22,
-      "previous_scores": 12,
-      "sleep_hours": 11,
-      "tutoring_sessions": 22,
-      "motivation_level": "Medium",
-      "parental_involvement": "Medium",
-      "learning_disabilities": "No",
-      "teacher_quality": "Medium",
-      "physical_activity": 11,
+      "student_id": "x4FIAQt0U6",
+      "Attendance": 21,
+      "Hours_Studied": 11,
+      "Previous_Scores": 22,
+      "Sleep_Hours": 0,
+      "Tutoring_Sessions": 0,
+      "Peer_Influence": "Netral",
+      "Motivation_Level": "Medium",
+      "Teacher_Quality": "Medium",
+      "Acces_to_Resources": "Medium",
       "id": 4
     }
   ],

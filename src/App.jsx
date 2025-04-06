@@ -1,19 +1,24 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import React, { useEffect } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 
-import Navbar from "./components/Navbar.jsx";
-import NavbarForm from "./components/NavbarForm.jsx";
-import Hero from "./components/Hero.jsx";
 import About from "./components/Abouts.jsx";
 import Features from "./components/Features.jsx";
+import Footer from "./components/Footer.jsx";
+import Hero from "./components/Hero.jsx";
+import Navbar from "./components/Navbar.jsx";
+import NavbarForm from "./components/NavbarForm.jsx";
 import Team from "./components/Team.jsx";
 import Testimoni from "./components/Testimoni.jsx";
-import Footer from "./components/Footer.jsx";
 
-import StudentDataForm from "./form-section/StudentDataForm.jsx";
 import StudentAcademicForm from "./form-section/StudentAcademicForm.jsx";
+import StudentDataForm from "./form-section/StudentDataForm.jsx";
 import StudentDetailPage from "./form-section/StudentDetailPage.jsx";
 
 function Layout({ children }) {
@@ -47,7 +52,10 @@ const backgroundStyle = {
   background:
     "radial-gradient(circle, rgb(255, 255, 255), rgb(232, 215, 255), rgb(232, 215, 255))",
   minHeight: "100vh",
+ 
 };
+
+
 
 function App() {
   useEffect(() => {

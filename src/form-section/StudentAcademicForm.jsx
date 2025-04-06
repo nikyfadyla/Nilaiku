@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import "remixicon/fonts/remixicon.css"; // Import Remix Icon CSS
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const StudentAcademicForm = () => {
   const { student_id } = useParams();
@@ -15,13 +14,6 @@ const StudentAcademicForm = () => {
   const [success, setSuccess] = useState(false);
   const [academicData, setAcademicData] = useState(null);
   const [academicId, setAcademicId] = useState(null);
-
-
-  const getApiBaseUrl = () => {
-    return window.location.hostname === "localhost"
-      ? "http://localhost:3001"
-      : process.env.API_BASE_URL;
-  };
 
   // Ubah konfigurasi useForm
   const {
@@ -38,7 +30,7 @@ const StudentAcademicForm = () => {
       try {
         setFetchLoading(true);
         const response = await fetch(
-          `${getApiBaseUrl()}/student-academic?student_id=${student_id}`
+          `http://localhost:3001/student-academic?student_id=${student_id}`
         );
 
         if (!response.ok) {
@@ -53,30 +45,28 @@ const StudentAcademicForm = () => {
 
           reset({
             student_id: data[0].student_id,
-            hours_studied: data[0].hours_studied,
-            attendance: data[0].attendance,
-            previous_scores: data[0].previous_scores,
-            sleep_hours: data[0].sleep_hours,
-            tutoring_sessions: data[0].tutoring_sessions,
-            motivation_level: data[0].motivation_level,
-            parental_involvement: data[0].parental_involvement,
-            learning_disabilities: data[0].learning_disabilities,
-            teacher_quality: data[0].teacher_quality,
-            physical_activity: data[0].physical_activity,
+            Attendance: data[0].Attendance,
+            Hours_Studied: data[0].Hours_Studied,
+            Previous_Scores: data[0].Previous_Scores,
+            Sleep_Hours: data[0].Sleep_Hours,
+            Tutoring_Sessions: data[0].Tutoring_Sessions,
+            Peer_Influence: data[0].Peer_Influence,
+            Motivation_Level: data[0].Motivation_Level,
+            Teacher_Quality: data[0].Teacher_Quality,
+            Acces_to_Resources: data[0].Acces_to_Resources,
           });
         } else {
           reset({
             student_id: student_id || "",
-            hours_studied: "",
-            attendance: "",
-            previous_scores: "",
-            sleep_hours: "",
-            tutoring_sessions: "",
-            motivation_level: "Medium",
-            parental_involvement: "Medium",
-            learning_disabilities: "No",
-            teacher_quality: "Medium",
-            physical_activity: "",
+            Attendance: "",
+            Hours_Studied: "",
+            Previous_Scores: "",
+            Sleep_Hours: "",
+            Tutoring_Sessions: "",
+            Peer_Influence: "Netral",
+            Motivation_Level: "Medium",
+            Teacher_Quality: "Medium",
+            Acces_to_Resources: "Medium",
           });
         }
       } catch (err) {
@@ -99,12 +89,12 @@ const StudentAcademicForm = () => {
 
     const formDataToSubmit = { ...data };
     const numericFields = [
-      "hours_studied",
-      "attendance",
-      "previous_scores",
-      "sleep_hours",
-      "tutoring_sessions",
-      "physical_activity",
+      "Attendance",
+      "Hours_Studied",
+      "Previous_Scores",
+      "Sleep_Hours",
+      "Tutoring_Sessions",
+      
     ];
 
     numericFields.forEach((field) => {
@@ -190,7 +180,7 @@ const StudentAcademicForm = () => {
           inputMode="numeric"
           defaultValue={defaultValue}
           {...register(name, {
-            ...(name === "previous_scores" && {
+            ...(name === "Previous_Scores" && {
               max: {
                 value: 100,
                 message: "Nilai sebelumnya tidak boleh melebihi 100",
@@ -200,7 +190,7 @@ const StudentAcademicForm = () => {
                 message: "Nilai sebelumnya tidak boleh kurang dari 0",
               },
             }),
-            ...(name === "attendance" && {
+            ...(name === "Attendance" && {
               max: {
                 value: 100,
                 message: "Kehadiran tidak boleh melebihi 100%",
@@ -264,17 +254,22 @@ const StudentAcademicForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-12 px-4 sm:px-6">
+    // Form Section
+    <div className="min-h-screen  py-25 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-6 px-8">
-          <h2 className="text-2xl font-bold text-center text-white flex items-center justify-center space-x-3">
-            <i className="ri-book-line text-3xl"></i>
+        {/* Header section */}
+        <div className="  pt-10 pb-4 px-10">
+          <div className=" mb-10">
+            <h2 className="font-extrabold text-2xl text-[#B348C7]">
+              Nilai<span className="text-[#F3BC55]">Ku</span>
+            </h2>
+          </div>
+          <h2 className="text-3xl font-bold   text-purple-800 flex  space-x-3 mb-4">
             <span>
-              {academicId
-                ? "Edit Data Akademik Siswa"
-                : "Form Input Data Akademik Siswa"}
+              {academicId ? "Edit Data Akademik Siswa" : "Data Akademik Siswa"}
             </span>
           </h2>
+          <p className="text-gray-600 ">lengkapi data akademik anda</p>
         </div>
 
         <div className="p-8">
@@ -294,27 +289,13 @@ const StudentAcademicForm = () => {
             </div>
           )}
 
+          {/* Form Input */}
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField
-                label="Nilai Ujian Sebelumnya"
-                name="previous_scores"
-                icon="bar-chart-grouped-line"
-                validation={{
-                  validate: (value) => {
-                    const numValue = Number(value);
-                    return numValue <= 100 || "Nilai tidak boleh melebihi 100";
-                  },
-                }}
-              />
-              <InputField
-                label="Jam Belajar per Minggu"
-                name="hours_studied"
-                icon="time-line"
-              />
-              <InputField
                 label="Persentase Kehadiran (%)"
-                name="attendance"
+                name="Attendance"
                 icon="user-follow-line"
                 validation={{
                   validate: (value) => {
@@ -324,48 +305,64 @@ const StudentAcademicForm = () => {
                 }}
               />
               <InputField
+                label="Jam Belajar per Minggu"
+                name="Hours_Studied"
+                icon="time-line"
+              />
+              <InputField
+                label="Nilai Ujian Sebelumnya"
+                name="Previous_Scores"
+                icon="bar-chart-grouped-line"
+                validation={{
+                  validate: (value) => {
+                    const numValue = Number(value);
+                    return numValue <= 100 || "Nilai tidak boleh melebihi 100";
+                  },
+                }}
+              />
+
+              <InputField
+                label="Jam Tidur per Malam"
+                name="Sleep_Hours"
+                icon="zzz-line"
+              />
+
+              <InputField
                 label="Jumlah Sesi Bimbingan"
-                name="tutoring_sessions"
+                name="Tutoring_Sessions"
                 icon="group-line"
+              />
+
+              <DropdownField
+                label="Pengaruh Teman Sekitar"
+                name="Peer_Influence"
+                options={["Postive", "Neutral", "Negative"]}
+                icon="group-3-line"
               />
               <DropdownField
                 label="Tingkat Motivasi"
-                name="motivation_level"
+                name="Motivation_Level"
                 options={["Low", "Medium", "High"]}
                 icon="mental-health-line"
               />
-              <DropdownField
-                label="Keterlibatan Orangtua"
-                name="parental_involvement"
-                options={["Low", "Medium", "High"]}
-                icon="parent-line"
-              />
-              <InputField
-                label="Jam Tidur per Malam"
-                name="sleep_hours"
-                icon="zzz-line"
-              />
-              <InputField
-                label="Jam Aktivitas Fisik"
-                name="physical_activity"
-                icon="run-line"
-              />
-              <DropdownField
-                label="Kesulitan Belajar"
-                name="learning_disabilities"
-                options={["Yes", "No"]}
-                icon="brain-line"
-              />
+
               <DropdownField
                 label="Kualitas Guru"
-                name="teacher_quality"
+                name="Teacher_Quality"
                 options={["Low", "Medium", "High"]}
                 icon="user-star-line"
               />
+              <DropdownField
+                label="Akses Terhadap Sumber Daya Pendidikan"
+                name="Teacher_Quality"
+                options={["Mudah", "Biasa", "Susah"]}
+                icon="book-open-line"
+              />
             </div>
 
+            {/* Button Section */}
             <div className="pt-6 border-t border-gray-200 mt-8">
-              <div className="flex flex-col sm:flex-row justify-between gap-4">
+              <div className="flex flex-col sm:flex-row justify-end gap-4">
                 <button
                   onClick={handleBack}
                   type="button"

@@ -37,7 +37,7 @@ const Navbar = () => {
   // Tentukan kelas CSS berdasarkan state `scroll`
   let scrollActive = scroll
     ? "py-6 bg-white/10 shadow" // Jika di-scroll, tambahkan padding dan shadow
-    : "py-2 bg-white/10 shadow"; // Jika tidak di-scroll, gunakan padding yang lebih kecil
+    : ""; // Jika tidak di-scroll, gunakan padding yang lebih kecil
 
   let scrollService = scroll
     ? "my- bg-white/10 md:shadow" // Jika di-scroll, tambahkan margin dan shadow
@@ -61,7 +61,7 @@ const Navbar = () => {
     <div>
       {/* Navbar utama */}
       <nav
-        className={`flex px-4 bg-amber-200 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 ${scrollActive}`}
+        className={`  flex px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 py-2 bg-white/10 shadow`}
       >
         {/* Logo atau judul navbar */}
         <div className="inline-flex items-center">

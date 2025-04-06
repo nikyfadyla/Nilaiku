@@ -74,8 +74,8 @@ const StudentDetailPage = () => {
           setAcademicData(academicResult);
 
           // FINAL SCORE SECTION
-          const previousScore = parseFloat(academicResult.previous_scores) || 0;
-          const attendance = parseFloat(academicResult.attendance) || 0;
+          const previousScore = parseFloat(academicResult.Previous_Scores) || 0;
+          const attendance = parseFloat(academicResult.Attendance) || 0;
 
           const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(
             2
@@ -177,15 +177,15 @@ const StudentDetailPage = () => {
 
     const strengths = [];
 
-    if (parseFloat(academicData.attendance) > 80) {
+    if (parseFloat(academicData.Attendance) > 80) {
       strengths.push("Kehadiran Tinggi");
     }
 
-    if (parseFloat(academicData.hours_studied) > 10) {
+    if (parseFloat(academicData.Hours_Studied) > 10) {
       strengths.push("Jam Belajar Optimal");
     }
 
-    if (parseFloat(academicData.motivation_level) > 7) {
+    if (parseFloat(academicData.Motivation_Level) > 7) {
       strengths.push("Motivasi Tinggi");
     }
 
