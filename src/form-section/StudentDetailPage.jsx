@@ -19,6 +19,17 @@ import {
   PieChart,
   BookOpen,
   Award,
+  AlertTriangle,
+  Smile,
+  Star,
+  Trophy,
+  Activity,
+  Users,
+  Moon,
+  Dumbbell,
+  AlertCircle,
+  UserCheck,
+  TrendingUp,
 } from "lucide-react";
 
 const StudentDetailPage = () => {
@@ -71,23 +82,35 @@ const StudentDetailPage = () => {
 
         if (academicDataResult && academicDataResult.length > 0) {
           const academicResult = academicDataResult[0];
-          setAcademicData(academicResult);
+          
+          // Format academic data
+          const formattedAcademicData = {
+            ...academicResult,
+            previous_scores: academicResult.Previous_Scores ? parseFloat(academicResult.Previous_Scores).toFixed(2) : '0',
+            attendance: academicResult.Attendance ? parseFloat(academicResult.Attendance).toFixed(2) + '%' : '0%',
+            hours_studied: academicResult.Hours_Studied ? parseFloat(academicResult.Hours_Studied).toFixed(1) + ' jam' : '0 jam',
+            tutoring_sessions: academicResult.Tutoring_Sessions || '0',
+            motivation_level: academicResult.Motivation_Level ? `${academicResult.Motivation_Level}/10` : '0/10',
+            parental_involvement: academicResult.parental_involvement ? `${academicResult.parental_involvement}/10` : '0/10',
+            sleep_hours: academicResult.Sleep_Hours ? parseFloat(academicResult.Sleep_Hours).toFixed(1) + ' jam' : '0 jam',
+            physical_activity: academicResult.Physical_Activity ? parseFloat(academicResult.Physical_Activity).toFixed(1) + ' jam' : '0 jam',
+            learning_disabilities: academicResult.Learning_Disabilities ? 'Ya' : 'Tidak',
+            teacher_quality: academicResult.Teacher_Quality ? `${academicResult.Teacher_Quality}/10` : '0/10'
+          };
 
-          // FINAL SCORE SECTION
+          setAcademicData(formattedAcademicData);
+
+          // Calculate final score
           const previousScore = parseFloat(academicResult.Previous_Scores) || 0;
           const attendance = parseFloat(academicResult.Attendance) || 0;
-
-          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(
-            2
-          );
+          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(2);
           setScore(finalScore);
 
-          // Set prediction date (today)
+          // Set prediction date
           const today = new Date();
           setPredictionDate(today);
 
-          // Generate sample progress data (for illustration)
-          // In real implementation, fetch this from backend
+          // Generate progress data
           const mockProgressData = [
             {
               month: "Jan",
@@ -101,21 +124,16 @@ const StudentDetailPage = () => {
             { month: "Apr", nilai: parseFloat(finalScore) },
             {
               month: "Mei",
-              nilai:
-                parseFloat(finalScore) + 3 > 100
-                  ? 100
-                  : parseFloat(finalScore) + 3,
+              nilai: parseFloat(finalScore) + 3 > 100 ? 100 : parseFloat(finalScore) + 3,
             },
             {
               month: "Jun",
-              nilai:
-                parseFloat(finalScore) + 7 > 100
-                  ? 100
-                  : parseFloat(finalScore) + 7,
+              nilai: parseFloat(finalScore) + 7 > 100 ? 100 : parseFloat(finalScore) + 7,
             },
           ];
           setProgressData(mockProgressData);
 
+          // Get learning recommendation
           const recommendationResponse = await fetch(
             `http://localhost:3001/learning_recommendations`
           );
@@ -165,13 +183,11 @@ const StudentDetailPage = () => {
     });
   };
 
-  // Format prediction date with date-fns
   const formatPredictionDate = (date) => {
     if (!date) return "-";
     return format(date, "dd MMMM yyyy", { locale: id });
   };
 
-  // Calculate academic strength
   const calculateStrength = () => {
     if (!academicData) return [];
 
@@ -200,10 +216,69 @@ const StudentDetailPage = () => {
     return strengths;
   };
 
-  // Loading state with animation
+  const getScoreTheme = (score) => {
+    const numericScore = parseFloat(score);
+    
+    if (numericScore >= 90) {
+      return {
+        gradient: "from-blue-600 to-blue-800",
+        bgColor: "bg-blue-100",
+        textColor: "text-blue-800",
+        borderColor: "border-blue-200",
+        icon: <Trophy size={24} className="text-blue-600" />,
+        message: "Luar Biasa! Siswa berada di peringkat teratas dengan prestasi istimewa",
+        badgeText: "Prestasi Istimewa",
+        badgeColor: "bg-blue-600 text-white",
+        chartColor: "#2563eb",
+        activeDotColor: "#1e40af"
+      };
+    } else if (numericScore > 75) {
+      return {
+        gradient: "from-blue-500 to-blue-700",
+        bgColor: "bg-blue-50",
+        textColor: "text-blue-700",
+        borderColor: "border-blue-100",
+        icon: <Star size={24} className="text-blue-500" />,
+        message: "Sangat Baik! Siswa menunjukkan performa akademik yang sangat memuaskan",
+        badgeText: "Sangat Baik",
+        badgeColor: "bg-blue-500 text-white",
+        chartColor: "#3b82f6",
+        activeDotColor: "#1d4ed8"
+      };
+    } else if (numericScore > 50) {
+      return {
+        gradient: "from-orange-500 to-orange-600",
+        bgColor: "bg-orange-50",
+        textColor: "text-orange-700",
+        borderColor: "border-orange-100",
+        icon: <Smile size={24} className="text-orange-500" />,
+        message: "Cukup Baik! Siswa memiliki potensi yang bisa ditingkatkan lagi",
+        badgeText: "Cukup Baik",
+        badgeColor: "bg-orange-500 text-white",
+        chartColor: "#f97316",
+        activeDotColor: "#ea580c"
+      };
+    } else {
+      return {
+        gradient: "from-red-500 to-red-600",
+        bgColor: "bg-red-50",
+        textColor: "text-red-700",
+        borderColor: "border-red-100",
+        icon: <AlertTriangle size={24} className="text-red-500" />,
+        message: "Perlu Perhatian! Siswa membutuhkan bimbingan dan pendampingan lebih",
+        badgeText: "Perlu Perhatian",
+        badgeColor: "bg-red-500 text-white",
+        chartColor: "#ef4444",
+        activeDotColor: "#dc2626"
+      };
+    }
+  };
+
+  const scoreTheme = score ? getScoreTheme(score) : null;
+
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="text-center p-8 bg-white rounded-xl shadow-lg">
           <div className="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
           <div className="text-2xl font-semibold text-blue-600">
@@ -215,7 +290,6 @@ const StudentDetailPage = () => {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -234,24 +308,22 @@ const StudentDetailPage = () => {
     );
   }
 
-  // Success state with beautiful UI
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          {/* Header section with student quick info */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 md:p-8 text-white">
+            <div className={`bg-gradient-to-r ${scoreTheme?.gradient || "from-gray-600 to-gray-700"} p-6 md:p-8 text-white`}>
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div>
                   <h1 className="text-3xl md:text-4xl font-bold">
                     {studentData?.name || "Nama Siswa"}
                   </h1>
                   <div className="flex items-center mt-2">
-                    <span className="bg-blue-400 bg-opacity-30 px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm text-black font-medium">
                       ID: {studentData?.student_id}
                     </span>
-                    <span className="ml-3 bg-blue-400 bg-opacity-30 px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="ml-3 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium">
                       Tanggal Prediksi: {formatPredictionDate(predictionDate)}
                     </span>
                   </div>
@@ -259,14 +331,14 @@ const StudentDetailPage = () => {
                 <div className="mt-4 md:mt-0 flex space-x-3">
                   <button
                     onClick={handleEdit}
-                    className="flex items-center px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+                    className="flex items-center px-4 py-2 bg-white text-gray-800 rounded-lg hover:bg-gray-100 transition-colors duration-300"
                   >
                     <Edit size={16} className="mr-2" />
                     Edit Data
                   </button>
                   <button
                     onClick={() => navigate("/")}
-                    className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                    className="flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors duration-300"
                   >
                     <ArrowLeft size={16} className="mr-2" />
                     Kembali
@@ -274,44 +346,49 @@ const StudentDetailPage = () => {
                 </div>
               </div>
 
-              {score && (
+              {score && scoreTheme && (
                 <div className="mt-8 bg-white bg-opacity-10 rounded-xl p-6">
                   <div className="flex flex-col md:flex-row items-center">
                     <div className="md:w-1/3 text-center mb-6 md:mb-0">
-                      <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-white text-blue-600">
+                      <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full ${scoreTheme.bgColor} ${scoreTheme.textColor}`}>
                         <div className="text-center">
                           <div className="text-4xl font-bold">{score}</div>
                           <div className="text-xs uppercase tracking-wide mt-1">
                             Nilai Prediksi
                           </div>
+                          <div className={`mt-2 text-xs px-2 py-1 rounded-full ${scoreTheme.badgeColor}`}>
+                            {scoreTheme.badgeText}
+                          </div>
                         </div>
                       </div>
                     </div>
                     <div className="md:w-2/3">
-                      <h3 className="text-xl font-semibold mb-2">
-                        Kekuatan Akademik:
-                      </h3>
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex items-center mb-2">
+                        {scoreTheme.icon}
+                        <h3 className="text-xl font-semibold ml-2">
+                          {score >= 90 ? "Prestasi Istimewa!" : "Analisis Performa"}
+                        </h3>
+                      </div>
+                      <p className="text-sm text-white text-opacity-90 mb-4">
+                        {scoreTheme.message}
+                      </p>
+                      <h4 className="font-medium mb-2">Kekuatan Akademik:</h4>
+                      <div className="flex flex-wrap gap-2">
                         {calculateStrength().map((strength, idx) => (
                           <span
                             key={idx}
-                            className="bg-blue-500 bg-opacity-25 px-3 py-1 rounded-full text-sm"
+                            className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm"
                           >
                             {strength}
                           </span>
                         ))}
                       </div>
-                      <p className="text-sm text-blue-100">
-                        Skor ini dihitung berdasarkan nilai sebelumnya dan
-                        kehadiran siswa.
-                      </p>
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Tab navigation */}
             <div className="border-b border-gray-200">
               <nav className="flex -mb-px">
                 <button
@@ -361,9 +438,7 @@ const StudentDetailPage = () => {
               </nav>
             </div>
 
-            {/* Tab content */}
             <div className="p-6 md:p-8">
-              {/* Personal tab */}
               {activeTab === "personal" && (
                 <div className="animate-fadeIn">
                   <div className="flex justify-between items-center mb-6">
@@ -429,7 +504,6 @@ const StudentDetailPage = () => {
                 </div>
               )}
 
-              {/* Academic tab */}
               {activeTab === "academic" && (
                 <div className="animate-fadeIn">
                   <div className="flex justify-between items-center mb-6">
@@ -457,13 +531,11 @@ const StudentDetailPage = () => {
                         {
                           label: "Jam Belajar per Minggu",
                           value: academicData.hours_studied,
-                          icon: (
-                            <BookOpen size={24} className="text-indigo-600" />
-                          ),
+                          icon: <BookOpen size={24} className="text-indigo-600" />,
                           color: "indigo",
                         },
                         {
-                          label: "Persentase Kehadiran (%)",
+                          label: "Persentase Kehadiran",
                           value: academicData.attendance,
                           icon: <User size={24} className="text-purple-600" />,
                           color: "purple",
@@ -471,41 +543,49 @@ const StudentDetailPage = () => {
                         {
                           label: "Jumlah Sesi Bimbingan",
                           value: academicData.tutoring_sessions,
+                          icon: <BookOpen size={24} className="text-green-600" />,
                           color: "green",
                         },
                         {
                           label: "Tingkat Motivasi",
                           value: academicData.motivation_level,
+                          icon: <Activity size={24} className="text-yellow-600" />,
                           color: "yellow",
                         },
                         {
                           label: "Keterlibatan Orangtua",
                           value: academicData.parental_involvement,
+                          icon: <Users size={24} className="text-red-600" />,
                           color: "red",
                         },
                         {
                           label: "Jam Tidur per Malam",
                           value: academicData.sleep_hours,
+                          icon: <Moon size={24} className="text-pink-600" />,
                           color: "pink",
                         },
                         {
                           label: "Jam Aktivitas Fisik",
                           value: academicData.physical_activity,
+                          icon: <Dumbbell size={24} className="text-teal-600" />,
                           color: "teal",
                         },
                         {
                           label: "Kesulitan Belajar",
                           value: academicData.learning_disabilities,
+                          icon: <AlertCircle size={24} className="text-gray-600" />,
                           color: "gray",
                         },
                         {
                           label: "Kualitas Guru",
                           value: academicData.teacher_quality,
+                          icon: <UserCheck size={24} className="text-orange-600" />,
                           color: "orange",
                         },
                         {
                           label: "Prediksi Nilai Ujian",
                           value: score ? `${score}` : "-",
+                          icon: <TrendingUp size={24} className="text-blue-600" />,
                           color: "blue",
                           highlight: true,
                         },
@@ -522,21 +602,19 @@ const StudentDetailPage = () => {
                               : `border-${item.color}-100`
                           } transition-all duration-300 hover:shadow-md`}
                         >
-                          {item.icon && (
-                            <div
-                              className={`bg-${item.color}-100 p-3 rounded-full inline-block mb-3`}
-                            >
+                          <div className="flex items-start">
+                            <div className={`bg-${item.color}-100 p-3 rounded-full mr-4`}>
                               {item.icon}
                             </div>
-                          )}
-                          <span
-                            className={`block ${item.highlight ? "text-blue-100" : "text-gray-500"} text-sm mb-1`}
-                          >
-                            {item.label}
-                          </span>
-                          <span className="font-medium text-xl">
-                            {item.value || "-"}
-                          </span>
+                            <div>
+                              <span className={`block ${item.highlight ? "text-blue-100" : "text-gray-500"} text-sm mb-1`}>
+                                {item.label}
+                              </span>
+                              <span className="font-medium text-xl">
+                                {item.value || "-"}
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -551,7 +629,6 @@ const StudentDetailPage = () => {
                 </div>
               )}
 
-              {/* Progress chart tab */}
               {activeTab === "progress" && (
                 <div className="animate-fadeIn">
                   <h2 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -588,12 +665,12 @@ const StudentDetailPage = () => {
                             <Line
                               type="monotone"
                               dataKey="nilai"
-                              stroke="#3b82f6"
+                              stroke={scoreTheme?.chartColor || "#3b82f6"}
                               strokeWidth={3}
                               dot={{ r: 6, strokeWidth: 2 }}
                               activeDot={{
                                 r: 8,
-                                stroke: "#1e40af",
+                                stroke: scoreTheme?.activeDotColor || "#1d4ed8",
                                 strokeWidth: 2,
                               }}
                             />
@@ -605,10 +682,30 @@ const StudentDetailPage = () => {
                           Grafik menunjukkan perkembangan nilai siswa dari waktu
                           ke waktu
                         </p>
-                        <p className="mt-2 text-blue-600 font-medium">
-                          *Nilai bulan April dan seterusnya adalah nilai
-                          prediksi
-                        </p>
+                        {score >= 90 && (
+                          <p className="mt-2 text-blue-600 font-medium flex items-center justify-center">
+                            <Trophy className="mr-1" size={16} /> 
+                            Selamat! Nilai siswa termasuk kategori istimewa
+                          </p>
+                        )}
+                        {score > 75 && score < 90 && (
+                          <p className="mt-2 text-blue-500 font-medium flex items-center justify-center">
+                            <Star className="mr-1" size={16} /> 
+                            Pertahankan! Nilai siswa termasuk kategori sangat baik
+                          </p>
+                        )}
+                        {score > 50 && score <= 75 && (
+                          <p className="mt-2 text-orange-500 font-medium flex items-center justify-center">
+                            <Smile className="mr-1" size={16} /> 
+                            Tingkatkan lagi! Nilai siswa termasuk kategori cukup
+                          </p>
+                        )}
+                        {score <= 50 && (
+                          <p className="mt-2 text-red-500 font-medium flex items-center justify-center">
+                            <AlertTriangle className="mr-1" size={16} /> 
+                            Perlu perhatian khusus! Nilai siswa termasuk kategori rendah
+                          </p>
+                        )}
                       </div>
                     </div>
                   ) : (
@@ -622,7 +719,6 @@ const StudentDetailPage = () => {
                 </div>
               )}
 
-              {/* Recommendation tab */}
               {activeTab === "recommendation" && (
                 <div className="animate-fadeIn">
                   <h2 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -687,7 +783,6 @@ const StudentDetailPage = () => {
   );
 };
 
-// Add some custom animation
 const style = document.createElement("style");
 style.textContent = `
   @keyframes fadeIn {
