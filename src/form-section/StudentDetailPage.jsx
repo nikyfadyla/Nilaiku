@@ -1,36 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import {
-  ArrowLeft,
-  Edit,
-  User,
-  Calendar,
-  PieChart,
-  BookOpen,
-  Award,
+  Activity,
+  AlertCircle,
   AlertTriangle,
+  ArrowLeft,
+  Award,
+  BookOpen,
+  Calendar,
+  Edit,
+  Moon,
+  PieChart,
   Smile,
   Star,
-  Trophy,
-  Activity,
-  Users,
-  Moon,
-  Dumbbell,
-  AlertCircle,
-  UserCheck,
   TrendingUp,
+  Trophy,
+  User,
+  UserCheck,
+  Users
 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const StudentDetailPage = () => {
   const { student_id } = useParams();
@@ -82,31 +81,90 @@ const StudentDetailPage = () => {
 
         if (academicDataResult && academicDataResult.length > 0) {
           const academicResult = academicDataResult[0];
-          
-          // Format academic data
+
+          // Dropdown options Section
+          const dropdownOptions = {
+            Peer_Influence: [
+              { label: "Positif", value: "Positive" },
+              { label: "Biasa", value: "Medium" },
+              { label: "Negatif", value: "Negative" },
+            ],
+            Motivation_Level: [
+              { label: "Rendah", value: "Low" },
+              { label: "Biasa", value: "Medium" },
+              { label: "Tinggi", value: "High" },
+            ],
+            Teacher_Quality: [
+              { label: "Rendah", value: "Low" },
+              { label: "Biasa", value: "Medium" },
+              { label: "Tinggi", value: "High" },
+            ],
+            Acces_to_Resources: [
+              { label: "Mudah", value: "Low" },
+              { label: "Biasa", value: "Medium" },
+              { label: "Sulit", value: "High" },
+            ],
+          };
+
+          // Change Value to Label in display 
+          const valueToLabel = (field, value) => {
+            const options = dropdownOptions[field];
+            if (!options) return value;
+            const found = options.find((opt) => opt.value === value);
+            return found ? found.label : value;
+          };
+
+          // Section academic data
           const formattedAcademicData = {
             ...academicResult,
-            previous_scores: academicResult.Previous_Scores ? parseFloat(academicResult.Previous_Scores).toFixed(2) : '0',
-            attendance: academicResult.Attendance ? parseFloat(academicResult.Attendance).toFixed(2) + '%' : '0%',
-            hours_studied: academicResult.Hours_Studied ? parseFloat(academicResult.Hours_Studied).toFixed(1) + ' jam' : '0 jam',
-            tutoring_sessions: academicResult.Tutoring_Sessions || '0',
-            motivation_level: academicResult.Motivation_Level ? `${academicResult.Motivation_Level}/10` : '0/10',
-            parental_involvement: academicResult.parental_involvement ? `${academicResult.parental_involvement}/10` : '0/10',
-            sleep_hours: academicResult.Sleep_Hours ? parseFloat(academicResult.Sleep_Hours).toFixed(1) + ' jam' : '0 jam',
-            physical_activity: academicResult.Physical_Activity ? parseFloat(academicResult.Physical_Activity).toFixed(1) + ' jam' : '0 jam',
-            learning_disabilities: academicResult.Learning_Disabilities ? 'Ya' : 'Tidak',
-            teacher_quality: academicResult.Teacher_Quality ? `${academicResult.Teacher_Quality}/10` : '0/10'
+            previous_scores: academicResult.Previous_Scores
+              ? parseFloat(academicResult.Previous_Scores).toFixed(2)
+              : "0",
+            attendance: academicResult.Attendance
+              ? parseFloat(academicResult.Attendance).toFixed(2) + "%"
+              : "0%",
+            hours_studied: academicResult.Hours_Studied
+              ? parseFloat(academicResult.Hours_Studied).toFixed(1) + " jam"
+              : "0 jam",
+            tutoring_sessions: academicResult.Tutoring_Sessions || "0",
+
+            motivation_level: valueToLabel(
+              "Motivation_Level",
+              academicResult.Motivation_Level
+            ),
+            peer_influence: valueToLabel(
+              "Peer_Influence",
+              academicResult.Peer_Influence
+            ),
+            teacher_quality: valueToLabel(
+              "Teacher_Quality",
+              academicResult.Teacher_Quality
+            ),
+            acces_to_resources: valueToLabel(
+              "Acces_to_Resources",
+              academicResult.Acces_to_Resources
+            ),
+
+            sleep_hours: academicResult.Sleep_Hours
+              ? parseFloat(academicResult.Sleep_Hours).toFixed(1) + " jam"
+              : "0 jam",
+             
+            learning_disabilities: academicResult.Learning_Disabilities
+              ? "Ya"
+              : "Tidak",
           };
 
           setAcademicData(formattedAcademicData);
 
-          // Calculate final score
+          // Calculate final score (PROTOTYPE)
           const previousScore = parseFloat(academicResult.Previous_Scores) || 0;
           const attendance = parseFloat(academicResult.Attendance) || 0;
-          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(2);
+          const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(
+            2
+          );
           setScore(finalScore);
 
-          // Set prediction date
+          // Set prediction date (PROTOTYPE)
           const today = new Date();
           setPredictionDate(today);
 
@@ -124,11 +182,17 @@ const StudentDetailPage = () => {
             { month: "Apr", nilai: parseFloat(finalScore) },
             {
               month: "Mei",
-              nilai: parseFloat(finalScore) + 3 > 100 ? 100 : parseFloat(finalScore) + 3,
+              nilai:
+                parseFloat(finalScore) + 3 > 100
+                  ? 100
+                  : parseFloat(finalScore) + 3,
             },
             {
               month: "Jun",
-              nilai: parseFloat(finalScore) + 7 > 100 ? 100 : parseFloat(finalScore) + 7,
+              nilai:
+                parseFloat(finalScore) + 7 > 100
+                  ? 100
+                  : parseFloat(finalScore) + 7,
             },
           ];
           setProgressData(mockProgressData);
@@ -218,19 +282,20 @@ const StudentDetailPage = () => {
 
   const getScoreTheme = (score) => {
     const numericScore = parseFloat(score);
-    
+
     if (numericScore >= 90) {
       return {
         gradient: "from-blue-600 to-blue-800",
         bgColor: "bg-blue-100",
-        textColor: "text-blue-800",
+        textColor: "text-blue-500",
         borderColor: "border-blue-200",
         icon: <Trophy size={24} className="text-blue-600" />,
-        message: "Luar Biasa! Siswa berada di peringkat teratas dengan prestasi istimewa",
+        message:
+          "Luar Biasa! Siswa berada di peringkat teratas dengan prestasi istimewa",
         badgeText: "Prestasi Istimewa",
         badgeColor: "bg-blue-600 text-white",
         chartColor: "#2563eb",
-        activeDotColor: "#1e40af"
+        activeDotColor: "#1e40af",
       };
     } else if (numericScore > 75) {
       return {
@@ -239,11 +304,12 @@ const StudentDetailPage = () => {
         textColor: "text-blue-700",
         borderColor: "border-blue-100",
         icon: <Star size={24} className="text-blue-500" />,
-        message: "Sangat Baik! Siswa menunjukkan performa akademik yang sangat memuaskan",
+        message:
+          "Sangat Baik! Siswa menunjukkan performa akademik yang sangat memuaskan",
         badgeText: "Sangat Baik",
         badgeColor: "bg-blue-500 text-white",
         chartColor: "#3b82f6",
-        activeDotColor: "#1d4ed8"
+        activeDotColor: "#1d4ed8",
       };
     } else if (numericScore > 50) {
       return {
@@ -252,11 +318,12 @@ const StudentDetailPage = () => {
         textColor: "text-orange-700",
         borderColor: "border-orange-100",
         icon: <Smile size={24} className="text-orange-500" />,
-        message: "Cukup Baik! Siswa memiliki potensi yang bisa ditingkatkan lagi",
+        message:
+          "Cukup Baik! Siswa memiliki potensi yang bisa ditingkatkan lagi",
         badgeText: "Cukup Baik",
         badgeColor: "bg-orange-500 text-white",
         chartColor: "#f97316",
-        activeDotColor: "#ea580c"
+        activeDotColor: "#ea580c",
       };
     } else {
       return {
@@ -265,11 +332,12 @@ const StudentDetailPage = () => {
         textColor: "text-red-700",
         borderColor: "border-red-100",
         icon: <AlertTriangle size={24} className="text-red-500" />,
-        message: "Perlu Perhatian! Siswa membutuhkan bimbingan dan pendampingan lebih",
+        message:
+          "Perlu Perhatian! Siswa membutuhkan bimbingan dan pendampingan lebih",
         badgeText: "Perlu Perhatian",
         badgeColor: "bg-red-500 text-white",
         chartColor: "#ef4444",
-        activeDotColor: "#dc2626"
+        activeDotColor: "#dc2626",
       };
     }
   };
@@ -313,7 +381,9 @@ const StudentDetailPage = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-            <div className={`bg-gradient-to-r ${scoreTheme?.gradient || "from-gray-600 to-gray-700"} p-6 md:p-8 text-white`}>
+            <div
+              className={`bg-gradient-to-r ${scoreTheme?.gradient || "from-gray-600 to-gray-700"} p-6 md:p-8 text-white`}
+            >
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div>
                   <h1 className="text-3xl md:text-4xl font-bold">
@@ -323,7 +393,7 @@ const StudentDetailPage = () => {
                     <span className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm text-black font-medium">
                       ID: {studentData?.student_id}
                     </span>
-                    <span className="ml-3 bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="ml-3 bg-white bg-opacity-20 px-3 py-1 text-black rounded-full text-sm font-medium">
                       Tanggal Prediksi: {formatPredictionDate(predictionDate)}
                     </span>
                   </div>
@@ -337,8 +407,8 @@ const StudentDetailPage = () => {
                     Edit Data
                   </button>
                   <button
-                    onClick={() => navigate("/")}
-                    className="flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors duration-300"
+                    onClick={() => navigate(`/student-academic/${student_id}`)}
+                    className="flex items-center px-4 py-2 text-black bg-white bg-opacity-20  rounded-lg hover:bg-opacity-30 transition-colors duration-300"
                   >
                     <ArrowLeft size={16} className="mr-2" />
                     Kembali
@@ -350,34 +420,42 @@ const StudentDetailPage = () => {
                 <div className="mt-8 bg-white bg-opacity-10 rounded-xl p-6">
                   <div className="flex flex-col md:flex-row items-center">
                     <div className="md:w-1/3 text-center mb-6 md:mb-0">
-                      <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full ${scoreTheme.bgColor} ${scoreTheme.textColor}`}>
+                      <div
+                        className={`inline-flex items-center justify-center w-32  h-32 rounded-full ${scoreTheme.bgColor} ${scoreTheme.textColor}`}
+                      >
                         <div className="text-center">
                           <div className="text-4xl font-bold">{score}</div>
                           <div className="text-xs uppercase tracking-wide mt-1">
                             Nilai Prediksi
                           </div>
-                          <div className={`mt-2 text-xs px-2 py-1 rounded-full ${scoreTheme.badgeColor}`}>
+                          <div
+                            className={`mt-2 text-xs px-2 py-1 rounded-full ${scoreTheme.badgeColor}`}
+                          >
                             {scoreTheme.badgeText}
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="md:w-2/3">
+                    <div className="md:w-2/3  ">
                       <div className="flex items-center mb-2">
                         {scoreTheme.icon}
-                        <h3 className="text-xl font-semibold ml-2">
-                          {score >= 90 ? "Prestasi Istimewa!" : "Analisis Performa"}
+                        <h3 className="text-xl font-semibold text-black ml-2">
+                          {score >= 90
+                            ? "Prestasi Istimewa!"
+                            : "Analisis Performa"}
                         </h3>
                       </div>
-                      <p className="text-sm text-white text-opacity-90 mb-4">
+                      <p className="text-sm text-black text-opacity-90 mb-4">
                         {scoreTheme.message}
                       </p>
-                      <h4 className="font-medium mb-2">Kekuatan Akademik:</h4>
+                      <h4 className="font-medium mb-2 text-black">
+                        Kekuatan Akademik:
+                      </h4>
                       <div className="flex flex-wrap gap-2">
                         {calculateStrength().map((strength, idx) => (
                           <span
                             key={idx}
-                            className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm"
+                            className="bg-white text-black bg-opacity-20 px-3 py-1 rounded-full text-sm"
                           >
                             {strength}
                           </span>
@@ -437,6 +515,8 @@ const StudentDetailPage = () => {
                 </button>
               </nav>
             </div>
+
+            {/* TAB PERSONAL DATA */}
 
             <div className="p-6 md:p-8">
               {activeTab === "personal" && (
@@ -504,6 +584,8 @@ const StudentDetailPage = () => {
                 </div>
               )}
 
+              {/* TAB ACADEMIC */}
+
               {activeTab === "academic" && (
                 <div className="animate-fadeIn">
                   <div className="flex justify-between items-center mb-6">
@@ -531,7 +613,9 @@ const StudentDetailPage = () => {
                         {
                           label: "Jam Belajar per Minggu",
                           value: academicData.hours_studied,
-                          icon: <BookOpen size={24} className="text-indigo-600" />,
+                          icon: (
+                            <BookOpen size={24} className="text-indigo-600" />
+                          ),
                           color: "indigo",
                         },
                         {
@@ -543,13 +627,17 @@ const StudentDetailPage = () => {
                         {
                           label: "Jumlah Sesi Bimbingan",
                           value: academicData.tutoring_sessions,
-                          icon: <BookOpen size={24} className="text-green-600" />,
+                          icon: (
+                            <BookOpen size={24} className="text-green-600" />
+                          ),
                           color: "green",
                         },
                         {
                           label: "Tingkat Motivasi",
                           value: academicData.motivation_level,
-                          icon: <Activity size={24} className="text-yellow-600" />,
+                          icon: (
+                            <Activity size={24} className="text-yellow-600" />
+                          ),
                           color: "yellow",
                         },
                         {
@@ -564,28 +652,29 @@ const StudentDetailPage = () => {
                           icon: <Moon size={24} className="text-pink-600" />,
                           color: "pink",
                         },
-                        {
-                          label: "Jam Aktivitas Fisik",
-                          value: academicData.physical_activity,
-                          icon: <Dumbbell size={24} className="text-teal-600" />,
-                          color: "teal",
-                        },
+                         
                         {
                           label: "Kesulitan Belajar",
                           value: academicData.learning_disabilities,
-                          icon: <AlertCircle size={24} className="text-gray-600" />,
+                          icon: (
+                            <AlertCircle size={24} className="text-gray-600" />
+                          ),
                           color: "gray",
                         },
                         {
                           label: "Kualitas Guru",
                           value: academicData.teacher_quality,
-                          icon: <UserCheck size={24} className="text-orange-600" />,
+                          icon: (
+                            <UserCheck size={24} className="text-orange-600" />
+                          ),
                           color: "orange",
                         },
                         {
                           label: "Prediksi Nilai Ujian",
                           value: score ? `${score}` : "-",
-                          icon: <TrendingUp size={24} className="text-blue-600" />,
+                          icon: (
+                            <TrendingUp size={24} className="text-blue-600" />
+                          ),
                           color: "blue",
                           highlight: true,
                         },
@@ -603,11 +692,15 @@ const StudentDetailPage = () => {
                           } transition-all duration-300 hover:shadow-md`}
                         >
                           <div className="flex items-start">
-                            <div className={`bg-${item.color}-100 p-3 rounded-full mr-4`}>
+                            <div
+                              className={`bg-${item.color}-100 p-3 rounded-full mr-4`}
+                            >
                               {item.icon}
                             </div>
                             <div>
-                              <span className={`block ${item.highlight ? "text-blue-100" : "text-gray-500"} text-sm mb-1`}>
+                              <span
+                                className={`block ${item.highlight ? "text-blue-100" : "text-gray-500"} text-sm mb-1`}
+                              >
                                 {item.label}
                               </span>
                               <span className="font-medium text-xl">
@@ -628,6 +721,8 @@ const StudentDetailPage = () => {
                   )}
                 </div>
               )}
+
+              {/* Tab Progress */}
 
               {activeTab === "progress" && (
                 <div className="animate-fadeIn">
@@ -684,26 +779,28 @@ const StudentDetailPage = () => {
                         </p>
                         {score >= 90 && (
                           <p className="mt-2 text-blue-600 font-medium flex items-center justify-center">
-                            <Trophy className="mr-1" size={16} /> 
+                            <Trophy className="mr-1" size={16} />
                             Selamat! Nilai siswa termasuk kategori istimewa
                           </p>
                         )}
                         {score > 75 && score < 90 && (
                           <p className="mt-2 text-blue-500 font-medium flex items-center justify-center">
-                            <Star className="mr-1" size={16} /> 
-                            Pertahankan! Nilai siswa termasuk kategori sangat baik
+                            <Star className="mr-1" size={16} />
+                            Pertahankan! Nilai siswa termasuk kategori sangat
+                            baik
                           </p>
                         )}
                         {score > 50 && score <= 75 && (
                           <p className="mt-2 text-orange-500 font-medium flex items-center justify-center">
-                            <Smile className="mr-1" size={16} /> 
+                            <Smile className="mr-1" size={16} />
                             Tingkatkan lagi! Nilai siswa termasuk kategori cukup
                           </p>
                         )}
                         {score <= 50 && (
                           <p className="mt-2 text-red-500 font-medium flex items-center justify-center">
-                            <AlertTriangle className="mr-1" size={16} /> 
-                            Perlu perhatian khusus! Nilai siswa termasuk kategori rendah
+                            <AlertTriangle className="mr-1" size={16} />
+                            Perlu perhatian khusus! Nilai siswa termasuk
+                            kategori rendah
                           </p>
                         )}
                       </div>
@@ -718,6 +815,8 @@ const StudentDetailPage = () => {
                   )}
                 </div>
               )}
+
+              {/* TAB REKOMENDASI */}
 
               {activeTab === "recommendation" && (
                 <div className="animate-fadeIn">

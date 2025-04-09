@@ -94,7 +94,6 @@ const StudentAcademicForm = () => {
       "Previous_Scores",
       "Sleep_Hours",
       "Tutoring_Sessions",
-      
     ];
 
     numericFields.forEach((field) => {
@@ -212,7 +211,7 @@ const StudentAcademicForm = () => {
 
   const DropdownField = ({ label, name, options, defaultValue = "", icon }) => (
     <div>
-      <label className="block text-gray-700 font-medium mb-2" htmlFor={name}>
+      <label className="block text-gray-800 font-semibold mb-2" htmlFor={name}>
         {label}
       </label>
       <div className="relative">
@@ -223,19 +222,19 @@ const StudentAcademicForm = () => {
         )}
         <select
           id={name}
-          className={`w-full px-4 py-3 appearance-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm transition-all duration-200 ${
+          className={`w-full px-4 py-3 appearance-none border text-gray-700 font-medium border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm transition-all duration-200 ${
             icon ? "pl-10" : ""
           } hover:border-blue-400`}
           defaultValue={defaultValue}
           {...register(name)}
         >
           {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-900">
           <i className="ri-arrow-down-s-line"></i>
         </div>
       </div>
@@ -336,63 +335,88 @@ const StudentAcademicForm = () => {
               <DropdownField
                 label="Pengaruh Teman Sekitar"
                 name="Peer_Influence"
-                options={["Postive", "Neutral", "Negative"]}
+                options={[
+                  { label: "Positif", value: "Positive" },
+                  { label: "Biasa", value: "Medium" },
+                  { label: "Negatif", value: "Negative" },
+                ]}
                 icon="group-3-line"
               />
               <DropdownField
                 label="Tingkat Motivasi"
                 name="Motivation_Level"
-                options={["Low", "Medium", "High"]}
+                options={[
+                  { label: "Rendah", value: "Low" },
+                  { label: "Biasa", value: "Medium" },
+                  { label: "Tinggi", value: "High" },
+                ]}
                 icon="mental-health-line"
               />
 
               <DropdownField
                 label="Kualitas Guru"
                 name="Teacher_Quality"
-                options={["Low", "Medium", "High"]}
+                options={[
+                  { label: "Rendah", value: "Low" },
+                  { label: "Biasa", value: "Medium" },
+                  { label: "Tinggi", value: "High" },
+                ]}
                 icon="user-star-line"
               />
               <DropdownField
                 label="Akses Terhadap Sumber Daya Pendidikan"
-                name="Teacher_Quality"
-                options={["Mudah", "Biasa", "Susah"]}
+                name="Acces_to_Resources"
+                options={[
+                  { label: "Mudah", value: "Low" },
+                  { label: "Biasa", value: "Medium" },
+                  { label: "Sulit", value: "High" },
+                ]}
                 icon="book-open-line"
               />
             </div>
 
             {/* Button Section */}
-            <div className="pt-6 border-t border-gray-200 mt-8">
-              <div className="flex flex-col sm:flex-row justify-end gap-4">
-                <button
-                  onClick={handleBack}
-                  type="button"
-                  className="flex items-center justify-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors duration-300 shadow-md"
-                >
-                  <i className="ri-arrow-left-line mr-2"></i>
-                  Kembali
-                </button>
-                <button
-                  type="submit"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all duration-300 shadow-md"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <i className="ri-loader-4-line animate-spin mr-2"></i>
-                      Mengirim...
-                    </>
-                  ) : academicId ? (
-                    <>
-                      <i className="ri-refresh-line mr-2"></i>
-                      Perbarui Data
-                    </>
-                  ) : (
-                    <>
-                      <i className="ri-send-plane-line mr-2"></i>
-                      Kirim Data
-                    </>
-                  )}
-                </button>
+            <div className="pt-6 border-t border-gray-200 mt-8 ">
+              <div className="flex justify-between">
+                <div className=" flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gray-300 rounded-full" />
+                  <div className="w-2 h-2 bg-purple-400 rounded-full" />
+                  <span className="text-sm text-gray-500 font-light">
+                    Step 2 of 2
+                  </span>
+                </div>
+                <div className="flex flex-col sm:flex-row  gap-4">
+                  <button
+                    onClick={handleBack}
+                    type="button"
+                    className="flex items-center justify-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors duration-300 shadow-md"
+                  >
+                    <i className="ri-arrow-left-line mr-2"></i>
+                    Kembali
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all duration-300 shadow-md"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <i className="ri-loader-4-line animate-spin mr-2"></i>
+                        Mengirim...
+                      </>
+                    ) : academicId ? (
+                      <>
+                        <i className="ri-refresh-line mr-2"></i>
+                        Perbarui Data
+                      </>
+                    ) : (
+                      <>
+                        <i className="ri-send-plane-line mr-2"></i>
+                        Kirim Data
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           </form>

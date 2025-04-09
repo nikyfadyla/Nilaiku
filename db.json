@@ -175,6 +175,46 @@
       "email": "faturmriffa@gmail.com",
       "date_of_birth": "2009-02-11",
       "gender": "Perempuan"
+    },
+    {
+      "id": 23,
+      "student_id": "dfVzPABIKZ",
+      "name": "niky",
+      "email": "apaa@gmail.com",
+      "date_of_birth": "0222-11-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 24,
+      "student_id": "kNJQ2Xh-3G",
+      "name": "niky",
+      "email": "niky@gmail.com",
+      "date_of_birth": "0211-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 25,
+      "student_id": "A23TPjt11R",
+      "name": "sss",
+      "email": "aa@gmail.com",
+      "date_of_birth": "0222-12-21",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 26,
+      "student_id": "kfO8QxnZPi",
+      "name": "22",
+      "email": "1111@gmail.com",
+      "date_of_birth": "2121-02-12",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 27,
+      "student_id": "Ob46RcG_xZ",
+      "name": "nikyba",
+      "email": "niky@gmail.com",
+      "date_of_birth": "0221-11-21",
+      "gender": "Laki-laki"
     }
   ],
   "student-academic": [
@@ -322,6 +362,71 @@
       "Teacher_Quality": "Susah",
       "Acces_to_Resources": "Medium",
       "id": 11
+    },
+    {
+      "student_id": "dfVzPABIKZ",
+      "Attendance": 80,
+      "Hours_Studied": 21,
+      "Previous_Scores": 90,
+      "Sleep_Hours": 0,
+      "Tutoring_Sessions": 22,
+      "Peer_Influence": "Neutral",
+      "Motivation_Level": "Low",
+      "Teacher_Quality": "Mudah",
+      "Acces_to_Resources": "Medium",
+      "id": 12
+    },
+    {
+      "student_id": "kNJQ2Xh-3G",
+      "Attendance": 22,
+      "Hours_Studied": 21,
+      "Previous_Scores": 88,
+      "Sleep_Hours": 21,
+      "Tutoring_Sessions": 2,
+      "Peer_Influence": "Neutral",
+      "Motivation_Level": "Medium",
+      "Teacher_Quality": "Biasa",
+      "Acces_to_Resources": "Medium",
+      "id": 13
+    },
+    {
+      "student_id": "A23TPjt11R",
+      "Attendance": 20,
+      "Hours_Studied": 22,
+      "Previous_Scores": 90,
+      "Sleep_Hours": 0,
+      "Tutoring_Sessions": 0,
+      "Peer_Influence": "Medium",
+      "Motivation_Level": "Medium",
+      "Teacher_Quality": "Medium",
+      "Acces_to_Resources": "Medium",
+      "id": 14
+    },
+    {
+      "student_id": "kfO8QxnZPi",
+      "Attendance": 99,
+      "Hours_Studied": 2,
+      "Previous_Scores": 86,
+      "Sleep_Hours": 1,
+      "Tutoring_Sessions": 12,
+      "Peer_Influence": "Negative",
+      "Motivation_Level": "",
+      "Teacher_Quality": "",
+      "Acces_to_Resources": "",
+      "id": 15
+    },
+    {
+      "student_id": "Ob46RcG_xZ",
+      "Attendance": 21,
+      "Hours_Studied": 1,
+      "Previous_Scores": 20,
+      "Sleep_Hours": 1,
+      "Tutoring_Sessions": 1,
+      "Peer_Influence": "Medium",
+      "Motivation_Level": "High",
+      "Teacher_Quality": "Low",
+      "Acces_to_Resources": "High",
+      "id": 16
     }
   ],
   "learning_recommendations": [

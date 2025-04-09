@@ -142,7 +142,6 @@ function StudentDataForm() {
       console.error("Error:", err);
       setError(err.message);
     } finally {
-   
       setIsSubmitting(false);
     }
   };
@@ -451,7 +450,14 @@ function StudentDataForm() {
                 )}
               </AnimatePresence>
 
-              <div className="flex justify-end">
+              <div className="flex justify-between">
+                <div className=" flex items-center gap-2">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full" />
+                  <div className="w-2 h-2 bg-gray-300 rounded-full" />
+                  <span className="text-sm text-gray-500 font-light">
+                    Step 1 of 2
+                  </span>
+                </div>
                 <motion.button
                   type="submit"
                   whileHover={{
@@ -468,9 +474,8 @@ function StudentDataForm() {
                 >
                   {isSubmitting ? (
                     <>
-                      {/* Spinner SVG dari contoh sebelumnya */}
                       <svg
-                        className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" // Sesuaikan margin jika perlu
+                        className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -489,13 +494,12 @@ function StudentDataForm() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         ></path>
                       </svg>
-                      <span>Memproses...</span> {/* Bungkus teks dengan span */}
+                      <span>Memproses...</span>
                     </>
                   ) : (
                     <>
                       {urlStudentId ? "Perbarui Data" : "Lanjutkan"}
                       <i className="ri-arrow-right-line ml-2"></i>{" "}
-                      {/* Pastikan Anda menggunakan library ikon seperti Remix Icon */}
                     </>
                   )}
                 </motion.button>
