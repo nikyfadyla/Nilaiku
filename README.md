@@ -1,16 +1,48 @@
 # Langkah - langkah setelah melakukan git-clone atau git pull;
 
 # Git Clone
+
 1. npm install
 2. npm install vite --save-dev
 3. selanjutnya ikuti langkah langkakh di git pull
 
 # Git pull
+
 1. Install TailwindCss: npm install tailwindcss @tailwindcss/vite
 2. Intall remix icon
 3. Install Framer Motion
 4. Install AOS
 5. Install React-Dom (npm install react-router-dom)
 6. Instal React-Hook-form (npm install react-hook-form)
-7. //Langkah sementara: install json-server untuk testing api (npm install -g json-server@0.17.3)  json-server --watch db.json --config json-server.json
-8. Buat file bernama db.json dengan 2 collections didalamnya 1. students, 2.student-academic
+7. //Langkah sementara: install json-server untuk testing api (npm install -g json-server@0.17.3) json-server --watch db.json --config json-server.json
+8. Buat file bernama db.json dengan 3 collections didalamnya 1. students, 2.student-academic, 3. learning_recommendations. Untuk collection yang ketiga, silahkan isi dengan sperti ini:
+
+<!-- "learning_recommendations": [
+    {
+      "id": 1,
+      "min_score": 0,
+      "max_score": 40,
+      "title": "Rekomendasi Belajar Dasar Pemrograman Web",
+      "description": "Untuk membangun fondasi yang kuat, fokuskan pada mempelajari dasar-dasar pemrograman web dan JavaScript.",
+      "imageUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "learningResourceUrl": "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/"
+    },
+    {
+      "id": 2,
+      "min_score": 40,
+      "max_score": 70,
+      "title": "Rekomendasi Belajar Front-end",
+      "description": "Dengan skor yang cukup baik, Anda cocok untuk mempelajari pengembangan Front-end menggunakan React atau Vue.js.",
+      "imageUrl": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "learningResourceUrl": "https://reactjs.org/tutorial/tutorial.html"
+    },
+    {
+      "id": 3,
+      "min_score": 70,
+      "max_score": 100,
+      "title": "Rekomendasi Belajar Back-end",
+      "description": "Setelah mencapai skor yang baik, Anda siap untuk memperdalam pemrograman Back-end menggunakan Node.js dan Express.",
+      "imageUrl": "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "learningResourceUrl": "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs"
+    }
+  ]  -->
