@@ -23,8 +23,7 @@ function StudentDataForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [touched, setTouched] = useState({
     email: false,
-  }); // Untuk melacak apakah field sudah disentuh
-
+  });  
   useEffect(() => {
     if (urlStudentId) {
       fetchStudentData();
@@ -42,7 +41,7 @@ function StudentDataForm() {
       }
       const data = await response.json();
 
-      // Add slight delay for smooth transition
+       
       await new Promise((resolve) => setTimeout(resolve, 500));
       setFormData(data);
     } catch (err) {
@@ -55,19 +54,21 @@ function StudentDataForm() {
     }
   };
 
+  // Validasi Kolom Email
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+
+  // Handle Change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Jangan validasi email saat pengguna mengetik kecuali sudah disentuh
+  
     if (name === "email" && touched.email) {
-      // Validasi hanya ketika panjang email > 0 (tidak kosong)
       if (value.length > 0 && !validateEmail(value)) {
         setEmailError("Format email tidak valid.");
       } else {
@@ -76,7 +77,8 @@ function StudentDataForm() {
     }
   };
 
-  // Tambahkan fungsi untuk menangani field yang telah disentuh
+
+  // Handle Blur
   const handleBlur = (e) => {
     const { name, value } = e.target;
 
@@ -95,6 +97,7 @@ function StudentDataForm() {
     }
   };
 
+  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -180,7 +183,7 @@ function StudentDataForm() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="mt-6 text-xl font-semibold text-gray-700"
+            className="mt-6 text-xl font-semibold text-gray-800"
           >
             Memuat data siswa...
           </motion.h1>
@@ -212,12 +215,12 @@ function StudentDataForm() {
               <i className="ri-error-warning-line text-3xl text-red-500 mr-3"></i>
             </motion.div>
             <div>
-              <p className="text-red-700 font-medium">{error}</p>
+              <p className="text-red-700 font-semibold">{error}</p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => window.location.reload()}
-                className="mt-2 px-4 py-2 bg-red-100 text-red-600 rounded-md text-sm font-medium hover:bg-red-200 transition-colors"
+                className="mt-2 px-4 py-2 bg-red-100 text-red-600 rounded-md text-sm font-semibold hover:bg-red-200 transition-colors"
               >
                 Coba Lagi
               </motion.button>
@@ -229,7 +232,7 @@ function StudentDataForm() {
   }
 
   const inputClass = {
-    base: "pl-10 w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 border-purple-300 focus:ring-puple-600 focus:border-purple-500 transition-all duration-300 hover:shadow-sm",
+    base: "pl-10 w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 border-purple-300 focus:ring-puple-600 focus:border-purple-500 transition-all font-medium text-gray-700 duration-300 hover:shadow-sm",
     error:
       "border-red-300 focus:ring-1 focus:ring-red-600 focus:border-red-500",
   };
@@ -304,7 +307,7 @@ function StudentDataForm() {
               transition={{ delay: 0.4 }}
               className="space-y-2"
             >
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-semibold text-gray-800">
                 Nama Lengkap
               </label>
               <div className="relative">
@@ -322,13 +325,15 @@ function StudentDataForm() {
                 />
               </div>
             </motion.div>
+
+            {/* Email Field */}
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
               className="space-y-2"
             >
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-semibold text-gray-800">
                 Email
               </label>
               <div className="relative">
@@ -347,7 +352,7 @@ function StudentDataForm() {
                 />
               </div>
 
-              {/* Tampilkan error email di bawah field email */}
+              {/* Show error email di bawah field email */}
               <AnimatePresence>
                 {emailError && touched.email && (
                   <motion.div
@@ -365,13 +370,14 @@ function StudentDataForm() {
               </AnimatePresence>
             </motion.div>
 
+            {/* Tanggal Lahir */}
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
               className="space-y-2"
             >
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-semibold text-gray-800">
                 Tanggal Lahir
               </label>
               <div className="relative">
@@ -396,13 +402,14 @@ function StudentDataForm() {
               </div>
             </motion.div>
 
+            {/* Gender */}
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
               className="space-y-2"
             >
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-semibold text-gray-800">
                 Jenis Kelamin
               </label>
               <div className="relative">
@@ -420,7 +427,7 @@ function StudentDataForm() {
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                   <i className="ri-arrow-down-s-line"></i>
                 </div>
               </div>
@@ -466,7 +473,7 @@ function StudentDataForm() {
                   }}
                   whileTap={{ scale: 0.98 }}
                   disabled={isSubmitting}
-                  className={`flex justify-center  px-6 py-3 rounded-lg text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
+                  className={`flex justify-center  px-6 py-3 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
                     isSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"

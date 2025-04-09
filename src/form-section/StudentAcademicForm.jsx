@@ -152,6 +152,7 @@ const StudentAcademicForm = () => {
     }
   };
 
+  // Input Type Field
   const InputField = ({
     label,
     name,
@@ -160,7 +161,7 @@ const StudentAcademicForm = () => {
     icon,
   }) => (
     <div className="relative min-h-[70px] pb-4">
-      <label htmlFor={name} className="block mb-1 font-medium text-gray-700">
+      <label htmlFor={name} className="block mb-1 font-semibold text-gray-800">
         {label}
       </label>
 
@@ -173,7 +174,7 @@ const StudentAcademicForm = () => {
         <input
           id={name}
           type="number"
-          className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm ${
+          className={`w-full px-4 py-3 border border-gray-300  text-gray-700 font-medium rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm ${
             icon ? "pl-10" : ""
           } hover:border-blue-400`}
           inputMode="numeric"
@@ -209,6 +210,7 @@ const StudentAcademicForm = () => {
     </div>
   );
 
+  // Dropdown Option Field
   const DropdownField = ({ label, name, options, defaultValue = "", icon }) => (
     <div>
       <label className="block text-gray-800 font-semibold mb-2" htmlFor={name}>
