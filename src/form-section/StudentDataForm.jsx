@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Logo from "../assets/images/nilaiku_logo.png";
 
 function StudentDataForm() {
   const { id: urlStudentId } = useParams();
@@ -23,7 +24,7 @@ function StudentDataForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [touched, setTouched] = useState({
     email: false,
-  });  
+  });
   useEffect(() => {
     if (urlStudentId) {
       fetchStudentData();
@@ -41,7 +42,6 @@ function StudentDataForm() {
       }
       const data = await response.json();
 
-       
       await new Promise((resolve) => setTimeout(resolve, 500));
       setFormData(data);
     } catch (err) {
@@ -60,14 +60,12 @@ function StudentDataForm() {
     return emailRegex.test(email);
   };
 
-
   // Handle Change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-  
     if (name === "email" && touched.email) {
       if (value.length > 0 && !validateEmail(value)) {
         setEmailError("Format email tidak valid.");
@@ -76,7 +74,6 @@ function StudentDataForm() {
       }
     }
   };
-
 
   // Handle Blur
   const handleBlur = (e) => {
@@ -273,10 +270,8 @@ function StudentDataForm() {
         {/* FORM SECTION */}
 
         <div className=" mx-auto max-w-xl bg-gray-50 py-6 md:px-6 px-5 rounded-lg">
-          <div className=" mb-10">
-            <h2 className="font-extrabold text-2xl text-[#B348C7]">
-              Nilai<span className="text-[#F3BC55]">Ku</span>
-            </h2>
+          <div className=" mb-5">
+            <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
           </div>
           <div className="flex mb-10">
             <motion.div

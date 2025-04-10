@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Logo from '../assets/images/nilaiku_logo.png';
+
 
 /**
  * Komponen Navbar untuk menampilkan navigasi di bagian atas halaman.
- * Navbar ini responsif dan memiliki animasi saat digunakan di perangkat mobile.
  */
 const Navbar = () => {
   // State untuk mengontrol apakah menu mobile terbuka atau tidak
@@ -35,13 +36,6 @@ const Navbar = () => {
     };
   }, []);
   // Tentukan kelas CSS berdasarkan state `scroll`
-  let scrollActive = scroll
-    ? "py-6 bg-white/10 shadow" // Jika di-scroll, tambahkan padding dan shadow
-    : ""; // Jika tidak di-scroll, gunakan padding yang lebih kecil
-
-  let scrollService = scroll
-    ? "my- bg-white/10 md:shadow" // Jika di-scroll, tambahkan margin dan shadow
-    : "my-0 bg-white/10 md:shadow"; // Jika tidak di-scroll, gunakan margin yang lebih kecil
 
   /**
    * Fungsi untuk membuka/menutup menu mobile.
@@ -58,21 +52,20 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <>
       {/* Navbar utama */}
       <nav
-        className={`  flex px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 py-2 bg-white/10 shadow`}
+        className={`  flex px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 py-1 bg-white/10 shadow`}
       >
         {/* Logo atau judul navbar */}
-        <div className="inline-flex items-center">
-          <h2 className="font-bold text-4xl text-[#B348C7]">
-            Nilai<span className="text-[#F3BC55]">Ku</span>
-          </h2>
+        <div className="flex  items-center">
+          <img src={Logo} alt="Logo Nilaiku"
+          className="max-h-15 max-w-30"/>
         </div>
 
         {/* Daftar menu navigasi */}
         <ul
-          className={`md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 
+          className={`items-center  md:px-2 md:mr-12 ml-auto md:flex md:space-x-2 absolute md:relative top-full left-0 right-0 
             bg-white md:bg-transparent text-lg font-semibold transition-all duration-300 ease-in-out
             ${isMenuOpen ? "block opacity-100 translate-y-0" : "hidden transition-discrete md:flex opacity-0 md:opacity-100 translate-y-[-100%] md:translate-y-0"}`}
         >
@@ -80,7 +73,7 @@ const Navbar = () => {
           <li>
             <a
               href="#home"
-              className="inline-flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+              className="inline-flex md:inline-flex m-4 relative text-[#B348C7] hover:text-[#F3BC55] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {
@@ -102,7 +95,7 @@ const Navbar = () => {
           <li className="relative group">
             <a
               href="#about"
-              className="inline-flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+              className="inline-flex md:inline-flex    m-4  relative text-[#B348C7] hover:text-[#F3BC55] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {
@@ -122,7 +115,7 @@ const Navbar = () => {
 
           {/* Menu Service dengan sub-menu */}
           <li className="relative group">
-            <div className="flex items-center justify-between">
+            <div className="flex  items-center justify-between">
               <a
                 href="#features"
                 onClick={(e) => {
@@ -137,7 +130,7 @@ const Navbar = () => {
                     });
                   }
                 }}
-                className="flex md:inline-flex m-4 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+                className="flex md:inline-flex  m-4    relative text-[#B348C7] hover:text-[#F3BC55] 
         after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
         after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               >
@@ -168,7 +161,7 @@ const Navbar = () => {
       transition-all duration-300 
       md:absolute top-full left-0 md:w-48 
       md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
-      ${isServiceOpen ? "block opacity-100" : "hidden transition-discrete md:block opacity-0"} ${scrollService}
+      ${isServiceOpen ? "block opacity-100" : "hidden transition-discrete md:block opacity-0"} 
     `}
             >
               <li>
@@ -186,7 +179,7 @@ const Navbar = () => {
                       });
                     }
                   }}
-                  className="inline-flex  ml-5 my-3  
+                  className="inline-flex   ml-5 my-3  
         hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
         relative after:absolute after:content-[''] after:h-[1px] 
         after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-10px] 
@@ -255,7 +248,7 @@ const Navbar = () => {
           <li>
             <a
               href="#team"
-              className=" inline-flex md:inline-flex mx-4 mt-4 mb-7 items-center relative text-[#B348C7] hover:text-[#F3BC55] 
+              className=" inline-flex md:inline-flex   mt-4 mb-7 md:mt-0  md:mb-0 m-4 relative text-[#B348C7] hover:text-[#F3BC55] 
   after:absolute after:content-[''] after:block after:h-[1px] after:bg-[#F3BC55] 
   after:w-0 after:left-0 after:bottom-[-10px] after:transition-all after:duration-300 hover:after:w-full"
               onClick={(e) => {
@@ -286,7 +279,7 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-    </div>
+    </>
   );
 };
 

@@ -15,9 +15,65 @@
       "email": "apa@gmail.com",
       "date_of_birth": "0022-12-21",
       "gender": "Laki-laki"
+    },
+    {
+      "id": 3,
+      "student_id": "Ov9gkeA4CG",
+      "name": "12211",
+      "email": "aass2@GMAIL.COM",
+      "date_of_birth": "0011-02-22",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 4,
+      "student_id": "juXSkXk8WU",
+      "name": "ss",
+      "email": "aa@gmail.com",
+      "date_of_birth": "1212-02-21",
+      "gender": "Perempuan"
     }
   ],
-  "student-academic": [],
+  "student-academic": [
+    {
+      "student_id": "luXhGWlCha",
+      "Attendance": 0,
+      "Hours_Studied": 0,
+      "Previous_Scores": 0,
+      "Sleep_Hours": 0,
+      "Tutoring_Sessions": 0,
+      "Peer_Influence": "Netral",
+      "Motivation_Level": "Medium",
+      "Teacher_Quality": "Medium",
+      "Acces_to_Resources": "Medium",
+      "id": 1
+    },
+    {
+      "student_id": "Ov9gkeA4CG",
+      "Attendance": 44,
+      "Hours_Studied": 43,
+      "Previous_Scores": 11,
+      "Sleep_Hours": 3,
+      "Tutoring_Sessions": 4,
+      "Peer_Influence": "Medium",
+      "Motivation_Level": "Medium",
+      "Teacher_Quality": "Medium",
+      "Acces_to_Resources": "Low",
+      "id": 2
+    },
+    {
+      "student_id": "juXSkXk8WU",
+      "Attendance": 21,
+      "Hours_Studied": 2,
+      "Previous_Scores": 33,
+      "Sleep_Hours": 1,
+      "Tutoring_Sessions": 1,
+      "Peer_Influence": "Medium",
+      "Motivation_Level": "High",
+      "Teacher_Quality": "High",
+      "Acces_to_Resources": "Medium",
+      "id": 3
+    }
+  ],
   "learning_recommendations": [
     {
       "id": 1,

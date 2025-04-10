@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from '../assets/images/nilaiku_logo.png';
 
 const Footer = () => {
   const submitEmail = () => {
@@ -25,9 +26,10 @@ const Footer = () => {
       <div className="bg-[#FFE3AF]">
         <div className="max-w-screen-xl py-10 px-4 sm:px-6 text-gray-800 mx-auto flex flex-col md:flex-row">
           <div className="p-5 w-full md:w-4/12">
-            <h3 className=" text-3xl text-[#B348C7] mb-4 font-bold">
-              Nilai<span className="text-[#F3BC55]">Ku</span>
-            </h3>
+             <div className="flex mb-3 items-center">
+                      <img src={Logo} alt="Logo Nilaiku"
+                      className="max-h-17 max-w-30"/>
+                    </div>
 
             <p className="text-gray-500 text-sm mb-5">
               Lorem Ipsum is simply dummy text of the printing and typesetting

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Logo from "../assets/images/nilaiku_logo.png";
 
 const StudentAcademicForm = () => {
   const { student_id } = useParams();
@@ -260,10 +261,8 @@ const StudentAcademicForm = () => {
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
         {/* Header section */}
         <div className="  pt-10 pb-4 px-10">
-          <div className=" mb-10">
-            <h2 className="font-extrabold text-2xl text-[#B348C7]">
-              Nilai<span className="text-[#F3BC55]">Ku</span>
-            </h2>
+          <div className=" mb-5">
+            <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
           </div>
           <h2 className="text-3xl font-bold   text-purple-800 flex  space-x-3 mb-4">
             <span>
@@ -309,6 +308,7 @@ const StudentAcademicForm = () => {
                 label="Jam Belajar per Minggu"
                 name="Hours_Studied"
                 icon="time-line"
+                step="0.1"
               />
               <InputField
                 label="Nilai Ujian Sebelumnya"

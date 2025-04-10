@@ -2,7 +2,6 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import {
   Activity,
-  AlertCircle,
   AlertTriangle,
   ArrowLeft,
   Award,
@@ -10,26 +9,16 @@ import {
   Calendar,
   Edit,
   Moon,
-  PieChart,
   Smile,
   Star,
   TrendingUp,
   Trophy,
   User,
   UserCheck,
-  Users
+  Users,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 
 const StudentDetailPage = () => {
   const { student_id } = useParams();
@@ -106,7 +95,7 @@ const StudentDetailPage = () => {
             ],
           };
 
-          // Change Value to Label in display 
+          // Change Value to Label in display
           const valueToLabel = (field, value) => {
             const options = dropdownOptions[field];
             if (!options) return value;
@@ -124,7 +113,10 @@ const StudentDetailPage = () => {
               ? parseFloat(academicResult.Attendance).toFixed(2) + "%"
               : "0%",
             hours_studied: academicResult.Hours_Studied
-              ? parseFloat(academicResult.Hours_Studied).toFixed(1) + " jam"
+              ? (Number.isInteger(parseFloat(academicResult.Hours_Studied))
+                  ? parseInt(academicResult.Hours_Studied)
+                  : parseFloat(academicResult.Hours_Studied).toFixed(1)) +
+                " jam"
               : "0 jam",
             tutoring_sessions: academicResult.Tutoring_Sessions || "0",
 
@@ -148,10 +140,6 @@ const StudentDetailPage = () => {
             sleep_hours: academicResult.Sleep_Hours
               ? parseFloat(academicResult.Sleep_Hours).toFixed(1) + " jam"
               : "0 jam",
-             
-            learning_disabilities: academicResult.Learning_Disabilities
-              ? "Ya"
-              : "Tidak",
           };
 
           setAcademicData(formattedAcademicData);
@@ -491,17 +479,7 @@ const StudentDetailPage = () => {
                   <BookOpen size={18} className="mr-2" />
                   Data Akademik
                 </button>
-                <button
-                  onClick={() => setActiveTab("progress")}
-                  className={`py-4 px-6 font-medium text-sm flex items-center ${
-                    activeTab === "progress"
-                      ? "border-b-2 border-blue-500 text-blue-600"
-                      : "text-gray-500 hover:text-blue-500"
-                  }`}
-                >
-                  <PieChart size={18} className="mr-2" />
-                  Grafik Perkembangan
-                </button>
+
                 <button
                   onClick={() => setActiveTab("recommendation")}
                   className={`py-4 px-6 font-medium text-sm flex items-center ${
@@ -652,18 +630,18 @@ const StudentDetailPage = () => {
                           icon: <Moon size={24} className="text-pink-600" />,
                           color: "pink",
                         },
-                         
-                        {
-                          label: "Kesulitan Belajar",
-                          value: academicData.learning_disabilities,
-                          icon: (
-                            <AlertCircle size={24} className="text-gray-600" />
-                          ),
-                          color: "gray",
-                        },
+
                         {
                           label: "Kualitas Guru",
                           value: academicData.teacher_quality,
+                          icon: (
+                            <UserCheck size={24} className="text-orange-600" />
+                          ),
+                          color: "orange",
+                        },
+                        {
+                          label: "Acces_to_Resources",
+                          value: academicData.acces_to_resources,
                           icon: (
                             <UserCheck size={24} className="text-orange-600" />
                           ),
@@ -723,98 +701,6 @@ const StudentDetailPage = () => {
               )}
 
               {/* Tab Progress */}
-
-              {activeTab === "progress" && (
-                <div className="animate-fadeIn">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-                    Grafik Perkembangan Nilai
-                  </h2>
-
-                  {progressData.length > 0 ? (
-                    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                      <div className="h-80">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart
-                            data={progressData}
-                            margin={{
-                              top: 20,
-                              right: 30,
-                              left: 20,
-                              bottom: 20,
-                            }}
-                          >
-                            <CartesianGrid
-                              strokeDasharray="3 3"
-                              stroke="#f0f0f0"
-                            />
-                            <XAxis dataKey="month" />
-                            <YAxis domain={[0, 100]} />
-                            <Tooltip
-                              contentStyle={{
-                                backgroundColor: "#fff",
-                                border: "1px solid #e2e8f0",
-                                borderRadius: "0.5rem",
-                                boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                              }}
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="nilai"
-                              stroke={scoreTheme?.chartColor || "#3b82f6"}
-                              strokeWidth={3}
-                              dot={{ r: 6, strokeWidth: 2 }}
-                              activeDot={{
-                                r: 8,
-                                stroke: scoreTheme?.activeDotColor || "#1d4ed8",
-                                strokeWidth: 2,
-                              }}
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-                      <div className="mt-6 text-center text-gray-500 text-sm">
-                        <p>
-                          Grafik menunjukkan perkembangan nilai siswa dari waktu
-                          ke waktu
-                        </p>
-                        {score >= 90 && (
-                          <p className="mt-2 text-blue-600 font-medium flex items-center justify-center">
-                            <Trophy className="mr-1" size={16} />
-                            Selamat! Nilai siswa termasuk kategori istimewa
-                          </p>
-                        )}
-                        {score > 75 && score < 90 && (
-                          <p className="mt-2 text-blue-500 font-medium flex items-center justify-center">
-                            <Star className="mr-1" size={16} />
-                            Pertahankan! Nilai siswa termasuk kategori sangat
-                            baik
-                          </p>
-                        )}
-                        {score > 50 && score <= 75 && (
-                          <p className="mt-2 text-orange-500 font-medium flex items-center justify-center">
-                            <Smile className="mr-1" size={16} />
-                            Tingkatkan lagi! Nilai siswa termasuk kategori cukup
-                          </p>
-                        )}
-                        {score <= 50 && (
-                          <p className="mt-2 text-red-500 font-medium flex items-center justify-center">
-                            <AlertTriangle className="mr-1" size={16} />
-                            Perlu perhatian khusus! Nilai siswa termasuk
-                            kategori rendah
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg">
-                      <p className="text-yellow-700 font-medium text-center">
-                        Data perkembangan belum tersedia. Harap lengkapi data
-                        akademik terlebih dahulu.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
 
               {/* TAB REKOMENDASI */}
 
