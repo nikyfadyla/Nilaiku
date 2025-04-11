@@ -39,6 +39,30 @@
       "email": "ss@gmail.com",
       "date_of_birth": "11111-11-11",
       "gender": "Laki-laki"
+    },
+    {
+      "id": 6,
+      "student_id": "DPnwa0_2T8",
+      "name": "nikkkkyy",
+      "education": "SMKN 2 BOGOR MAGELANG",
+      "age": "32",
+      "gender": "Laki-laki"
+    },
+    {
+      "id": 7,
+      "student_id": "pnEQOgMiQy",
+      "name": "ss",
+      "education": "ddd",
+      "age": "22",
+      "gender": "Perempuan"
+    },
+    {
+      "id": 8,
+      "student_id": "pJqtmx-JEO",
+      "name": "ss",
+      "education": "21",
+      "age": "22",
+      "gender": "Perempuan"
     }
   ],
   "student-academic": [
@@ -93,6 +117,32 @@
       "teacher_quality": "High",
       "acces_to_resources": "High",
       "id": 4
+    },
+    {
+      "student_id": "DPnwa0_2T8",
+      "attendance": 99,
+      "hours_studied": 0,
+      "previous_scores": 95,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "peer_influence": "",
+      "motivation_level": "High",
+      "teacher_quality": "Medium",
+      "acces_to_resources": "Medium",
+      "id": 5
+    },
+    {
+      "student_id": "pJqtmx-JEO",
+      "attendance": 22,
+      "hours_studied": 0,
+      "previous_scores": 8,
+      "sleep_hours": 0,
+      "tutoring_sessions": 0,
+      "peer_influence": "Netral",
+      "motivation_level": "Medium",
+      "teacher_quality": "Medium",
+      "acces_to_resources": "Medium",
+      "id": 6
     }
   ],
   "learning_recommendations": [

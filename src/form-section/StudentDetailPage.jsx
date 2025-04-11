@@ -8,14 +8,16 @@ import {
   BookOpen,
   Calendar,
   Edit,
+  Mars,
   Moon,
+  School,
   Smile,
   Star,
   TrendingUp,
   Trophy,
   User,
   UserCheck,
-  Users,
+  Venus,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -256,8 +258,6 @@ const StudentDetailPage = () => {
     if (parseFloat(academicData.motivation_level) > 7) {
       strengths.push("Motivasi Tinggi");
     }
-
-     
 
     if (strengths.length === 0) {
       strengths.push("Perlu peningkatan di semua aspek");
@@ -524,6 +524,19 @@ const StudentDetailPage = () => {
                         </span>
                       </div>
                     </div>
+                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 flex items-start">
+                      <div className="bg-blue-100 p-3 rounded-full mr-4">
+                        <School size={24} className="text-blue-600" />
+                      </div>
+                      <div>
+                        <span className="block text-gray-500 text-sm mb-1">
+                          Nama Sekolah
+                        </span>
+                        <span className="font-medium text-gray-800 text-lg">
+                          {studentData?.education || "-"}
+                        </span>
+                      </div>
+                    </div>
 
                     <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 flex items-start">
                       <div className="bg-blue-100 p-3 rounded-full mr-4">
@@ -531,30 +544,30 @@ const StudentDetailPage = () => {
                       </div>
                       <div>
                         <span className="block text-gray-500 text-sm mb-1">
-                          Tanggal Lahir
+                          Usia
                         </span>
                         <span className="font-medium text-gray-800 text-lg">
-                          {formatDate(studentData?.date_of_birth) || "-"}
+                          {studentData?.age + " Tahun" || "0"}
                         </span>
                       </div>
                     </div>
 
-                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                      <span className="block text-gray-500 text-sm mb-1">
-                        ID Siswa
-                      </span>
-                      <span className="font-medium text-gray-800 text-lg">
-                        {studentData?.student_id || "-"}
-                      </span>
-                    </div>
-
-                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                      <span className="block text-gray-500 text-sm mb-1">
-                        Jenis Kelamin
-                      </span>
-                      <span className="font-medium text-gray-800 text-lg">
-                        {studentData?.gender || "-"}
-                      </span>
+                    <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 flex items-start">
+                      <div className="bg-blue-100 p-3 rounded-full mr-4">
+                        {studentData?.gender === "Laki-laki" ? (
+                          <Mars size={24} className="text-blue-600" />
+                        ) : (
+                          <Venus size={24} className="text-pink-600" />
+                        )}
+                      </div>
+                      <div>
+                        <span className="block text-gray-500 text-sm mb-1">
+                          Jenis Kelamin
+                        </span>
+                        <span className="font-medium text-gray-800 text-lg">
+                          {studentData?.gender || "-"}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -616,7 +629,7 @@ const StudentDetailPage = () => {
                           ),
                           color: "yellow",
                         },
-                        
+
                         {
                           label: "Jam Tidur per Malam",
                           value: academicData.sleep_hours,
