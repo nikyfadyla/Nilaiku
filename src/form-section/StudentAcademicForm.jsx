@@ -46,28 +46,28 @@ const StudentAcademicForm = () => {
 
           reset({
             student_id: data[0].student_id,
-            Attendance: data[0].Attendance,
-            Hours_Studied: data[0].Hours_Studied,
-            Previous_Scores: data[0].Previous_Scores,
-            Sleep_Hours: data[0].Sleep_Hours,
-            Tutoring_Sessions: data[0].Tutoring_Sessions,
-            Peer_Influence: data[0].Peer_Influence,
-            Motivation_Level: data[0].Motivation_Level,
-            Teacher_Quality: data[0].Teacher_Quality,
-            Acces_to_Resources: data[0].Acces_to_Resources,
+            attendance: data[0].attendance,
+            hours_studied: data[0].hours_studied,
+            previous_scores: data[0].previous_scores,
+            sleep_hours: data[0].sleep_hours,
+            tutoring_sessions: data[0].tutoring_sessions,
+            peer_influence: data[0].peer_influence,
+            motivation_level: data[0].motivation_level,
+            teacher_quality: data[0].teacher_quality,
+            acces_to_resources: data[0].acces_to_resources,
           });
         } else {
           reset({
             student_id: student_id || "",
-            Attendance: "",
-            Hours_Studied: "",
-            Previous_Scores: "",
-            Sleep_Hours: "",
-            Tutoring_Sessions: "",
-            Peer_Influence: "Netral",
-            Motivation_Level: "Medium",
-            Teacher_Quality: "Medium",
-            Acces_to_Resources: "Medium",
+            attendance: "",
+            hours_studied: "",
+            previous_scores: "",
+            sleep_hours: "",
+            tutoring_sessions: "",
+            peer_influence: "Netral",
+            motivation_level: "Medium",
+            teacher_quality: "Medium",
+            acces_to_resources: "Medium",
           });
         }
       } catch (err) {
@@ -90,11 +90,11 @@ const StudentAcademicForm = () => {
 
     const formDataToSubmit = { ...data };
     const numericFields = [
-      "Attendance",
-      "Hours_Studied",
-      "Previous_Scores",
-      "Sleep_Hours",
-      "Tutoring_Sessions",
+      "attendance",
+      "hours_studied",
+      "previous_scores",
+      "sleep_hours",
+      "tutoring_sessions",
     ];
 
     numericFields.forEach((field) => {
@@ -181,7 +181,7 @@ const StudentAcademicForm = () => {
           inputMode="numeric"
           defaultValue={defaultValue}
           {...register(name, {
-            ...(name === "Previous_Scores" && {
+            ...(name === "previous_scores" && {
               max: {
                 value: 100,
                 message: "Nilai sebelumnya tidak boleh melebihi 100",
@@ -191,7 +191,7 @@ const StudentAcademicForm = () => {
                 message: "Nilai sebelumnya tidak boleh kurang dari 0",
               },
             }),
-            ...(name === "Attendance" && {
+            ...(name === "attendance" && {
               max: {
                 value: 100,
                 message: "Kehadiran tidak boleh melebihi 100%",
@@ -295,7 +295,7 @@ const StudentAcademicForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField
                 label="Persentase Kehadiran (%)"
-                name="Attendance"
+                name="attendance"
                 icon="user-follow-line"
                 validation={{
                   validate: (value) => {
@@ -306,13 +306,13 @@ const StudentAcademicForm = () => {
               />
               <InputField
                 label="Jam Belajar per Minggu"
-                name="Hours_Studied"
+                name="hours_studied"
                 icon="time-line"
                 step="0.1"
               />
               <InputField
                 label="Nilai Ujian Sebelumnya"
-                name="Previous_Scores"
+                name="previous_scores"
                 icon="bar-chart-grouped-line"
                 validation={{
                   validate: (value) => {
@@ -324,19 +324,19 @@ const StudentAcademicForm = () => {
 
               <InputField
                 label="Jam Tidur per Malam"
-                name="Sleep_Hours"
+                name="sleep_hours"
                 icon="zzz-line"
               />
 
               <InputField
                 label="Jumlah Sesi Bimbingan"
-                name="Tutoring_Sessions"
+                name="tutoring_sessions"
                 icon="group-line"
               />
 
               <DropdownField
                 label="Pengaruh Teman Sekitar"
-                name="Peer_Influence"
+                name="peer_influence"
                 options={[
                   { label: "Positif", value: "Positive" },
                   { label: "Biasa", value: "Medium" },
@@ -346,7 +346,7 @@ const StudentAcademicForm = () => {
               />
               <DropdownField
                 label="Tingkat Motivasi"
-                name="Motivation_Level"
+                name="motivation_level"
                 options={[
                   { label: "Rendah", value: "Low" },
                   { label: "Biasa", value: "Medium" },
@@ -357,7 +357,7 @@ const StudentAcademicForm = () => {
 
               <DropdownField
                 label="Kualitas Guru"
-                name="Teacher_Quality"
+                name="teacher_quality"
                 options={[
                   { label: "Rendah", value: "Low" },
                   { label: "Biasa", value: "Medium" },
@@ -367,7 +367,7 @@ const StudentAcademicForm = () => {
               />
               <DropdownField
                 label="Akses Terhadap Sumber Daya Pendidikan"
-                name="Acces_to_Resources"
+                name="acces_to_resources"
                 options={[
                   { label: "Mudah", value: "Low" },
                   { label: "Biasa", value: "Medium" },

@@ -31,6 +31,14 @@
       "email": "aa@gmail.com",
       "date_of_birth": "1212-02-21",
       "gender": "Perempuan"
+    },
+    {
+      "id": 5,
+      "student_id": "9FjHUN4GJP",
+      "name": "aa",
+      "email": "ss@gmail.com",
+      "date_of_birth": "11111-11-11",
+      "gender": "Laki-laki"
     }
   ],
   "student-academic": [
@@ -72,6 +80,19 @@
       "Teacher_Quality": "High",
       "Acces_to_Resources": "Medium",
       "id": 3
+    },
+    {
+      "student_id": "9FjHUN4GJP",
+      "attendance": 22,
+      "hours_studied": 2,
+      "previous_scores": 22,
+      "sleep_hours": 1,
+      "tutoring_sessions": 2,
+      "peer_influence": "Negative",
+      "motivation_level": "High",
+      "teacher_quality": "High",
+      "acces_to_resources": "High",
+      "id": 4
     }
   ],
   "learning_recommendations": [

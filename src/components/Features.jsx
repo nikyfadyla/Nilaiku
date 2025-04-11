@@ -1,11 +1,13 @@
 import React from "react";
-import Study from "../assets/images/study.jpg";
+import Interaktif from "../assets/images/interaktif.png";
+import Prediction from "../assets/images/prediksi.png";
+import Recomendation from "../assets/images/rekomendasi.png";
 
 const Features = () => {
   return (
     <section
       id="features"
-      className="px-4 sm:px-6  mx-auto md:mx-15 py-8 md:py-30"
+      className="px-4 sm:px-6 py-30 mx-auto md:mx-15 md:my-40"
     >
       <h2
         className="text-xl md:text-2xl font-base text-center   text-purple-600 mb-15 md:mb-25 font-bold
@@ -13,13 +15,13 @@ const Features = () => {
       >
         Fitur Utama
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        <div className="p-3 md:p-4 rounded-lg transition-transform hover:scale-105">
-          <div className="w-full aspect-video overflow-hidden rounded-md mb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+        <div className="p-3 md:p-4  mt-25 mb-15 rounded-lg transition-transform hover:scale-105">
+          <div className="max-w-full aspect-video overflow-hidden rounded-md mb-4 ">
             <img
-              src={Study}
+              src={Prediction}
               alt="Study"
-              className="w-full h-full object-cover bg-gray-300 rounded-md"
+              className="max-w-full max-h-full object-contain bg-gray-300 rounded-md "
             />
           </div>
           <div id="prediksi">
@@ -32,12 +34,12 @@ const Features = () => {
           </div>
         </div>
 
-        <div className="p-3 md:p-4 rounded-lg transition-transform hover:scale-105">
-          <div className="w-full aspect-video overflow-hidden rounded-md mb-4">
+        <div className="p-3 md:p-4 rounded-lg mt-25 mb-15 transition-transform hover:scale-105">
+          <div className=" aspect-video overflow-hidden rounded-md  mb-4">
             <img
-              src={Study}
+              src={Interaktif}
               alt="Study"
-              className="w-full h-full object-cover bg-gray-300 rounded-md"
+              className="max-w-full max-h-full object-contain bg-gray-300 rounded-md"
             />
           </div>
           <div id="#analisis">
@@ -51,12 +53,12 @@ const Features = () => {
           </div>
         </div>
 
-        <div className="p-3 md:p-4 rounded-lg transition-transform hover:scale-105 sm:col-span-2 md:col-span-1 sm:mx-auto sm:max-w-sm md:max-w-none md:mx-0">
-          <div className="w-full aspect-video overflow-hidden rounded-md mb-4">
+        <div className="p-3 md:p-4  my-25 rounded-lg transition-transform hover:scale-105 sm:col-span-2 md:col-span-1 sm:mx-auto sm:max-w-sm md:max-w-none md:mx-0">
+          <div className="max-w-full   aspect-video overflow-hidden rounded-md  mb-4">
             <img
-              src={Study}
+              src={Recomendation}
               alt="Study"
-              className="w-full h-full object-cover bg-gray-300 rounded-md"
+              className="max-w-full max-h-full    object-contain bg-gray-100 rounded-md"
             />
           </div>
           <div id="rekomendasi">

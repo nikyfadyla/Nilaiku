@@ -73,25 +73,25 @@ const StudentDetailPage = () => {
 
           // Dropdown options Section
           const dropdownOptions = {
-            Peer_Influence: [
-              { label: "Positif", value: "Positive" },
-              { label: "Biasa", value: "Medium" },
-              { label: "Negatif", value: "Negative" },
+            peer_influence: [
+              { label: "Positif", value: "positive" },
+              { label: "Biasa", value: "neutral" },
+              { label: "Negatif", value: "negative" },
             ],
-            Motivation_Level: [
-              { label: "Rendah", value: "Low" },
-              { label: "Biasa", value: "Medium" },
-              { label: "Tinggi", value: "High" },
+            motivation_level: [
+              { label: "Rendah", value: "low" },
+              { label: "Biasa", value: "medium" },
+              { label: "Tinggi", value: "high" },
             ],
-            Teacher_Quality: [
-              { label: "Rendah", value: "Low" },
-              { label: "Biasa", value: "Medium" },
-              { label: "Tinggi", value: "High" },
+            teacher_quality: [
+              { label: "Rendah", value: "low" },
+              { label: "Biasa", value: "medium" },
+              { label: "Tinggi", value: "high" },
             ],
             Acces_to_Resources: [
-              { label: "Mudah", value: "Low" },
-              { label: "Biasa", value: "Medium" },
-              { label: "Sulit", value: "High" },
+              { label: "Mudah", value: "low" },
+              { label: "Biasa", value: "medium" },
+              { label: "Sulit", value: "high" },
             ],
           };
 
@@ -106,47 +106,47 @@ const StudentDetailPage = () => {
           // Section academic data
           const formattedAcademicData = {
             ...academicResult,
-            previous_scores: academicResult.Previous_Scores
-              ? parseFloat(academicResult.Previous_Scores).toFixed(2)
+            previous_scores: academicResult.previous_scores
+              ? parseFloat(academicResult.previous_scores).toFixed(2)
               : "0",
-            attendance: academicResult.Attendance
-              ? parseFloat(academicResult.Attendance).toFixed(2) + "%"
+            attendance: academicResult.attendance
+              ? parseFloat(academicResult.attendance).toFixed(2) + "%"
               : "0%",
-            hours_studied: academicResult.Hours_Studied
-              ? (Number.isInteger(parseFloat(academicResult.Hours_Studied))
-                  ? parseInt(academicResult.Hours_Studied)
-                  : parseFloat(academicResult.Hours_Studied).toFixed(1)) +
+            hours_studied: academicResult.hours_studied
+              ? (Number.isInteger(parseFloat(academicResult.hours_studied))
+                  ? parseInt(academicResult.hours_studied)
+                  : parseFloat(academicResult.hours_studied).toFixed(1)) +
                 " jam"
               : "0 jam",
-            tutoring_sessions: academicResult.Tutoring_Sessions || "0",
+            tutoring_sessions: academicResult.tutoring_sessions || "0",
 
             motivation_level: valueToLabel(
-              "Motivation_Level",
-              academicResult.Motivation_Level
+              "motivation_level",
+              academicResult.motivation_level
             ),
             peer_influence: valueToLabel(
-              "Peer_Influence",
-              academicResult.Peer_Influence
+              "peer_influence",
+              academicResult.peer_influence
             ),
             teacher_quality: valueToLabel(
-              "Teacher_Quality",
-              academicResult.Teacher_Quality
+              "teacher_quality",
+              academicResult.teacher_quality
             ),
             acces_to_resources: valueToLabel(
               "Acces_to_Resources",
-              academicResult.Acces_to_Resources
+              academicResult.acces_to_resources
             ),
 
-            sleep_hours: academicResult.Sleep_Hours
-              ? parseFloat(academicResult.Sleep_Hours).toFixed(1) + " jam"
+            sleep_hours: academicResult.sleep_hours
+              ? parseFloat(academicResult.sleep_hours).toFixed(1) + " jam"
               : "0 jam",
           };
 
           setAcademicData(formattedAcademicData);
 
           // Calculate final score (PROTOTYPE)
-          const previousScore = parseFloat(academicResult.Previous_Scores) || 0;
-          const attendance = parseFloat(academicResult.Attendance) || 0;
+          const previousScore = parseFloat(academicResult.previous_scores) || 0;
+          const attendance = parseFloat(academicResult.attendance) || 0;
           const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(
             2
           );
@@ -245,21 +245,19 @@ const StudentDetailPage = () => {
 
     const strengths = [];
 
-    if (parseFloat(academicData.Attendance) > 80) {
+    if (parseFloat(academicData.attendance) > 80) {
       strengths.push("Kehadiran Tinggi");
     }
 
-    if (parseFloat(academicData.Hours_Studied) > 10) {
+    if (parseFloat(academicData.hours_studied) > 10) {
       strengths.push("Jam Belajar Optimal");
     }
 
-    if (parseFloat(academicData.Motivation_Level) > 7) {
+    if (parseFloat(academicData.motivation_level) > 7) {
       strengths.push("Motivasi Tinggi");
     }
 
-    if (parseFloat(academicData.parental_involvement) > 7) {
-      strengths.push("Dukungan Orangtua Baik");
-    }
+     
 
     if (strengths.length === 0) {
       strengths.push("Perlu peningkatan di semua aspek");
@@ -618,12 +616,7 @@ const StudentDetailPage = () => {
                           ),
                           color: "yellow",
                         },
-                        {
-                          label: "Keterlibatan Orangtua",
-                          value: academicData.parental_involvement,
-                          icon: <Users size={24} className="text-red-600" />,
-                          color: "red",
-                        },
+                        
                         {
                           label: "Jam Tidur per Malam",
                           value: academicData.sleep_hours,
