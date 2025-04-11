@@ -1,5 +1,0 @@
-{
-  "/students": "/students",
-  "/academics": "/student-academic",
-  "/students/:student_id": "/students?student_id=:student_id"
-}

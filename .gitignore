@@ -12,6 +12,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+json-server.json
+
 *.local
 
 # Editor directories and files
@@ -26,3 +28,8 @@ dist-ssr
 *.sw?
 
 
+
+.env
+db.json
+json-server.json
+routes.json
