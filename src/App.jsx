@@ -52,10 +52,7 @@ const backgroundStyle = {
   background:
     "radial-gradient(circle, rgb(255, 255, 255), rgb(232, 215, 255), rgb(232, 215, 255))",
   minHeight: "100vh",
- 
 };
-
-
 
 function App() {
   useEffect(() => {
