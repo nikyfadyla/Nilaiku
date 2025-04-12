@@ -13,14 +13,14 @@ function StudentDataForm() {
     id: urlStudentId || null,
     student_id: urlStudentId || "",
     name: "",
-    email: "",
-    date_of_birth: "",
+    education: "",
+    age: "",
     gender: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [emailError, setEmailError] = useState(null); // State terpisah untuk error email
+  // const [emailError, setEmailError] = useState(null); // State terpisah untuk error email
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [touched, setTouched] = useState({
     email: false,
@@ -54,11 +54,11 @@ function StudentDataForm() {
     }
   };
 
-  // Validasi Kolom Email
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // // Validasi Kolom Email
+  // const validateEmail = (email) => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
 
   // Handle Change
   const handleChange = (e) => {
@@ -66,13 +66,13 @@ function StudentDataForm() {
 
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    if (name === "email" && touched.email) {
-      if (value.length > 0 && !validateEmail(value)) {
-        setEmailError("Format email tidak valid.");
-      } else {
-        setEmailError(null);
-      }
-    }
+    //   if (name === "email" && touched.email) {
+    //     if (value.length > 0 && !validateEmail(value)) {
+    //       setEmailError("Format email tidak valid.");
+    //     } else {
+    //       setEmailError(null);
+    //     }
+    //   }
   };
 
   // Handle Blur
@@ -85,25 +85,25 @@ function StudentDataForm() {
     }));
 
     // Validasi email ketika pengguna selesai mengetik (blur)
-    if (name === "email") {
-      if (value && !validateEmail(value)) {
-        setEmailError("Format email tidak valid.");
-      } else {
-        setEmailError(null);
-      }
-    }
+    //   if (name === "email") {
+    //     if (value && !validateEmail(value)) {
+    //       setEmailError("Format email tidak valid.");
+    //     } else {
+    //       setEmailError(null);
+    //     }
+    //   }
   };
 
   // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validasi email saat submit form
-    if (formData.email && !validateEmail(formData.email)) {
-      setEmailError("Format email tidak valid.");
-      setTouched((prev) => ({ ...prev, email: true }));
-      return;
-    }
+    // // Validasi email saat submit form
+    // if (formData.email && !validateEmail(formData.email)) {
+    //   setEmailError("Format email tidak valid.");
+    //   setTouched((prev) => ({ ...prev, email: true }));
+    //   return;
+    // }
 
     setIsSubmitting(true);
 
@@ -120,8 +120,9 @@ function StudentDataForm() {
         id: formData.id,
         student_id: studentId,
         name: formData.name,
-        email: formData.email,
-        date_of_birth: formData.date_of_birth,
+        education: formData.education,
+        // email: formData.email,
+        age: formData.age,
         gender: formData.gender,
       };
 
@@ -229,7 +230,7 @@ function StudentDataForm() {
   }
 
   const inputClass = {
-    base: "pl-10 w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 border-purple-300 focus:ring-puple-600 focus:border-purple-500 transition-all font-medium text-gray-700 duration-300 hover:shadow-sm",
+    base: "pl-10 w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 border-purple-400 focus:ring-purple-600 focus:border-purple-500 transition-all font-medium text-gray-700 duration-300 hover:shadow-sm",
     error:
       "border-red-300 focus:ring-1 focus:ring-red-600 focus:border-red-500",
   };
@@ -321,7 +322,7 @@ function StudentDataForm() {
               </div>
             </motion.div>
 
-            {/* Email Field */}
+            {/* Education Field */}
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -329,43 +330,25 @@ function StudentDataForm() {
               className="space-y-2"
             >
               <label className="block text-sm font-semibold text-gray-800">
-                Email
+                Pendidikan Saat Ini
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="ri-mail-line text-gray-400"></i>
+                  <i className="ri-school-line text-gray-400"></i>
                 </div>
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email || ""}
+                  type="text"
+                  name="education"
+                  value={formData.education || ""}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="example@gmail.com"
+                  placeholder="Masukkan nama lengkap Pendidikan saat ini"
                   required
-                  className={getInputClass(emailError && touched.email)}
+                  className={getInputClass()}
                 />
               </div>
-
-              {/* Show error email di bawah field email */}
-              <AnimatePresence>
-                {emailError && touched.email && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <p className="text-red-500 text-sm mt-1 flex items-center">
-                      <i className="ri-information-line mr-1"></i>
-                      {emailError}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </motion.div>
 
-            {/* Tanggal Lahir */}
+            {/* Usia Siswa */}
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -373,27 +356,22 @@ function StudentDataForm() {
               className="space-y-2"
             >
               <label className="block text-sm font-semibold text-gray-800">
-                Tanggal Lahir
+                Usia Siswa
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <i className="ri-calendar-event-line text-gray-400"></i>
                 </div>
                 <input
-                  type="date"
-                  name="date_of_birth"
-                  value={formData.date_of_birth || ""}
+                  type="number"
+                  name="age"
+                  value={formData.age || ""}
                   onChange={handleChange}
+                  placeholder="Usia anda saat ini"
                   required
-                  className={`${getInputClass()} appearance-none`}
+                  className={`${getInputClass()}  `}
                 />
-                <style>
-                  {`
-                    input[type="date"]::-webkit-calendar-picker-indicator {
-                    display: none;
-                    -webkit-appearance: none;
-                }`}
-                </style>
+                
               </div>
             </motion.div>
 
@@ -468,10 +446,10 @@ function StudentDataForm() {
                   }}
                   whileTap={{ scale: 0.98 }}
                   disabled={isSubmitting}
-                  className={`flex justify-center  px-6 py-3 rounded-lg text-white font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${
+                  className={`flex justify-center  px-6 py-3 rounded-lg text-white font-semibold  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-600 transition-all duration-300 hover:border-purple-600 ${
                     isSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                      : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                   }`}
                 >
                   {isSubmitting ? (
