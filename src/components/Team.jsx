@@ -39,9 +39,10 @@ const Team = () => {
   return (
     <div>
       <section id="team" className="py-30 mx-auto md:mx-15">
-        <h2 className="mb-15 md:mb-25 text-center text-purple-500 text-2xl font-bold">
-          Team Proyek
+      <h2 className="text-3xl text-center md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-4">
+        Proyek Tim
         </h2>
+        <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-4"></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {teamMembers.map((member, index) => (
             <div

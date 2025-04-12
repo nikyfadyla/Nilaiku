@@ -175,9 +175,9 @@ const StudentAcademicForm = () => {
         <input
           id={name}
           type="number"
-          className={`w-full px-4 py-3 border  text-gray-700 font-medium rounded-lg focus:ring-1   border-purple-400 focus:ring-purple-600 focus:border-purple-500 focus:outline-none transition-all duration-200 bg-white shadow-sm ${
+          className={`w-full px-4 py-3 border border-gray-300  text-gray-700 font-medium rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm ${
             icon ? "pl-10" : ""
-          } hover:border-purple-600`}
+          } hover:border-blue-400`}
           inputMode="numeric"
           defaultValue={defaultValue}
           {...register(name, {
@@ -225,9 +225,9 @@ const StudentAcademicForm = () => {
         )}
         <select
           id={name}
-          className={`w-full px-4 py-3 appearance-none border text-gray-700 font-medium border-purple-400 rounded-lg focus:ring-1 focus:ring-purple-600 focus:border-purple-500 bg-white shadow-sm transition-all outline-none duration-200 ${
+          className={`w-full px-4 py-3 appearance-none border text-gray-700 font-medium border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm transition-all duration-200 ${
             icon ? "pl-10" : ""
-          } hover:border-purple-400`}
+          } hover:border-blue-400`}
           defaultValue={defaultValue}
           {...register(name)}
         >
