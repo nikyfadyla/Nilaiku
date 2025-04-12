@@ -36,7 +36,7 @@ const Hero = () => {
 
   return (
     <div id="home" className="pb-10">
-      <div className="min-h-screen pt-16 md:pt-20 flex flex-col px-4 md:px-8 lg:px-12 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF]">
+      <div className="min-h-screen px-4 pt-16 md:pt-20 flex flex-col px-4 md:px-8 lg:px-12 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF]">
         <div className="flex-grow container mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Left section */}
@@ -94,7 +94,7 @@ const Hero = () => {
             </div>
 
             {/* Right section */}
-            <div className="w-full lg:w-1/2 py-8 lg:py-16 order-1 lg:order-2 relative">
+            <div className="w-full lg:w-1/2 py-8 lg:py-16 order-2 lg:order-2 relative">
               <div className="relative mx-auto w-full max-w-md lg:max-w-lg xl:max-w-xl">
                 {/* Window frame */}
                 <div className="absolute inset-0 -z-10">
@@ -110,12 +110,12 @@ const Hero = () => {
                   </div>
                 </div>
                 
-                {/* Image */}
-                <div className="relative z-10 pt-6 pb-8 px-6">
+                {/* Image - Now with order-2 for mobile, order-1 for desktop */}
+                <div className="relative z-10 pt-6 pb-8 px-6 order-2 lg:order-1">
                   <img
                     src={ilustration}
                     alt="Ilustrasi prediksi nilai"
-                    className="w-full h-auto object-contain transform hover:scale-105 transition-transform duration-300 floating-image"
+                    className="w-[70%] md:w-full mx-auto h-auto object-contain transform hover:scale-105 transition-transform duration-300 floating-image"
                     style={{
                       filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.1))'
                     }}

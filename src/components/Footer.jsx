@@ -2,27 +2,9 @@ import React from "react";
 import Logo from '../assets/images/nilaiku_logo.png';
 
 const Footer = () => {
-  const submitEmail = () => {
-    console.log("click");
-  };
   return (
     <footer className="bg-[#FFF4DE] pt-25">
-      <div className="text-center w-auto items-center mb-25">
-        <h2 className="text-xl mb-10 font-bold">Get in tuch with us</h2>
-        <div className="relative bg-white rounded-lg mx-auto max-w-xs">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="py-3 px-3 pr-16 w-full bg-white rounded-lg border border-gray-200 focus:outline-none"
-          />
-          <button
-            className="absolute right-1 mt-1.5 top-1 px-4 py-1.5 text-sm bg-yellow-400 text-white rounded-md "
-            onClick={submitEmail}
-          >
-            Daftar
-          </button>
-        </div>
-      </div>
+      
       <div className="bg-[#FFE3AF]">
         <div className="max-w-screen-xl py-10 px-4 sm:px-6 text-gray-800 mx-auto flex flex-col md:flex-row">
           <div className="p-5 w-full md:w-4/12">
@@ -32,8 +14,7 @@ const Footer = () => {
                     </div>
 
             <p className="text-gray-500 text-sm mb-5">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
+            Prediksi nilai ujian siswa dengan analisis data berbasis Machine Learning. Dapatkan rekomendasi pembelajaran yang tepat untuk meningkatkan prestasi akademik Anda.
             </p>
             <div className="flex gap-5">
               <div className="flex bg-amber-100 w-[40px] h-[40px] rounded-full items-center justify-center">
