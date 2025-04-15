@@ -3,9 +3,8 @@ import Logo from '../assets/images/nilaiku_logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#FFF4DE] pt-25">
       
-      <div className="bg-[#FFE3AF]">
+      <footer className="bg-[#FFE3AF]">
         <div className="max-w-screen-xl py-10 px-4 sm:px-6 text-gray-800 mx-auto flex flex-col md:flex-row">
           <div className="p-5 w-full md:w-4/12">
              <div className="flex mb-3 items-center">
@@ -88,8 +87,7 @@ const Footer = () => {
         <div className="text-center py-5 bg-[#FFC962]">
           <p>Copyright © 2012 - 2025 NilaiKu®. All rights reserved.</p>
         </div>
-      </div>
-    </footer>
+      </footer>
   );
 };
 

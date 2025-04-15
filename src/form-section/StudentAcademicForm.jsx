@@ -15,6 +15,7 @@ const StudentAcademicForm = () => {
   // Use ID from URL or from state to ensure we always have a valid ID
   const studentId = urlStudentId || stateStudentId;
 
+  const [predictionResult, setPredictionResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -52,7 +53,7 @@ const StudentAcademicForm = () => {
       peer_influence: "Netral",
       motivation_level: "Medium",
       teacher_quality: "Biasa",
-      acces_to_resources: "",
+      acces_to_resources: "Biasa",
     });
   }, [reset, studentId]);
 
@@ -137,10 +138,11 @@ const StudentAcademicForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify(formDataToSubmit),
       });
+      const data = await response.json();
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -148,11 +150,13 @@ const StudentAcademicForm = () => {
         throw new Error(errorData.message || "Gagal mengirim data");
       }
 
+      setPredictionResult(data);
+      console.log(data);
+
       console.log("Navigating to student detail...");
       setSuccess(true);
 
       // Navigasi dengan studentId yang valid
-      navigate(`/student-detail/${studentId}`);
       setTimeout(() => setSuccess(false), 2000);
     } catch (err) {
       setError(err.message);
@@ -386,7 +390,7 @@ const StudentAcademicForm = () => {
                 name="peer_influence"
                 options={[
                   { label: "Positif", value: "positive" },
-                  { label: "Biasa", value: "medium" },
+                  { label: "Biasa", value: "neutral" },
                   { label: "Negatif", value: "negative" },
                 ]}
                 icon="group-3-line"
@@ -414,7 +418,7 @@ const StudentAcademicForm = () => {
               />
               <DropdownField
                 label="Akses Terhadap Sumber Daya Pendidikan"
-                name="acces_to_resources"
+                name="access_to_resources"
                 options={[
                   { label: "Mudah", value: "low" },
                   { label: "Biasa", value: "medium" },
@@ -465,6 +469,160 @@ const StudentAcademicForm = () => {
             </div>
           </form>
         </div>
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          <div className="p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
+            <h2 className="text-xl font-semibold text-white">
+              Hasil Prediksi Nilai
+            </h2>
+            <p className="text-indigo-100 mt-1">
+              Detail hasil prediksi akademik
+            </p>
+          </div>
+
+          <div className="p-6">
+            {predictionResult ? (
+              <div className="space-y-6">
+                {/* Predicted Score */}
+                <div className="text-center p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg">
+                  <h3 className="font-medium text-gray-600">Prediksi Nilai</h3>
+                  <div className="text-3xl font-bold text-indigo-600 mt-2">
+                    {parseFloat(
+                      predictionResult.prediction_result.predicted_score
+                    ).toFixed(2)}
+                  </div>
+                  <div className="text-md font-medium text-green-600 mt-1">
+                    {predictionResult.prediction_result.recommendation}
+                  </div>
+                </div>
+
+                {/* Student Info */}
+                <div className="border-t border-gray-100 pt-4">
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">
+                    Informasi Siswa
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Nama</div>
+                      <div className="font-medium">
+                        {predictionResult.student.name}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">ID</div>
+                      <div className="font-medium">
+                        {predictionResult.student.id}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Usia</div>
+                      <div className="font-medium">
+                        {predictionResult.student.age}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Jenis Kelamin</div>
+                      <div className="font-medium">
+                        {predictionResult.student.gender}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Pendidikan</div>
+                      <div className="font-medium">
+                        {predictionResult.student.education}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Input Record */}
+                <div className="border-t border-gray-100 pt-4">
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">
+                    Data Input
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">
+                        ID Mata Pelajaran
+                      </div>
+                      <div className="font-medium">
+                        {predictionResult.record.subject_id}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Kehadiran</div>
+                      <div className="font-medium">
+                        {predictionResult.record.attendance}%
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Jam Belajar</div>
+                      <div className="font-medium">
+                        {predictionResult.record.hours_studied} jam
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">
+                        Nilai Sebelumnya
+                      </div>
+                      <div className="font-medium">
+                        {predictionResult.record.previous_scores}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">
+                        Pengaruh Teman
+                      </div>
+                      <div className="font-medium">
+                        {predictionResult.record.peer_influence}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Motivasi</div>
+                      <div className="font-medium">
+                        {predictionResult.record.motivation_level}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Prediction Date */}
+                <div className="border-t border-gray-100 pt-4 text-center">
+                  <div className="text-sm text-gray-500">Tanggal Prediksi</div>
+                  <div className="text-sm text-gray-600">
+                    {new Date(
+                      predictionResult.prediction_result.prediction_date
+                    ).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full py-12">
+                <svg
+                  className="w-16 h-16 text-gray-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <p className="mt-3 text-gray-500 text-center">
+                  Isi form di samping dan kirim untuk melihat hasil prediksi
+                  nilai akademik
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center mt-8 text-gray-500 text-sm">
+        &copy; 2025 Sistem Prediksi Nilai Akademik - Dibuat dengan ReactJS dan
+        Tailwind CSS
       </div>
     </div>
   );
