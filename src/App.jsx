@@ -96,7 +96,7 @@ function App() {
           }
         />
         <Route
-          path="/student-academic/:student_id"
+          path="/student-academic/:id"
           element={
             <Layout>
               <StudentAcademicForm />

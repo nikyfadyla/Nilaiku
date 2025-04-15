@@ -4,19 +4,31 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Logo from "../assets/images/nilaiku_logo.png";
 
 const StudentAcademicForm = () => {
-  const { student_id } = useParams();
+  // Get ID from URL parameters
+  const { id: urlStudentId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const { prevData } = location.state || {};
 
+  // Extract data from navigation state
+  const { student_id: stateStudentId, prevData } = location.state || {};
+
+  // Use ID from URL or from state to ensure we always have a valid ID
+  const studentId = urlStudentId || stateStudentId;
+
+  const [predictionResult, setPredictionResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [academicData, setAcademicData] = useState(null);
-  const [academicId, setAcademicId] = useState(null);
 
-  // Ubah konfigurasi useForm
+  // State untuk daftar mata pelajaran
+  const [subjects, setSubjects] = useState([]);
+  const [subjectsLoading, setSubjectsLoading] = useState(true);
+  const [subjectsError, setSubjectsError] = useState(null);
+
+  const locUrl = import.meta.env.VITE_API_LOCAL_URL;
+  const pubUrl = import.meta.env.VITE_API_PUBLIC_URL;
+  const subjectsApiUrl = `${locUrl}/api/v1/subjects`;
+
   const {
     register,
     handleSubmit,
@@ -26,69 +38,87 @@ const StudentAcademicForm = () => {
     mode: "onBlur",
     reValidateMode: "onBlur",
   });
+
   useEffect(() => {
-    const fetchAcademicData = async () => {
+    // Validasi studentId
+
+    // Inisialisasi form dengan nilai default
+    reset({
+      subject_id: "",
+      attendance: "",
+      hours_studied: "",
+      previous_scores: "",
+      sleep_hours: "",
+      tutoring_sessions: "",
+      peer_influence: "Netral",
+      motivation_level: "Medium",
+      teacher_quality: "Biasa",
+      acces_to_resources: "Biasa",
+    });
+  }, [reset, studentId]);
+
+  // Effect untuk mengambil daftar mata pelajaran
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      if (!studentId) return; // Hanya fetch jika ada student ID yang valid
+
+      setSubjectsLoading(true);
+      setSubjectsError(null);
       try {
-        setFetchLoading(true);
-        const response = await fetch(
-          `http://localhost:3001/student-academic?student_id=${student_id}`
-        );
-
+        const response = await fetch(`${locUrl}/api/v1/subjects`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
         if (!response.ok) {
-          throw new Error("Gagal mengambil data akademik");
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+        const responseData = await response.json();
 
-        const data = await response.json();
-
-        if (data && data.length > 0) {
-          setAcademicData(data[0]);
-          setAcademicId(data[0].id);
-
-          reset({
-            student_id: data[0].student_id,
-            attendance: data[0].attendance,
-            hours_studied: data[0].hours_studied,
-            previous_scores: data[0].previous_scores,
-            sleep_hours: data[0].sleep_hours,
-            tutoring_sessions: data[0].tutoring_sessions,
-            peer_influence: data[0].peer_influence,
-            motivation_level: data[0].motivation_level,
-            teacher_quality: data[0].teacher_quality,
-            acces_to_resources: data[0].acces_to_resources,
-          });
+        // Memeriksa struktur data dan mengekstrak array subjects
+        if (
+          responseData &&
+          responseData.subjects &&
+          Array.isArray(responseData.subjects)
+        ) {
+          setSubjects(responseData.subjects);
         } else {
-          reset({
-            student_id: student_id || "",
-            attendance: "",
-            hours_studied: "",
-            previous_scores: "",
-            sleep_hours: "",
-            tutoring_sessions: "",
-            peer_influence: "Netral",
-            motivation_level: "Medium",
-            teacher_quality: "Medium",
-            acces_to_resources: "Medium",
-          });
+          console.error("Unexpected subjects data structure:", responseData);
+          throw new Error("Format data mata pelajaran tidak valid");
         }
       } catch (err) {
-        console.error("Error:", err);
-        setError(err.message);
+        setSubjectsError(err.message);
+        console.error("Error fetching subjects:", err);
       } finally {
-        setTimeout(() => {
-          setFetchLoading(false);
-        }, 2000);
+        setSubjectsLoading(false);
       }
     };
 
-    fetchAcademicData();
-  }, [student_id, reset]);
+    fetchSubjects();
+  }, [locUrl, studentId]);
 
   const onSubmit = async (data) => {
+    // Double-check studentId
+    if (!studentId) {
+      setError(
+        "ID Siswa tidak tersedia. Silakan kembali ke formulir sebelumnya."
+      );
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(false);
 
-    const formDataToSubmit = { ...data };
+    const formDataToSubmit = {
+      ...data,
+      student_id: studentId,
+    };
+
+    console.log("Mengirim data akademik:", formDataToSubmit);
+
     const numericFields = [
       "attendance",
       "hours_studied",
@@ -103,19 +133,16 @@ const StudentAcademicForm = () => {
         : 0;
     });
 
-    // Tentukan method dan URL berdasarkan apakah ini update atau create
-    const isUpdate = !!academicId;
-    const method = isUpdate ? "PUT" : "POST";
-    const url = isUpdate
-      ? `http://localhost:3001/student-academic/${academicId}`
-      : `http://localhost:3001/student-academic/`;
-
     try {
-      const response = await fetch(url, {
-        method: method,
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch(`${locUrl}/api/v1/predict`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify(formDataToSubmit),
       });
+      const data = await response.json();
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -123,9 +150,13 @@ const StudentAcademicForm = () => {
         throw new Error(errorData.message || "Gagal mengirim data");
       }
 
+      setPredictionResult(data);
+      console.log(data);
+
       console.log("Navigating to student detail...");
       setSuccess(true);
-      navigate(`/student-detail/${student_id}`);
+
+      // Navigasi dengan studentId yang valid
       setTimeout(() => setSuccess(false), 2000);
     } catch (err) {
       setError(err.message);
@@ -135,22 +166,9 @@ const StudentAcademicForm = () => {
     }
   };
 
-  const handleBack = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/students?student_id=${student_id}`
-      );
-      const data = await response.json();
-
-      if (data.length === 0) {
-        throw new Error("Data not found");
-      }
-
-      navigate(`/student-data/${data[0].id}`);
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Gagal mengambil data");
-    }
+  const handleBack = () => {
+    // Kembali ke halaman data siswa dengan ID yang valid
+    navigate(`/student-data/${studentId}`);
   };
 
   // Input Type Field
@@ -175,7 +193,7 @@ const StudentAcademicForm = () => {
         <input
           id={name}
           type="number"
-          className={`w-full px-4 py-3 border border-gray-300  text-gray-700 font-medium rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm ${
+          className={`w-full px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white shadow-sm ${
             icon ? "pl-10" : ""
           } hover:border-blue-400`}
           inputMode="numeric"
@@ -211,7 +229,54 @@ const StudentAcademicForm = () => {
     </div>
   );
 
-  // Dropdown Option Field
+  // Dropdown Option Field untuk Mata Pelajaran
+  const SubjectDropdownField = () => (
+    <div>
+      <label
+        className="block text-gray-800 font-semibold mb-2"
+        htmlFor="subject_id"
+      >
+        Pilih Mata Pelajaran:
+      </label>
+      <div className="relative">
+        <select
+          id="subject_id"
+          className={`w-full px-4 py-3 appearance-none border text-gray-700 font-medium border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm transition-all duration-200 hover:border-blue-400`}
+          {...register("subject_id", {
+            required: "Mata pelajaran harus dipilih",
+          })}
+          defaultValue=""
+        >
+          <option value="">-- Pilih Mata Pelajaran --</option>
+          {subjectsLoading ? (
+            <option disabled>Memuat mata pelajaran...</option>
+          ) : subjectsError ? (
+            <option disabled>
+              Error memuat mata pelajaran: {subjectsError}
+            </option>
+          ) : subjects && subjects.length > 0 ? (
+            subjects.map((subject) => (
+              <option key={subject.id} value={subject.id}>
+                {subject.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>Tidak ada mata pelajaran</option>
+          )}
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-900">
+          <i className="ri-arrow-down-s-line"></i>
+        </div>
+      </div>
+      {errors.subject_id && (
+        <span className="text-red-500 text-sm">
+          {errors.subject_id.message}
+        </span>
+      )}
+    </div>
+  );
+
+  // Dropdown Option Field (Generic)
   const DropdownField = ({ label, name, options, defaultValue = "", icon }) => (
     <div>
       <label className="block text-gray-800 font-semibold mb-2" htmlFor={name}>
@@ -244,41 +309,26 @@ const StudentAcademicForm = () => {
     </div>
   );
 
-  if (fetchLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-gray-50">
-        <div className="text-xl font-semibold flex items-center space-x-3 bg-white p-6 rounded-lg shadow-md">
-          <i className="ri-loader-4-line animate-spin text-blue-500 text-2xl"></i>
-          <span>Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     // Form Section
-    <div className="min-h-screen  py-25 px-4 sm:px-6">
+    <div className="min-h-screen py-25 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
         {/* Header section */}
-        <div className="  pt-10 pb-4 px-10">
-          <div className=" mb-5">
+        <div className="pt-10 pb-4 px-10">
+          <div className="mb-5">
             <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
           </div>
-          <h2 className="text-3xl font-bold   text-purple-800 flex  space-x-3 mb-4">
-            <span>
-              {academicId ? "Edit Data Akademik Siswa" : "Data Akademik Siswa"}
-            </span>
+          <h2 className="text-3xl font-bold text-purple-800 flex space-x-3 mb-4">
+            <span>Data Akademik Siswa</span>
           </h2>
-          <p className="text-gray-600 ">lengkapi data akademik anda</p>
+          <p className="text-gray-600">lengkapi data akademik anda</p>
         </div>
 
         <div className="p-8">
           {success && (
             <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md mb-6 flex items-center">
               <i className="ri-checkbox-circle-line text-green-500 text-xl mr-2"></i>
-              <span>
-                Data berhasil {academicId ? "diperbarui" : "dikirim"}!
-              </span>
+              <span>Data berhasil dikirim!</span>
             </div>
           )}
 
@@ -293,6 +343,7 @@ const StudentAcademicForm = () => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <SubjectDropdownField />
               <InputField
                 label="Persentase Kehadiran (%)"
                 name="attendance"
@@ -338,9 +389,9 @@ const StudentAcademicForm = () => {
                 label="Pengaruh Teman Sekitar"
                 name="peer_influence"
                 options={[
-                  { label: "Positif", value: "Positive" },
-                  { label: "Biasa", value: "Medium" },
-                  { label: "Negatif", value: "Negative" },
+                  { label: "Positif", value: "positive" },
+                  { label: "Biasa", value: "neutral" },
+                  { label: "Negatif", value: "negative" },
                 ]}
                 icon="group-3-line"
               />
@@ -348,9 +399,9 @@ const StudentAcademicForm = () => {
                 label="Tingkat Motivasi"
                 name="motivation_level"
                 options={[
-                  { label: "Rendah", value: "Low" },
-                  { label: "Biasa", value: "Medium" },
-                  { label: "Tinggi", value: "High" },
+                  { label: "Rendah", value: "low" },
+                  { label: "Biasa", value: "medium" },
+                  { label: "Tinggi", value: "high" },
                 ]}
                 icon="mental-health-line"
               />
@@ -359,19 +410,19 @@ const StudentAcademicForm = () => {
                 label="Kualitas Guru"
                 name="teacher_quality"
                 options={[
-                  { label: "Rendah", value: "Low" },
-                  { label: "Biasa", value: "Medium" },
-                  { label: "Tinggi", value: "High" },
+                  { label: "Rendah", value: "low" },
+                  { label: "Biasa", value: "medium" },
+                  { label: "Tinggi", value: "high" },
                 ]}
                 icon="user-star-line"
               />
               <DropdownField
                 label="Akses Terhadap Sumber Daya Pendidikan"
-                name="acces_to_resources"
+                name="access_to_resources"
                 options={[
-                  { label: "Mudah", value: "Low" },
-                  { label: "Biasa", value: "Medium" },
-                  { label: "Sulit", value: "High" },
+                  { label: "Mudah", value: "low" },
+                  { label: "Biasa", value: "medium" },
+                  { label: "Sulit", value: "high" },
                 ]}
                 icon="book-open-line"
               />
@@ -380,14 +431,14 @@ const StudentAcademicForm = () => {
             {/* Button Section */}
             <div className="pt-6 border-t border-gray-200 mt-8 ">
               <div className="flex justify-between">
-                <div className=" flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-gray-300 rounded-full" />
                   <div className="w-2 h-2 bg-purple-400 rounded-full" />
                   <span className="text-sm text-gray-500 font-light">
                     Step 2 of 2
                   </span>
                 </div>
-                <div className="flex flex-col sm:flex-row  gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={handleBack}
                     type="button"
@@ -406,11 +457,6 @@ const StudentAcademicForm = () => {
                         <i className="ri-loader-4-line animate-spin mr-2"></i>
                         Mengirim...
                       </>
-                    ) : academicId ? (
-                      <>
-                        <i className="ri-refresh-line mr-2"></i>
-                        Perbarui Data
-                      </>
                     ) : (
                       <>
                         <i className="ri-send-plane-line mr-2"></i>
@@ -423,6 +469,160 @@ const StudentAcademicForm = () => {
             </div>
           </form>
         </div>
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          <div className="p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
+            <h2 className="text-xl font-semibold text-white">
+              Hasil Prediksi Nilai
+            </h2>
+            <p className="text-indigo-100 mt-1">
+              Detail hasil prediksi akademik
+            </p>
+          </div>
+
+          <div className="p-6">
+            {predictionResult ? (
+              <div className="space-y-6">
+                {/* Predicted Score */}
+                <div className="text-center p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg">
+                  <h3 className="font-medium text-gray-600">Prediksi Nilai</h3>
+                  <div className="text-3xl font-bold text-indigo-600 mt-2">
+                    {parseFloat(
+                      predictionResult.prediction_result.predicted_score
+                    ).toFixed(2)}
+                  </div>
+                  <div className="text-md font-medium text-green-600 mt-1">
+                    {predictionResult.prediction_result.recommendation}
+                  </div>
+                </div>
+
+                {/* Student Info */}
+                <div className="border-t border-gray-100 pt-4">
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">
+                    Informasi Siswa
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Nama</div>
+                      <div className="font-medium">
+                        {predictionResult.student.name}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">ID</div>
+                      <div className="font-medium">
+                        {predictionResult.student.id}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Usia</div>
+                      <div className="font-medium">
+                        {predictionResult.student.age}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Jenis Kelamin</div>
+                      <div className="font-medium">
+                        {predictionResult.student.gender}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Pendidikan</div>
+                      <div className="font-medium">
+                        {predictionResult.student.education}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Input Record */}
+                <div className="border-t border-gray-100 pt-4">
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">
+                    Data Input
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">
+                        ID Mata Pelajaran
+                      </div>
+                      <div className="font-medium">
+                        {predictionResult.record.subject_id}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Kehadiran</div>
+                      <div className="font-medium">
+                        {predictionResult.record.attendance}%
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Jam Belajar</div>
+                      <div className="font-medium">
+                        {predictionResult.record.hours_studied} jam
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">
+                        Nilai Sebelumnya
+                      </div>
+                      <div className="font-medium">
+                        {predictionResult.record.previous_scores}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">
+                        Pengaruh Teman
+                      </div>
+                      <div className="font-medium">
+                        {predictionResult.record.peer_influence}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="text-sm text-gray-500">Motivasi</div>
+                      <div className="font-medium">
+                        {predictionResult.record.motivation_level}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Prediction Date */}
+                <div className="border-t border-gray-100 pt-4 text-center">
+                  <div className="text-sm text-gray-500">Tanggal Prediksi</div>
+                  <div className="text-sm text-gray-600">
+                    {new Date(
+                      predictionResult.prediction_result.prediction_date
+                    ).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full py-12">
+                <svg
+                  className="w-16 h-16 text-gray-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <p className="mt-3 text-gray-500 text-center">
+                  Isi form di samping dan kirim untuk melihat hasil prediksi
+                  nilai akademik
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center mt-8 text-gray-500 text-sm">
+        &copy; 2025 Sistem Prediksi Nilai Akademik - Dibuat dengan ReactJS dan
+        Tailwind CSS
       </div>
     </div>
   );
