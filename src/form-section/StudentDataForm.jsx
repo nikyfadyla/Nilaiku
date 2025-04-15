@@ -1,6 +1,5 @@
 import { clsx } from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../assets/images/nilaiku_logo.png";
@@ -10,121 +9,88 @@ function StudentDataForm() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    id: urlStudentId || null,
-    student_id: urlStudentId || "",
     name: "",
     education: "",
     age: "",
     gender: "",
   });
 
+  const locUrl = import.meta.env.VITE_API_LOCAL_URL;
+  const pubUrl = import.meta.env.VITE_API_PUBLIC_URL;
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  // const [emailError, setEmailError] = useState(null); // State terpisah untuk error email
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [touched, setTouched] = useState({
-    email: false,
-  });
+  const [touched, setTouched] = useState({});
+  const isUpdate = !!urlStudentId; // Tentukan apakah ini update berdasarkan URL ID
+
   useEffect(() => {
-    if (urlStudentId) {
-      fetchStudentData();
-    }
-  }, [urlStudentId]);
-
-  const fetchStudentData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `http://localhost:3001/students/${urlStudentId}`
-      );
-      if (!response.ok) {
-        throw new Error("Gagal mengambil data.");
+    const fetchStudentData = async () => {
+      if (urlStudentId) {
+        try {
+          setLoading(true);
+          const response = await fetch(
+            `${locUrl}/api/v1/students/${urlStudentId}`
+          );
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data siswa.");
+          }
+          const data = await response.json();
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          setFormData(data.student); // Asumsi respons memiliki struktur { student: { ... } }
+        } catch (err) {
+          console.error(err);
+          setError("Gagal memuat data siswa. Silakan coba lagi.");
+        } finally {
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        }
       }
-      const data = await response.json();
+    };
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setFormData(data);
-    } catch (err) {
-      console.error(err);
-      setError("Gagal memuat data. Silakan coba lagi.");
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-  };
+    fetchStudentData();
+  }, [urlStudentId, locUrl]);
 
-  // // Validasi Kolom Email
-  // const validateEmail = (email) => {
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   return emailRegex.test(email);
-  // };
-
-  // Handle Change
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    //   if (name === "email" && touched.email) {
-    //     if (value.length > 0 && !validateEmail(value)) {
-    //       setEmailError("Format email tidak valid.");
-    //     } else {
-    //       setEmailError(null);
-    //     }
-    //   }
   };
 
-  // Handle Blur
   const handleBlur = (e) => {
-    const { name, value } = e.target;
-
+    const { name } = e.target;
     setTouched((prev) => ({
       ...prev,
       [name]: true,
     }));
-
-    // Validasi email ketika pengguna selesai mengetik (blur)
-    //   if (name === "email") {
-    //     if (value && !validateEmail(value)) {
-    //       setEmailError("Format email tidak valid.");
-    //     } else {
-    //       setEmailError(null);
-    //     }
-    //   }
   };
 
-  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // // Validasi email saat submit form
-    // if (formData.email && !validateEmail(formData.email)) {
-    //   setEmailError("Format email tidak valid.");
-    //   setTouched((prev) => ({ ...prev, email: true }));
-    //   return;
-    // }
-
     setIsSubmitting(true);
+    setError(null);
 
     try {
-      const isUpdate = !!formData.id;
       const method = isUpdate ? "PUT" : "POST";
-      const studentId = formData.student_id || nanoid(10);
-
       const url = isUpdate
-        ? `http://localhost:3001/students/${formData.id}`
-        : `http://localhost:3001/students`;
+        ? `${locUrl}/api/v1/students/${urlStudentId}`
+        : `${locUrl}/api/v1/students`;
 
       const dataToSend = {
-        id: formData.id,
-        student_id: studentId,
         name: formData.name,
         education: formData.education,
-        // email: formData.email,
         age: formData.age,
         gender: formData.gender,
       };
+
+      console.log(
+        "Mengirim data:",
+        dataToSend,
+        "dengan method:",
+        method,
+        "ke URL:",
+        url
+      );
 
       const response = await fetch(url, {
         method: method,
@@ -132,16 +98,31 @@ function StudentDataForm() {
         headers: { "Content-Type": "application/json" },
       });
 
-      if (!response.ok) throw new Error("Gagal mengirim data");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Gagal mengirim data");
+      }
 
-      const data = await response.json();
+      const responseData = await response.json();
+      console.log("Response dari API:", responseData);
 
-      navigate(`/student-academic/${data.student_id}`, {
-        state: { student_id: data.student_id, prevData: data },
+      const studentId = responseData.student.id;
+
+      if (!studentId) {
+        throw new Error("ID siswa tidak ditemukan dalam respons API");
+      }
+
+      console.log("Navigasi ke halaman akademik dengan ID:", studentId);
+
+      navigate(`/student-academic/${studentId}`, {
+        state: {
+          student_id: studentId,
+          prevData: responseData.student, // Kirim hanya data siswa yang relevan
+        },
       });
     } catch (err) {
       console.error("Error:", err);
-      setError(err.message);
+      setError(err.message || "Terjadi kesalahan saat menyimpan data");
     } finally {
       setIsSubmitting(false);
     }
@@ -308,13 +289,14 @@ function StudentDataForm() {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="ri-user-line  text-gray-400"></i>
+                  <i className="ri-user-line text-gray-400"></i>
                 </div>
                 <input
                   type="text"
                   name="name"
                   value={formData.name || ""}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder="Masukkan nama lengkap"
                   required
                   className={getInputClass()}
@@ -341,6 +323,7 @@ function StudentDataForm() {
                   name="education"
                   value={formData.education || ""}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder="Masukkan nama lengkap Pendidikan saat ini"
                   required
                   className={getInputClass()}
@@ -367,11 +350,11 @@ function StudentDataForm() {
                   name="age"
                   value={formData.age || ""}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   placeholder="Usia anda saat ini"
                   required
                   className={`${getInputClass()}  `}
                 />
-                
               </div>
             </motion.div>
 
@@ -393,12 +376,13 @@ function StudentDataForm() {
                   name="gender"
                   value={formData.gender || ""}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   required
                   className={`${getInputClass()} appearance-none`}
                 >
                   <option value="">Pilih Jenis Kelamin</option>
-                  <option value="Laki-laki">Laki-laki</option>
-                  <option value="Perempuan">Perempuan</option>
+                  <option value="male">Laki-laki</option>
+                  <option value="female">Perempuan</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                   <i className="ri-arrow-down-s-line"></i>

@@ -29,7 +29,7 @@ json-server.json
 
 
 
-.env
+
 db.json
 json-server.json
 routes.json
