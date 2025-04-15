@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Interaktif from "../assets/images/interaktif.png";
-import Prediction from "../assets/images/prediksi.png";
-import Recomendation from "../assets/images/rekomendasi.png";
+import Recomendation from "../assets/images/prediksi.png";
+import Prediction from "../assets/images/rekomendasi.png";
 
 const featureItems = [
   {

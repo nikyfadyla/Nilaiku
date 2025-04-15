@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Logo from '../assets/images/nilaiku_logo.png';
+import Logo from "../assets/images/nilaiku_logo.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,10 +29,6 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleServiceMenu = () => {
-    setIsServiceOpen(!isServiceOpen);
-  };
-
   return (
     <>
       <nav
@@ -40,7 +36,7 @@ const Navbar = () => {
       >
         {/* Logo */}
         <div className="flex items-center">
-          <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30"/>
+          <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
         </div>
 
         {/* Navigation menu */}
@@ -99,7 +95,8 @@ const Navbar = () => {
                   e.preventDefault();
                   const element = document.getElementById("features");
                   if (element) {
-                    const navbarHeight = document.querySelector("nav").offsetHeight;
+                    const navbarHeight =
+                      document.querySelector("nav").offsetHeight;
                     window.scrollTo({
                       top: element.offsetTop - navbarHeight + 50,
                       behavior: "smooth",
@@ -112,99 +109,7 @@ const Navbar = () => {
               >
                 Service
               </a>
-
-              <button
-                onClick={(e) => {
-                  if (window.innerWidth < 768) {
-                    toggleServiceMenu();
-                  }
-                }}
-                className="p-2 md:hidden transition-discrete transition-transform duration-300"
-              >
-                <i className={`ri-arrow-down-s-line text-2xl ${isServiceOpen ? "rotate-180" : ""}`}></i>
-              </button>
             </div>
-
-            <ul
-              className={`
-                md:invisible md:group-hover:visible md:opacity-0 ml-1 md:group-hover:opacity-100
-                transition-all duration-300 
-                md:absolute top-full left-0 md:w-48 
-                md:bg-white/10 md:backdrop-blur-sm md:shadow-sm md:rounded-lg text-sm z-50
-                ${isServiceOpen ? "block opacity-100" : "hidden transition-discrete md:block opacity-0"} 
-              `}
-            >
-              <li>
-                <a
-                  href="#prediksi"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.getElementById("features");
-                    if (element) {
-                      const navbarHeight = document.querySelector("nav").offsetHeight;
-                      window.scrollTo({
-                        top: element.offsetTop - navbarHeight + 50,
-                        behavior: "smooth",
-                      });
-                    }
-                  }}
-                  className="inline-flex ml-3 my-2 px-2 py-1
-                    hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
-                    relative after:absolute after:content-[''] after:h-[1px] 
-                    after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-5px] 
-                    after:transition-all after:duration-300 hover:after:w-full"
-                >
-                  Prediksi Nilai Otomatis
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#analisis"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.getElementById("features");
-                    if (element) {
-                      const navbarHeight = document.querySelector("nav").offsetHeight;
-                      window.scrollTo({
-                        top: element.offsetTop - navbarHeight + 50,
-                        behavior: "smooth",
-                      });
-                    }
-                  }}
-                  className="inline-block ml-3 my-2 px-2 py-1
-                    hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
-                    relative after:absolute after:content-[''] after:h-[1px] 
-                    after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-5px] 
-                    after:transition-all after:duration-300 hover:after:w-full"
-                >
-                  Analisis Data Interaktif
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#analisis"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.getElementById("features");
-                    if (element) {
-                      const navbarHeight = document.querySelector("nav").offsetHeight;
-                      window.scrollTo({
-                        top: element.offsetTop - navbarHeight + 50,
-                        behavior: "smooth",
-                      });
-                    }
-                  }}
-                  className="inline-flex ml-3 my-2 px-2 py-1 md:mb-2
-                    hover:bg-opacity-50 rounded-lg text-[#B348C7] hover:text-[#F3BC55]
-                    relative after:absolute after:content-[''] after:h-[1px] 
-                    after:bg-[#F3BC55] after:w-0 after:left-0 after:bottom-[-5px] 
-                    after:transition-all after:duration-300 hover:after:w-full"
-                >
-                  Rekomendasi pembelajaran
-                </a>
-              </li>
-            </ul>
           </li>
 
           <li>
