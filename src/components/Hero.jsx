@@ -36,7 +36,7 @@ const Hero = () => {
 
   return (
     <div id="home" className="pb-10">
-      <div className="min-h-screen px-4 pt-16 md:pt-20 flex flex-col px-4 md:px-8 lg:px-12 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF]">
+      <div className="min-h-screen px-4 pt-16 md:pt-20 flex flex-col md:px-8 lg:px-12 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF]">
         <div className="flex-grow container mx-auto pt-12">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Left section */}
