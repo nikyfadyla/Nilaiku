@@ -4,15 +4,14 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Logo from "../assets/images/nilaiku_logo.png";
 
 const StudentAcademicForm = () => {
-  // Get ID from URL parameters
+   
   const { id: urlStudentId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Extract data from navigation state
   const { student_id: stateStudentId, prevData } = location.state || {};
 
-  // Use ID from URL or from state to ensure we always have a valid ID
+   
   const studentId = urlStudentId || stateStudentId;
 
   const [predictionResult, setPredictionResult] = useState(null);
@@ -20,14 +19,12 @@ const StudentAcademicForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  // State untuk daftar mata pelajaran
   const [subjects, setSubjects] = useState([]);
   const [subjectsLoading, setSubjectsLoading] = useState(true);
   const [subjectsError, setSubjectsError] = useState(null);
 
-  const locUrl = import.meta.env.VITE_API_LOCAL_URL;
   const pubUrl = import.meta.env.VITE_API_PUBLIC_URL;
-  const subjectsApiUrl = `${locUrl}/api/v1/subjects`;
+  const subjectsApiUrl = `${pubUrl}/api/v1/subjects`;
 
   const {
     register,
@@ -40,9 +37,7 @@ const StudentAcademicForm = () => {
   });
 
   useEffect(() => {
-    // Validasi studentId
-
-    // Inisialisasi form dengan nilai default
+ 
     reset({
       subject_id: "",
       attendance: "",
@@ -65,7 +60,7 @@ const StudentAcademicForm = () => {
       setSubjectsLoading(true);
       setSubjectsError(null);
       try {
-        const response = await fetch(`${locUrl}/api/v1/subjects`, {
+        const response = await fetch(`${pubUrl}/api/v1/subjects`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -134,7 +129,7 @@ const StudentAcademicForm = () => {
     });
 
     try {
-      const response = await fetch(`${locUrl}/api/v1/predict`, {
+      const response = await fetch(`${pubUrl}/api/v1/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -469,7 +464,7 @@ const StudentAcademicForm = () => {
             </div>
           </form>
         </div>
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="pt-20 bg-white rounded-xl shadow-md overflow-hidden">
           <div className="p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
             <h2 className="text-xl font-semibold text-white">
               Hasil Prediksi Nilai
@@ -479,7 +474,7 @@ const StudentAcademicForm = () => {
             </p>
           </div>
 
-          <div className="p-6">
+          <div className="pt-6">
             {predictionResult ? (
               <div className="space-y-6">
                 {/* Predicted Score */}
