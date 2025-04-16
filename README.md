@@ -32,6 +32,7 @@ cd nilaiku
 3. Install paket 
 npm install (nama-paket)
 
+3. 
 
 
 

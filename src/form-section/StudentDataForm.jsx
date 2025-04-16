@@ -65,6 +65,8 @@ function StudentDataForm() {
     }));
   };
 
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -92,10 +94,15 @@ function StudentDataForm() {
         url
       );
 
+      
+
       const response = await fetch(url, {
         method: method,
         body: JSON.stringify(dataToSend),
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+         },
       });
 
       if (!response.ok) {
@@ -358,7 +365,7 @@ function StudentDataForm() {
               </div>
             </motion.div>
 
-            {/* Gender */}
+          {/* Gender */}
             <motion.div
               initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
