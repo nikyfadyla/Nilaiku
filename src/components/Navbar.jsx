@@ -35,7 +35,7 @@ const Navbar = () => {
         className={`flex py-3 md:px-8 lg:px-12 xl:px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300   bg-white/10 shadow`}
       >
         {/* Logo */}
-        <div className="flex items-center m-2">
+        <div className="flex items-center m-2 cursor-pointer">
           <a
             href="https://nilaiku.vercel.app"
             target="_blank"

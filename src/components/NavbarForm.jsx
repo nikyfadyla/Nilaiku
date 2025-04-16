@@ -32,7 +32,7 @@ const NavbarForm = () => {
       className={`flex px-4 md:px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 py-1 bg-white/10 shadow`}
     >
       {/* Logo */}
-      <div className="flex items-center m-2">
+      <div className="flex items-center m-2 cursor-pointer">
                 <a
                   href="https://nilaiku.vercel.app"
                   target="_blank"
