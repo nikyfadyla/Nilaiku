@@ -15,14 +15,14 @@ function StudentDataForm() {
     gender: "",
   });
 
-  const locUrl = import.meta.env.VITE_API_PUBLIC_URL;
+  const locUrl = import.meta.env.VITE_API_LOCAL_URL;
   const pubUrl = import.meta.env.VITE_API_PUBLIC_URL;
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [touched, setTouched] = useState({});
-  const isUpdate = !!urlStudentId; // Tentukan apakah ini update berdasarkan URL ID
+  const isUpdate = !!urlStudentId;  
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -37,7 +37,7 @@ function StudentDataForm() {
           }
           const data = await response.json();
           await new Promise((resolve) => setTimeout(resolve, 500));
-          setFormData(data.student); // Asumsi respons memiliki struktur { student: { ... } }
+          setFormData(data.student);  
         } catch (err) {
           console.error(err);
           setError("Gagal memuat data siswa. Silakan coba lagi.");

@@ -1,4 +1,4 @@
-import { Quote } from "lucide-react"; // Menggunakan ikon kutipan dari lucide-react
+import { Quote } from "lucide-react";  
 import React from "react";
 
 const Testimoni = () => {
