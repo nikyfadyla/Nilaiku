@@ -50,7 +50,7 @@ const About = () => {
         
         <div className="px-10" data-aos="fade-left" data-aos-duration="1000">
           <h1
-            className="lg:text-4xl/tight text-3xl text-[#B348C7] font-semibold mb-5 inline-flex md:inline-flex relative 
+            className="lg:text-4xl/tight text-3xl text-[#B348C7] font-semibold mb-4 md:mb-6 inline-flex md:inline-flex relative 
              transition-all duration-300 transform hover:scale-105 hover:text-[#F3BC55] group"
           >
             Apa itu
@@ -61,7 +61,7 @@ const About = () => {
                transition-all duration-300 group-hover:w-full"
             ></span>
           </h1>
-          <p className="text-xl/loose font-light">
+          <p className="text-gray-700 text-base md:text-lg mb-6 md:mb-8 font-light">
             <span className="font-semibold">
               NilaiKu adalah aplikasi prediksi nilai ujian{" "}
             </span>
@@ -72,7 +72,7 @@ const About = () => {
           </p>
           <button
             onClick={openModal}
-            className="inline-flex items-center justify-center bg-[#F9CB57] hover:bg-[#E8B84C] text-white font-medium md:font-semibold text-sm md:text-base px-6 md:px-8 py-3 md:py-3.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 mt-6"
+            className="inline-flex items-center justify-center bg-[#F9CB57] hover:bg-[#E8B84C] text-white font-medium md:font-semibold text-sm md:text-base px-6 md:px-8 py-3 md:py-3.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
           >
             Pelajari Lebih Lanjut
           </button>

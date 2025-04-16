@@ -1,5 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 import Interaktif from "../assets/images/interaktif.png";
 import Recomendation from "../assets/images/prediksi.png";
 import Prediction from "../assets/images/rekomendasi.png";
@@ -8,24 +8,27 @@ const featureItems = [
   {
     id: "prediksi",
     title: "Prediksi Nilai Otomatis",
-    description: "Sistem berbasis Machine Learning untuk memprediksi nilai ujian dengan akurasi tinggi.",
+    description:
+      "Sistem berbasis Machine Learning untuk memprediksi nilai ujian dengan akurasi tinggi.",
     img: Prediction,
-    color: "from-purple-500 to-indigo-600"
+    color: "from-purple-500 to-indigo-600",
   },
   {
     id: "analisis",
     title: "Analisis Data Interaktif",
-    description: "Visualisasi grafik dan data analisis interaktif yang menunjukkan faktor-faktor kunci yang mempengaruhi performa akademik.",
+    description:
+      "Visualisasi grafik dan data analisis interaktif yang menunjukkan faktor-faktor kunci yang mempengaruhi performa akademik.",
     img: Interaktif,
-    color: "from-blue-500 to-cyan-600"
+    color: "from-blue-500 to-cyan-600",
   },
   {
     id: "rekomendasi",
     title: "Rekomendasi Pembelajaran",
-    description: "Saran strategis personal untuk meningkatkan kemampuan belajar berdasarkan analisis data yang komprehensif.",
+    description:
+      "Saran strategis personal untuk meningkatkan kemampuan belajar berdasarkan analisis data yang komprehensif.",
     img: Recomendation,
-    color: "from-amber-500 to-yellow-400"
-  }
+    color: "from-amber-500 to-yellow-400",
+  },
 ];
 
 const Features = () => {
@@ -58,8 +61,10 @@ const Features = () => {
             className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           >
             {/* Gradient Background */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`}></div>
-            
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`}
+            ></div>
+
             {/* Feature Content */}
             <div className="relative z-10 p-6 h-full flex flex-col">
               {/* Image Container with Floating Effect */}
@@ -82,17 +87,14 @@ const Features = () => {
                 />
               </motion.div>
 
-          
               <div className="flex-1">
                 <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r from-purple-600 to-pink-600 transition-all duration-300">
                   {feature.title}
                 </h3>
                 <p className="text-gray-600 mb-6">{feature.description}</p>
               </div>
-          
             </div>
 
-            
             <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/30 backdrop-blur-sm"></div>
           </motion.div>
         ))}

@@ -37,7 +37,7 @@ const Hero = () => {
   return (
     <div id="home" className="pb-10">
       <div className="min-h-screen px-4 pt-16 md:pt-20 flex flex-col px-4 md:px-8 lg:px-12 bg-gradient-to-b from-[#F9F6FF] to-[#E8D7FF]">
-        <div className="flex-grow container mx-auto">
+        <div className="flex-grow container mx-auto pt-12">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             {/* Left section */}
             <div className="w-full lg:w-1/2 py-8 lg:py-16 order-2 lg:order-1">
@@ -94,7 +94,7 @@ const Hero = () => {
             </div>
 
             {/* Right section */}
-            <div className="w-full lg:w-1/2 py-8 lg:py-16 order-2 lg:order-2 relative">
+            <div className="hidden lg:block w-full lg:w-1/2 py-8 lg:py-16 order-2 lg:order-2 relative">
               <div className="relative mx-auto w-full max-w-md lg:max-w-lg xl:max-w-xl">
                 {/* Window frame */}
                 <div className="absolute inset-0 -z-10">
