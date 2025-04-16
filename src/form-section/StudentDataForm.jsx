@@ -15,7 +15,7 @@ function StudentDataForm() {
     gender: "",
   });
 
-  const locUrl = import.meta.env.VITE_API_LOCAL_URL;
+  const locUrl = import.meta.env.VITE_API_PUBLIC_URL;
   const pubUrl = import.meta.env.VITE_API_PUBLIC_URL;
 
   const [loading, setLoading] = useState(false);
