@@ -4,14 +4,12 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Logo from "../assets/images/nilaiku_logo.png";
 
 const StudentAcademicForm = () => {
-   
   const { id: urlStudentId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
   const { student_id: stateStudentId, prevData } = location.state || {};
 
-   
   const studentId = urlStudentId || stateStudentId;
 
   const [predictionResult, setPredictionResult] = useState(null);
@@ -37,7 +35,6 @@ const StudentAcademicForm = () => {
   });
 
   useEffect(() => {
- 
     reset({
       subject_id: "",
       attendance: "",
@@ -159,10 +156,8 @@ const StudentAcademicForm = () => {
   };
 
   const handleBack = () => {
-
     navigate(`/student-data/${studentId}`);
   };
-
 
   const InputField = ({
     label,
@@ -269,7 +264,6 @@ const StudentAcademicForm = () => {
     </div>
   );
 
-
   const DropdownField = ({ label, name, options, defaultValue = "", icon }) => (
     <div>
       <label className="block text-gray-700 font-medium mb-2" htmlFor={name}>
@@ -303,7 +297,6 @@ const StudentAcademicForm = () => {
   );
 
   return (
-  
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-indigo-100">
         {/* Header section */}
@@ -437,7 +430,6 @@ const StudentAcademicForm = () => {
                 <div className="pt-6 border-t border-gray-200 mt-8 ">
                   <div className="flex flex-col sm:flex-row justify-between items-center">
                     <div className="flex items-center gap-2  mb-4 sm:mb-0">
-                      
                       <div className="w-2 h-2 bg-gray-300 rounded-full" />
                       <div className="w-2 h-2 bg-purple-400 rounded-full" />
                       <span className="text-sm text-gray-500 font-light">
@@ -616,12 +608,6 @@ const StudentAcademicForm = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="text-center mt-8 text-gray-600 text-sm font-medium">
-        &copy; 2025 Sistem Prediksi Nilai Akademik - Dibuat dengan
-        <i className="ri-reactjs-line mx-1 text-blue-500"></i> ReactJS dan
-        <i className="ri-tailwind-css-line mx-1 text-teal-500"></i> Tailwind CSS
       </div>
     </div>
   );
