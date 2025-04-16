@@ -97,7 +97,7 @@ const StudentDetailPage = () => {
             ],
           };
 
-          // Change Value to Label in display
+       
           const valueToLabel = (field, value) => {
             const options = dropdownOptions[field];
             if (!options) return value;
@@ -105,7 +105,6 @@ const StudentDetailPage = () => {
             return found ? found.label : value;
           };
 
-          // Section academic data
           const formattedAcademicData = {
             ...academicResult,
             previous_scores: academicResult.previous_scores
@@ -146,7 +145,7 @@ const StudentDetailPage = () => {
 
           setAcademicData(formattedAcademicData);
 
-          // Calculate final score (PROTOTYPE)
+         
           const previousScore = parseFloat(academicResult.previous_scores) || 0;
           const attendance = parseFloat(academicResult.attendance) || 0;
           const finalScore = (previousScore * 0.4 + attendance * 0.6).toFixed(
@@ -154,11 +153,11 @@ const StudentDetailPage = () => {
           );
           setScore(finalScore);
 
-          // Set prediction date (PROTOTYPE)
+     
           const today = new Date();
           setPredictionDate(today);
 
-          // Generate progress data
+       
           const mockProgressData = [
             {
               month: "Jan",
@@ -187,7 +186,6 @@ const StudentDetailPage = () => {
           ];
           setProgressData(mockProgressData);
 
-          // Get learning recommendation
           const recommendationResponse = await fetch(
             `http://localhost:3001/learning_recommendations`
           );
@@ -491,8 +489,6 @@ const StudentDetailPage = () => {
                 </button>
               </nav>
             </div>
-
-            {/* TAB PERSONAL DATA */}
 
             <div className="p-6 md:p-8">
               {activeTab === "personal" && (

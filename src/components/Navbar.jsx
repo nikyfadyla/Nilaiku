@@ -140,7 +140,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Mobile menu button */}
+       
         <div
           className="flex ml-auto md:hidden text-gray-500 cursor-pointer"
           onClick={toggleMenu}

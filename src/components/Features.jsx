@@ -34,7 +34,7 @@ const featureItems = [
 const Features = () => {
   return (
     <section id="features" className="px-4 sm:px-6 py-20 mx-auto max-w-7xl">
-      {/* Animated Title */}
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ const Features = () => {
         <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
       </motion.div>
 
-      {/* Features Grid */}
+    
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-10">
         {featureItems.map((feature, index) => (
           <motion.div
@@ -60,14 +60,14 @@ const Features = () => {
             whileHover={{ y: -10 }}
             className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            {/* Gradient Background */}
+     
             <div
               className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`}
             ></div>
 
-            {/* Feature Content */}
+      
             <div className="relative z-10 p-6 h-full flex flex-col">
-              {/* Image Container with Floating Effect */}
+       
               <motion.div
                 animate={{
                   y: [0, -10, 0],
@@ -100,7 +100,7 @@ const Features = () => {
         ))}
       </div>
 
-      {/* Floating Animation for Background Elements */}
+   
       <div className="absolute left-0 right-0 -z-10 overflow-hidden opacity-10">
         <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-purple-400 mix-blend-multiply filter blur-xl animate-float-slow"></div>
         <div className="absolute top-1/2 right-0 w-48 h-48 rounded-full bg-amber-300 mix-blend-multiply filter blur-xl animate-float-medium"></div>

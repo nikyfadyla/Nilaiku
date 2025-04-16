@@ -147,11 +147,8 @@ const StudentAcademicForm = () => {
 
       setPredictionResult(data);
       console.log(data);
-
-      console.log("Navigating to student detail...");
       setSuccess(true);
 
-      // Navigasi dengan studentId yang valid
       setTimeout(() => setSuccess(false), 2000);
     } catch (err) {
       setError(err.message);
@@ -162,11 +159,11 @@ const StudentAcademicForm = () => {
   };
 
   const handleBack = () => {
-    // Kembali ke halaman data siswa dengan ID yang valid
+
     navigate(`/student-data/${studentId}`);
   };
 
-  // Input Type Field
+
   const InputField = ({
     label,
     name,
@@ -226,7 +223,6 @@ const StudentAcademicForm = () => {
     </div>
   );
 
-  // Dropdown Option Field untuk Mata Pelajaran
   const SubjectDropdownField = () => (
     <div>
       <label
@@ -273,7 +269,7 @@ const StudentAcademicForm = () => {
     </div>
   );
 
-  // Dropdown Option Field (Generic)
+
   const DropdownField = ({ label, name, options, defaultValue = "", icon }) => (
     <div>
       <label className="block text-gray-700 font-medium mb-2" htmlFor={name}>
@@ -307,7 +303,7 @@ const StudentAcademicForm = () => {
   );
 
   return (
-    // Form Section
+  
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-indigo-100">
         {/* Header section */}
@@ -557,7 +553,7 @@ const StudentAcademicForm = () => {
                       </div>
                     </div>
 
-                    {/* Input Record - Simplified to show only key data */}
+                    {/* Input Record */}
                     <div className="border-t border-gray-100 pt-4">
                       <h3 className="text-lg font-medium text-gray-800 mb-3 flex items-center">
                         <i className="ri-database-2-line mr-2 text-indigo-500"></i>
@@ -591,7 +587,6 @@ const StudentAcademicForm = () => {
                       </div>
                     </div>
 
-                    {/* Prediction Date */}
                     <div className="border-t border-gray-100 pt-4 text-center">
                       <div className="text-xs text-gray-500 uppercase tracking-wide">
                         Tanggal Prediksi
