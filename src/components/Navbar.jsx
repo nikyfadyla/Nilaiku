@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`flex py-3 md:px-8 lg:px-12 xl:px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300 py-1 bg-white/10 shadow`}
+        className={`flex py-3 md:px-8 lg:px-12 xl:px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300   bg-white/10 shadow`}
       >
         {/* Logo */}
         <div className="flex items-center">
