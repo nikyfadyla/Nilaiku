@@ -27,7 +27,7 @@ const StudentAcademicForm = () => {
 
   const locUrl = import.meta.env.VITE_API_LOCAL_URL;
   const pubUrl = import.meta.env.VITE_API_PUBLIC_URL;
-  const subjectsApiUrl = `${locUrl}/api/v1/subjects`;
+  const subjectsApiUrl = `${pubUrl}/api/v1/subjects`;
 
   const {
     register,
@@ -57,7 +57,7 @@ const StudentAcademicForm = () => {
     });
   }, [reset, studentId]);
 
-  // Effect untuk mengambil daftar mata pelajaran
+  // Effect untuk mengambil daftar mata pelajaran (subject)
   useEffect(() => {
     const fetchSubjects = async () => {
       if (!studentId) return; // Hanya fetch jika ada student ID yang valid
@@ -65,7 +65,7 @@ const StudentAcademicForm = () => {
       setSubjectsLoading(true);
       setSubjectsError(null);
       try {
-        const response = await fetch(`${locUrl}/api/v1/subjects`, {
+        const response = await fetch(subjectsApiUrl, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -97,7 +97,7 @@ const StudentAcademicForm = () => {
     };
 
     fetchSubjects();
-  }, [locUrl, studentId]);
+  }, [pubUrl, studentId]);
 
   const onSubmit = async (data) => {
     // Double-check studentId
@@ -134,7 +134,7 @@ const StudentAcademicForm = () => {
     });
 
     try {
-      const response = await fetch(`${locUrl}/api/v1/predict`, {
+      const response = await fetch(`${pubUrl}/api/v1/predict`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

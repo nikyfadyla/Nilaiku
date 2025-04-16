@@ -30,7 +30,7 @@ function StudentDataForm() {
         try {
           setLoading(true);
           const response = await fetch(
-            `${locUrl}/api/v1/students/${urlStudentId}`
+            `${pubUrl}/api/v1/students/${urlStudentId}`
           );
           if (!response.ok) {
             throw new Error("Gagal mengambil data siswa.");
@@ -50,7 +50,7 @@ function StudentDataForm() {
     };
 
     fetchStudentData();
-  }, [urlStudentId, locUrl]);
+  }, [urlStudentId, pubUrl]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,8 +73,8 @@ function StudentDataForm() {
     try {
       const method = isUpdate ? "PUT" : "POST";
       const url = isUpdate
-        ? `${locUrl}/api/v1/students/${urlStudentId}`
-        : `${locUrl}/api/v1/students`;
+        ? `${pubUrl}/api/v1/students/${urlStudentId}`
+        : `${pubUrl}/api/v1/students`;
 
       const dataToSend = {
         name: formData.name,
