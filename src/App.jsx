@@ -19,7 +19,6 @@ import Testimoni from "./components/Testimoni.jsx";
 
 import StudentAcademicForm from "./form-section/StudentAcademicForm.jsx";
 import StudentDataForm from "./form-section/StudentDataForm.jsx";
-import StudentDetailPage from "./form-section/StudentDetailPage.jsx";
 
 function Layout({ children }) {
   const location = useLocation();
@@ -103,14 +102,7 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path="/student-detail/:student_id"
-          element={
-            <Layout>
-              <StudentDetailPage />
-            </Layout>
-          }
-        />
+         
         <Route path="*" element={<h2>404 - Page Not Found</h2>} />
       </Routes>
     </Router>
