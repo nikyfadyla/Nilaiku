@@ -35,8 +35,14 @@ const Navbar = () => {
         className={`flex py-3 md:px-8 lg:px-12 xl:px-20 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300   bg-white/10 shadow`}
       >
         {/* Logo */}
-        <div className="flex items-center">
-          <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
+        <div className="flex items-center m-2">
+          <a
+            href="https://nilaiku.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
+          </a>
         </div>
 
         {/* Navigation menu */}

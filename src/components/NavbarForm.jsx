@@ -33,8 +33,14 @@ const NavbarForm = () => {
     >
       {/* Logo */}
       <div className="flex items-center m-2">
-        <img src={Logo} alt="Logo" className="max-h-15 max-w-30" />
-      </div>
+                <a
+                  href="https://nilaiku.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={Logo} alt="Logo Nilaiku" className="max-h-15 max-w-30" />
+                </a>
+              </div>
 
       {/* Navigation buttons - desktop */}
       <div className="hidden md:flex items-center space-x-4 ml-auto">

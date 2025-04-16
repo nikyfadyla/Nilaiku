@@ -92,7 +92,7 @@ const StudentAcademicForm = () => {
     };
 
     fetchSubjects();
-  }, [locUrl, studentId]);
+  }, [pubUrl, studentId]);
 
   const onSubmit = async (data) => {
     // Double-check studentId

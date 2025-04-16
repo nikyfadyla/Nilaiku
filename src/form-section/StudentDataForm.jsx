@@ -50,7 +50,7 @@ function StudentDataForm() {
     };
 
     fetchStudentData();
-  }, [urlStudentId, locUrl]);
+  }, [urlStudentId, pubUrl]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
